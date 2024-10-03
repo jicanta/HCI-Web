@@ -97,16 +97,25 @@ const chartOption = computed(() => ({
             </v-container>
             <v-divider class="my-2" />
             <v-container class="functions-container">
-              <v-btn size="x-large" icon="mdi-cash-fast" color="primary" elevation="4" />
-              <v-btn size="x-large" icon="mdi-file-document" color="primary" elevation="4" />
-              <v-btn size="x-large" icon="mdi-history" color="primary" elevation="4" />
+              <v-container class="function">
+                <v-btn size="x-large" icon="mdi-cash-fast" color="primary" elevation="4" />
+                <p class="text-primary pa-1">Ingresar</p>
+              </v-container>
+              <v-container class="function">
+                <v-btn size="x-large" icon="mdi-file-document" color="primary" elevation="4" />
+                <p class="text-primary pa-1">Tus datos</p>
+              </v-container>
+              <v-container class="function">
+                <v-btn size="x-large" icon="mdi-history" color="primary" elevation="4" />
+                <p class="text-primary pa-1">Movimientos</p>
+              </v-container>
             </v-container>
             <v-divider class="my-2" />
           </v-container>
         </Section>
         <Section class="ma-3">
           <v-container class="inside-section">
-            <p class="text-weight-light text-colortext2">Medios de pago</p>
+            <p class="text-weight-light text-colortext2 mb-4">Medios de pago</p>
             <v-container class="card bg-lime-darken-4 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
@@ -117,8 +126,10 @@ const chartOption = computed(() => ({
       <AppDivision class="ma-6" cols="12" sm="6" md="4">
         <Section class="ma-3">
           <v-container class="inside-section">
+            <p class="text-weight-light text-colortext2 mb-4">Últimos movimientos</p>
             <!-- Gráfico de categorías de gastos -->
             <v-chart class="chart" :option="chartOption" />
+            <v-divider/>
           </v-container>
         </Section>
       </AppDivision>
@@ -164,6 +175,14 @@ const chartOption = computed(() => ({
   padding-left: 12%;
   padding-right: 12%;
 }
+
+.function {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .chart {
   width: 100%;
