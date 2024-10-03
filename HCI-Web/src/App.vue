@@ -1,14 +1,20 @@
 <template>
-  <v-app>
-    <v-main>
-      <DigitalWallet />
-    </v-main>
+  <v-app class="app bg-background">
+    <PantallaInicio/>
+    <!--<PantallaMas />-->
 
-    <AppFooter />
+    <!--<AppFooter />-->
   </v-app>
 </template>
 
 <script setup>
-import DigitalWallet from '@/components/DigitalWallet.vue';
-import AppFooter from '@/components/AppFooter.vue';
+  import PantallaInicio from './Pantallas/PantallaInicio.vue';
+import PantallaMas from './Pantallas/PantallaMas.vue';
 </script>
+
+<style scoped>
+.app{
+  flex-direction: column;
+}
+
+</style>
