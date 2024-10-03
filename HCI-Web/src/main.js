@@ -21,3 +21,5 @@ registerPlugins(app)
 app.component('v-chart', VChart)
 
 app.mount('#app')
+
+//comentario para hacer commit
