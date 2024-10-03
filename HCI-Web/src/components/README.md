@@ -33,3 +33,4 @@ When your template is rendered, the component's import will automatically be inl
   import MyComponent from '@/components/MyComponent.vue'
 </script>
 ```
+probando
