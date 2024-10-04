@@ -10,7 +10,8 @@
   import { CanvasRenderer } from 'echarts/renderers';
   import { PieChart } from 'echarts/charts';
   import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
-import { useRouter } from 'vue-router';
+  import { useRouter } from 'vue-router';
+  import ListItem from '@/components/ListItem.vue';
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
@@ -32,6 +33,8 @@ import { useRouter } from 'vue-router';
     { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities', date: { day: 2, month: 10, year: 2024 }  },
     { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping', date: { day: 1, month: 10, year: 2024 }  },
     { id: 5, description: 'Restaurant Dinner', amount: -85.00, category: 'Food', date: { day: 25, month: 9, year: 2024 }  },
+    { id: 6, description: 'Public Transport', amount: -1.50, category: 'Transport', date: { day: 17, month: 9, year: 2024 }  },
+    { id: 7, description: 'Uber', amount: -4.25, category: 'Transport', date: { day: 20, month: 9, year: 2024 }  },
   ]);
 
   const spendingByCategory = computed(() => {
@@ -69,9 +72,34 @@ import { useRouter } from 'vue-router';
     ]
   }));
 
+  // Obtener la fecha actual
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth() + 1;
+  const currentYear = today.getFullYear();
+
+  const formatTransactionDate = (transactionDate) => {
+    const { day, month, year } = transactionDate;
+    
+    if (day === currentDay && month === currentMonth && year === currentYear) {
+      return "Hoy";
+    }
+
+    // Formato "DD de 'Nombre del mes'"
+    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    return `${day} de ${monthNames[month - 1]}`;
+  };
+
+  // Filtrar las transacciones que pertenecen al mes actual
+  const transactionsThisMonth = computed(() => {
+    return recentTransactions.value.filter(transaction => {
+      return transaction.date.month === currentMonth && transaction.date.year === currentYear;
+    });
+  });
+
+
   const router = useRouter();
   
-  // Función para manejar la navegación
   const goToRoute = (route) => {
     router.push(route);
   };
@@ -136,15 +164,27 @@ import { useRouter } from 'vue-router';
 
       <AppDivision class="ma-6" cols="12" sm="6" md="4">
         <Section class="ma-3">
+
           <v-container class="inside-section">
             <p class="font-weight-light text-colortext2 mb-4">Últimos movimientos</p>
             <v-chart class="chart my-8 w-100 h-50" :option="chartOption" />
             
             <v-divider calss="my-2"/>
             
-            <v-container class="scrollable-container pa-1 h-50 my-8 border rounded">
+            <h3 class="text-textcolor2 font-weight-light mt-8">Movimientos este mes</h3>
 
+            <v-container class="scrollable-container pa-1 h-50 mb-8 mt-1 border rounded">
+              <ListItem
+                v-for="transaction in transactionsThisMonth"
+                :key="transaction.id"
+                :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart' "
+                :top="formatTransactionDate(transaction.date)"
+                :title="transaction.description"
+                :text="transaction.category"
+                :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
+              />
             </v-container>
+
           </v-container>
         </Section>
       </AppDivision>
