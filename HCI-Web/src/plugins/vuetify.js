@@ -31,8 +31,8 @@ export default createVuetify({
         light: false,
         colors: {
           background: colors.blueGrey.darken3,
-          primary: colors.indigo.darken4,
-          secondary: colors.indigo.darken3,
+          primary: colors.blueGrey.darken4,
+          secondary: colors.blueGrey.lighten1,
           tertiary: colors.blueGrey.darken2,
           colortext: colors.blueGrey.lighten3,
           colortext2: colors.shades.white,
