@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useTheme } from 'vuetify'; // Usamos useTheme para controlar el tema
 import AppDivision from '@/components/AppDivision.vue';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
@@ -11,15 +11,23 @@ const goToLink = () => {
   window.open('https://github.com/jicanta/HCI-Web', '_blank'); // Enlace externo
 };
 
-// Estado para controlar si el modo oscuro está activado
 const isDarkMode = ref(false);
-const theme = useTheme(); // Usamos el hook para manejar el tema
+const theme = useTheme();
 
-// Función para alternar el modo oscuro
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
-  theme.global.name.value = isDarkMode.value ? 'dark' : 'light'; // Cambiar entre los temas
+  theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
+  localStorage.setItem('isDarkMode', isDarkMode.value.toString()); // Guardar el estado en localStorage
 };
+
+onMounted(() => {
+  const storedTheme = localStorage.getItem('isDarkMode');
+  if (storedTheme !== null) {
+    isDarkMode.value = storedTheme === 'true';
+    theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
+  }
+});
+
 </script>
 
 <template>

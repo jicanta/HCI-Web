@@ -1,72 +1,74 @@
 <script setup lang="ts">
-import AppDivision from '@/components/AppDivision.vue';
-import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
-import BodyGrid from '@/components/BodyGrid.vue';
-import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
-import Section from '@/components/Section.vue';
-import VChart from 'vue-echarts';
-import { ref, computed } from 'vue';
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { PieChart } from 'echarts/charts';
-import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
+  import AppDivision from '@/components/AppDivision.vue';
+  import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
+  import BodyGrid from '@/components/BodyGrid.vue';
+  import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
+  import Section from '@/components/Section.vue';
+  import VChart from 'vue-echarts';
+  import { ref, computed, onMounted } from 'vue';
+  import { use } from 'echarts/core';
+  import { CanvasRenderer } from 'echarts/renderers';
+  import { PieChart } from 'echarts/charts';
+  import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
 
-use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
+  use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
-const pesos = 25.761;
-const centavos = 57;
+  const pesos = 25.761;
+  const centavos = 57;
 
-const showMoney = ref(true);
+  // Recupera el estado de showMoney desde localStorage o establece el valor predeterminado
+  const showMoney = ref(localStorage.getItem('showMoney') !== 'false');
 
-const toggleMoneyVisibility = () => {
-  showMoney.value = !showMoney.value;
-};
+  const toggleMoneyVisibility = () => {
+    showMoney.value = !showMoney.value;
+    // Guarda el estado actual en localStorage
+    localStorage.setItem('showMoney', JSON.stringify(showMoney.value));
+  };
 
-const recentTransactions = ref([
-  { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food' },
-  { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income' },
-  { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities' },
-  { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping' },
-  { id: 5, description: 'Restaurant Dinner', amount: -85.00, category: 'Food' },
-]);
+  const recentTransactions = ref([
+    { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food' },
+    { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income' },
+    { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities' },
+    { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping' },
+    { id: 5, description: 'Restaurant Dinner', amount: -85.00, category: 'Food' },
+  ]);
 
-// Agrupa los gastos por categoría
-const spendingByCategory = computed(() => {
-  const categories = {};
-  recentTransactions.value.forEach(transaction => {
-    if (transaction.amount < 0) {
-      categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
-    }
+  const spendingByCategory = computed(() => {
+    const categories = {};
+    recentTransactions.value.forEach(transaction => {
+      if (transaction.amount < 0) {
+        categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
+      }
+    });
+    return Object.entries(categories).map(([name, value]) => ({ name, value }));
   });
-  return Object.entries(categories).map(([name, value]) => ({ name, value }));
-});
 
-// Opciones para el gráfico
-const chartOption = computed(() => ({
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b}: ${c} ({d}%)'
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left'
-  },
-  series: [
-    {
-      name: 'Spending',
-      type: 'pie',
-      radius: ['50%', '70%'],
-      avoidLabelOverlap: false,
-      label: { show: false, position: 'center' },
-      emphasis: {
-        label: { show: true, fontSize: '18', fontWeight: 'bold' }
-      },
-      labelLine: { show: false },
-      data: spendingByCategory.value
-    }
-  ]
-}));
+  const chartOption = computed(() => ({
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: ${c} ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: 'Spending',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        label: { show: false, position: 'center' },
+        emphasis: {
+          label: { show: true, fontSize: '18', fontWeight: 'bold' }
+        },
+        labelLine: { show: false },
+        data: spendingByCategory.value
+      }
+    ]
+  }));
 </script>
+
 
 <template>
   <AppHeaderPrimaryScreen />
