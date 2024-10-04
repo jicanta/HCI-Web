@@ -128,7 +128,7 @@ const chartOption = computed(() => ({
           <v-container class="inside-section">
             <p class="text-weight-light text-colortext2 mb-4">Últimos movimientos</p>
             <!-- Gráfico de categorías de gastos -->
-            <v-chart class="chart" :option="chartOption" />
+            <v-chart class="chart my-5" :option="chartOption" />
             <v-divider/>
           </v-container>
         </Section>
