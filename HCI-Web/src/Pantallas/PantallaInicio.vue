@@ -26,11 +26,11 @@
   };
 
   const recentTransactions = ref([
-    { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food' },
-    { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income' },
-    { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities' },
-    { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping' },
-    { id: 5, description: 'Restaurant Dinner', amount: -85.00, category: 'Food' },
+    { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food', date: { day: 4, month: 10, year: 2024 } },
+    { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income', date: { day: 4, month: 10, year: 2024 }  },
+    { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities', date: { day: 2, month: 10, year: 2024 }  },
+    { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping', date: { day: 1, month: 10, year: 2024 }  },
+    { id: 5, description: 'Restaurant Dinner', amount: -85.00, category: 'Food', date: { day: 25, month: 9, year: 2024 }  },
   ]);
 
   const spendingByCategory = computed(() => {
@@ -130,8 +130,11 @@
         <Section class="ma-3">
           <v-container class="inside-section">
             <p class="text-weight-light text-colortext2 mb-4">Últimos movimientos</p>
-            <v-chart class="chart my-5" :option="chartOption" />
-            <v-divider />
+            <v-chart class="chart h-50 w-100 my-8" :option="chartOption" />
+            <v-divider class="my-2" />
+            <v-container class="scrollable-container pa-1 h-50 my-8 border rounded">
+
+            </v-container>
           </v-container>
         </Section>
       </AppDivision>
@@ -185,8 +188,11 @@
   align-items: center;
 }
 
-.chart {
-  width: 100%;
-  height: 40%;
+.scrollable-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
+
 </style>
