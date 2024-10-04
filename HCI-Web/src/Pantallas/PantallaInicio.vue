@@ -138,8 +138,13 @@ import { useRouter } from 'vue-router';
         <Section class="ma-3">
           <v-container class="inside-section">
             <p class="font-weight-light text-colortext2 mb-4">Últimos movimientos</p>
-            <v-chart class="chart my-5" :option="chartOption" />
-            <v-divider />
+            <v-chart class="chart my-8 w-100 h-50" :option="chartOption" />
+            
+            <v-divider calss="my-2"/>
+            
+            <v-container class="scrollable-container pa-1 h-50 my-8 border rounded">
+
+            </v-container>
           </v-container>
         </Section>
       </AppDivision>
