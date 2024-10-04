@@ -11,13 +11,17 @@ import { CanvasRenderer } from 'echarts/renderers';
 import { PieChart } from 'echarts/charts';
 import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
 
-// Registra los componentes de ECharts
 use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
 const pesos = 25.761;
 const centavos = 57;
 
-// Datos de transacciones recientes
+const showMoney = ref(true);
+
+const toggleMoneyVisibility = () => {
+  showMoney.value = !showMoney.value;
+};
+
 const recentTransactions = ref([
   { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food' },
   { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income' },
@@ -31,11 +35,7 @@ const spendingByCategory = computed(() => {
   const categories = {};
   recentTransactions.value.forEach(transaction => {
     if (transaction.amount < 0) {
-      if (categories[transaction.category]) {
-        categories[transaction.category] += Math.abs(transaction.amount);
-      } else {
-        categories[transaction.category] = Math.abs(transaction.amount);
-      }
+      categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
     }
   });
   return Object.entries(categories).map(([name, value]) => ({ name, value }));
@@ -57,20 +57,11 @@ const chartOption = computed(() => ({
       type: 'pie',
       radius: ['50%', '70%'],
       avoidLabelOverlap: false,
-      label: {
-        show: false,
-        position: 'center'
-      },
+      label: { show: false, position: 'center' },
       emphasis: {
-        label: {
-          show: true,
-          fontSize: '18',
-          fontWeight: 'bold'
-        }
+        label: { show: true, fontSize: '18', fontWeight: 'bold' }
       },
-      labelLine: {
-        show: false
-      },
+      labelLine: { show: false },
       data: spendingByCategory.value
     }
   ]
@@ -89,11 +80,15 @@ const chartOption = computed(() => ({
             <v-divider class="my-2" />
             <p class="text-weight-light text-colortext2">Dinero disponible</p>
             <v-container class="money-container">
-              <h1 class="text-weight-bold text-colortext2">${{ pesos }}</h1>
+              <h1 class="text-weight-bold text-colortext2">
+                {{ showMoney ? '$' + pesos : '*******' }}
+              </h1>
               <v-container class="cents-container">
-                <p class="text-colortext2">{{ centavos }}</p>
+                <p class="text-colortext2">{{ showMoney ? centavos : '**' }}</p>
               </v-container>
-              <v-icon size="32" class="text-colortext2 mr-2">mdi-eye</v-icon>
+              <v-icon size="32" class="text-colortext2 mr-2" @click="toggleMoneyVisibility">
+                {{ showMoney ? 'mdi-eye' : 'mdi-eye-off' }}
+              </v-icon>
             </v-container>
             <v-divider class="my-2" />
             <v-container class="functions-container">
@@ -127,9 +122,8 @@ const chartOption = computed(() => ({
         <Section class="ma-3">
           <v-container class="inside-section">
             <p class="text-weight-light text-colortext2 mb-4">Últimos movimientos</p>
-            <!-- Gráfico de categorías de gastos -->
             <v-chart class="chart my-5" :option="chartOption" />
-            <v-divider/>
+            <v-divider />
           </v-container>
         </Section>
       </AppDivision>
@@ -183,9 +177,8 @@ const chartOption = computed(() => ({
   align-items: center;
 }
 
-
 .chart {
   width: 100%;
-  height: 40%
+  height: 40%;
 }
 </style>

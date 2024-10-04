@@ -17,7 +17,7 @@
       <SectionNav
         :selected="false"
         icon="mdi-credit-card-outline"
-        text="Métodos de pago"
+        text="Medios de pago"
         class="mx-1"
         @click="goToRoute('/payment-methods')"
       />
