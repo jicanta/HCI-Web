@@ -113,7 +113,13 @@
         <Section class="ma-3">
           <v-container class="inside-section">
             <p class="text-weight-light text-colortext2 mb-4">Medios de pago</p>
-            <v-container class="card bg-lime-darken-4 rounded">
+            <v-container class="card bg-lime-darken-4 my-1 rounded">
+              <p> •••• •••• •••• 4444 </p>
+            </v-container>
+            <v-container class="card bg-shades-black my-1 rounded">
+              <p> •••• •••• •••• 4444 </p>
+            </v-container>
+            <v-container class="card bg-blue-grey-lighten-3 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
           </v-container>
