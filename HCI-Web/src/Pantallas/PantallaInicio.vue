@@ -10,6 +10,7 @@
   import { CanvasRenderer } from 'echarts/renderers';
   import { PieChart } from 'echarts/charts';
   import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components';
+import { useRouter } from 'vue-router';
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
@@ -67,6 +68,13 @@
       }
     ]
   }));
+
+  const router = useRouter();
+  
+  // Función para manejar la navegación
+  const goToRoute = (route) => {
+    router.push(route);
+  };
 </script>
 
 
@@ -80,9 +88,9 @@
           <v-container class="inside-section">
             <h2 class="text-colortext2">Hola, Nombre de usuario</h2>
             <v-divider class="my-2" />
-            <p class="text-weight-light text-colortext2">Dinero disponible</p>
+            <p class="font-weight-light text-colortext2">Dinero disponible</p>
             <v-container class="money-container">
-              <h1 class="text-weight-bold text-colortext2">
+              <h1 class="font-weight-bold text-colortext2">
                 {{ showMoney ? '$' + pesos : '*******' }}
               </h1>
               <v-container class="cents-container">
@@ -95,7 +103,7 @@
             <v-divider class="my-2" />
             <v-container class="functions-container">
               <v-container class="function">
-                <v-btn size="x-large" icon="mdi-cash-fast" color="primary" elevation="4" />
+                <v-btn size="x-large" icon="mdi-cash-fast" color="primary" elevation="4" @click="goToRoute('/deposit')" />
                 <p class="text-primary pa-1">Ingresar</p>
               </v-container>
               <v-container class="function">
@@ -112,7 +120,7 @@
         </Section>
         <Section class="ma-3">
           <v-container class="inside-section">
-            <p class="text-weight-light text-colortext2 mb-4">Medios de pago</p>
+            <p class="font-weight-light text-colortext2 mb-4">Medios de pago</p>
             <v-container class="card bg-lime-darken-4 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
@@ -129,12 +137,9 @@
       <AppDivision class="ma-6" cols="12" sm="6" md="4">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <p class="text-weight-light text-colortext2 mb-4">Últimos movimientos</p>
-            <v-chart class="chart h-50 w-100 my-8" :option="chartOption" />
-            <v-divider class="my-2" />
-            <v-container class="scrollable-container pa-1 h-50 my-8 border rounded">
-
-            </v-container>
+            <p class="font-weight-light text-colortext2 mb-4">Últimos movimientos</p>
+            <v-chart class="chart my-5" :option="chartOption" />
+            <v-divider />
           </v-container>
         </Section>
       </AppDivision>
