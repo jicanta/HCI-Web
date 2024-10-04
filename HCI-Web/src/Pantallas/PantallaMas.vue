@@ -33,7 +33,7 @@ onMounted(() => {
 <template>
   <AppHeaderSecondaryScreen title="Más" />
 
-  <v-main class="main-container">
+  <v-main class="main-container  bg-background">
     <TopMenu>
       <v-container class="user-container">
         <v-icon class="text-colortext mr-2" size="24">mdi-account-circle</v-icon>

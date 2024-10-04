@@ -12,7 +12,7 @@ const centavos = 57;
 <template>
   <AppHeaderSecondaryScreen title="Ingresar dinero" />
 
-  <v-main class="main-container">
+  <v-main class="main-container bg-background">
 
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="6" md="8">

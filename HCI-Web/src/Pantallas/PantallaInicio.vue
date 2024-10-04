@@ -108,7 +108,7 @@
 
 <template>
   <AppHeaderPrimaryScreen />
-  <v-main class="main-container" fluid>
+  <v-main class="main-container bg-background" fluid>
     <ButtonsNavBar />
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="6" md="4">
@@ -255,6 +255,7 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 </style>
