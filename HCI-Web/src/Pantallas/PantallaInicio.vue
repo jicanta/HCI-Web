@@ -137,22 +137,22 @@
             <v-divider class="my-2" />
             <v-row></v-row>
             <v-container class="functions-container">
-              <v-col cols="auto">
+              <v-col cols="auto" class="pr-0" >
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
                   </v-container>
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" width="200px" append-icon="mdi-file-document" color="primary"  elevation="4">Tus datos</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-file-document" color="primary"  elevation="4">Tus datos</v-btn>
                   </v-container>
               </v-col>
-  	          <v-col cols="auto">
-                  <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
+  	          <v-col cols="auto" class="pl-0" >
+                  <v-container class="function" >
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
                   </v-container>
 
 
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" >Link de pago</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-history" color="primary" elevation="4" >Link de pago</v-btn>
                   </v-container>
               </v-col>
             </v-container>
