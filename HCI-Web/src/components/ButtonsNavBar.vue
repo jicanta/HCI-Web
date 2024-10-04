@@ -1,33 +1,16 @@
 <template>
     <v-container class="buttons-nav-bar bg-primary px-16" fluid>
+
       <SectionNav
-        :selected="true"
-        icon="mdi-home"
-        text="Inicio"
+        v-for="section in sections"
+        :key="section.route"
+        :selected="section.selected"
+        :icon="section.icon"
+        :text="section.text"
+        @click="goToRoute(section.route)"
         class="mx-1"
-        @click="goToRoute('/')"
       />
-      <SectionNav
-        :selected="false"
-        icon="mdi-history"
-        text="Movimientos"
-        class="mx-1"
-        @click="goToRoute('/movements')"
-      />
-      <SectionNav
-        :selected="false"
-        icon="mdi-credit-card-outline"
-        text="Medios de pago"
-        class="mx-1"
-        @click="goToRoute('/payment-methods')"
-      />
-      <SectionNav
-        :selected="false"
-        icon="mdi-dots-horizontal-circle-outline"
-        text="Más"
-        class="mx-1"
-        @click="goToRoute('/more')"
-      />
+      
     </v-container>
   </template>
   
@@ -35,6 +18,14 @@
   import { useRouter } from 'vue-router';
   import SectionNav from './SectionNav.vue';
   
+  const props = defineProps({
+    sections: {
+        type: Array,
+        required: false,
+    }
+  });
+  
+
   const router = useRouter();
   
   // Función para manejar la navegación

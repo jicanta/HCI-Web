@@ -97,6 +97,12 @@
     });
   });
 
+  const sections = [
+    {text: "Inicio", icon: "mdi-home", selected: true, route: "/"}, 
+    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
+    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
+    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"}
+  ]
 
   const router = useRouter();
   
@@ -109,7 +115,7 @@
 <template>
   <AppHeaderPrimaryScreen />
   <v-main class="main-container bg-background" fluid>
-    <ButtonsNavBar />
+    <ButtonsNavBar :sections="sections"/>
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
