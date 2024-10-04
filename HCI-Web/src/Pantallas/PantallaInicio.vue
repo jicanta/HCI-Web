@@ -39,7 +39,7 @@
 
   const spendingByCategory = computed(() => {
     const categories = {};
-    recentTransactions.value.forEach(transaction => {
+    transactionsThisMonth.value.forEach(transaction => {
       if (transaction.amount < 0) {
         categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
       }
@@ -166,24 +166,36 @@
         <Section class="ma-3">
 
           <v-container class="inside-section">
-            <p class="font-weight-light text-colortext2 mb-4">Últimos movimientos</p>
-            <v-chart class="chart my-8 w-100 h-50" :option="chartOption" />
+            <h2 class="font-weight-bold text-colortext2 mb-4">Este mes</h2>
+
+            <h3 class="text-textcolor2 font-weight-light">Categorías</h3>
+
+            <v-chart class="chart mt-8 w-100 h-50" :option="chartOption" />
             
             <v-divider calss="my-2"/>
             
-            <h3 class="text-textcolor2 font-weight-light mt-8">Movimientos este mes</h3>
+            <h3 class="text-textcolor2 font-weight-light mt-8">Movimientos</h3>
 
             <v-container class="scrollable-container pa-1 h-50 mb-8 mt-1 border rounded">
-              <ListItem
-                v-for="transaction in transactionsThisMonth"
-                :key="transaction.id"
-                :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart' "
-                :top="formatTransactionDate(transaction.date)"
-                :title="transaction.description"
-                :text="transaction.category"
-                :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
-              />
+              <!-- Si no hay transacciones este mes -->
+              <template v-if="transactionsThisMonth.length === 0">
+                <p class="text-muted text-center">No hay movimientos este mes.</p>
+              </template>
+
+              <!-- Si hay transacciones-->
+              <template v-else>
+                <ListItem
+                  v-for="transaction in transactionsThisMonth"
+                  :key="transaction.id"
+                  :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
+                  :top="formatTransactionDate(transaction.date)"
+                  :title="transaction.description"
+                  :text="transaction.category"
+                  :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
+                />
+              </template>
             </v-container>
+
 
           </v-container>
         </Section>

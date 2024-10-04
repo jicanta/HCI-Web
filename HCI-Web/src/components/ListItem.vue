@@ -68,7 +68,7 @@
     .middle-container {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between;
         padding: 0px;
         align-items: center;
     }
