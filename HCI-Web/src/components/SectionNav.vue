@@ -3,7 +3,7 @@
     <v-col class="container bg-tertiary">
         <v-col class="section bg-tertiary">
             <v-icon v-if="icon" :class="{'text-secondary': selected}" size="24" class="text-colortext2 mr-2">{{ icon }}</v-icon>
-            <h4 :class="{'text-secondary': selected}" class="text-colortext2">{{ text }}</h4>
+            <h4 :class="{'text-secondary': selected}" class="d-md-flex d-sm-none text-no-wrap text-colortext2">{{ text }}</h4>
         </v-col>
         <v-col class="px-0 py-1" :class="{'bg-secondary': selected}">
 

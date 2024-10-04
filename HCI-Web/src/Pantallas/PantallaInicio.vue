@@ -5,7 +5,7 @@
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
   import Section from '@/components/Section.vue';
   import VChart from 'vue-echarts';
-  import { ref, computed, onMounted } from 'vue';
+  import { ref, computed } from 'vue';
   import { use } from 'echarts/core';
   import { CanvasRenderer } from 'echarts/renderers';
   import { PieChart } from 'echarts/charts';
@@ -28,7 +28,7 @@
   };
 
   const recentTransactions = ref([
-    { id: 1, description: 'Grocery Shopping', amount: -75.50, category: 'Food', date: { day: 4, month: 10, year: 2024 } },
+    { id: 1, description: 'UnitedHealth Group Incorporated', amount: -75.50, category: 'Food', date: { day: 4, month: 10, year: 2024 } },
     { id: 2, description: 'Salary Deposit', amount: 2000.00, category: 'Income', date: { day: 4, month: 10, year: 2024 }  },
     { id: 3, description: 'Electric Bill', amount: -120.00, category: 'Utilities', date: { day: 2, month: 10, year: 2024 }  },
     { id: 4, description: 'Online Purchase', amount: -50.25, category: 'Shopping', date: { day: 1, month: 10, year: 2024 }  },
@@ -111,7 +111,7 @@
   <v-main class="main-container bg-background" fluid>
     <ButtonsNavBar />
     <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="6" md="4">
+      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
           <v-container class="inside-section">
             <h2 class="text-colortext2">Hola, Nombre de usuario</h2>
@@ -132,15 +132,15 @@
             <v-container class="functions-container">
               <v-container class="function">
                 <v-btn size="x-large" icon="mdi-cash-fast" color="primary" elevation="4" @click="goToRoute('/deposit')" />
-                <p class="text-primary pa-1">Ingresar</p>
+                <p class="text-no-wrap text-primary mt-1">Ingresar</p>
               </v-container>
               <v-container class="function">
                 <v-btn size="x-large" icon="mdi-file-document" color="primary" elevation="4" />
-                <p class="text-primary pa-1">Tus datos</p>
+                <p class="text-no-wrap text-primary mt-1">Tus datos</p>
               </v-container>
               <v-container class="function">
                 <v-btn size="x-large" icon="mdi-history" color="primary" elevation="4" />
-                <p class="text-primary pa-1">Movimientos</p>
+                <p class="text-no-wrap text-primary mt-1">Movimientos</p>
               </v-container>
             </v-container>
             <v-divider class="my-2" />
@@ -162,7 +162,7 @@
         </Section>
       </AppDivision>
 
-      <AppDivision class="ma-6" cols="12" sm="6" md="4">
+      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
 
           <v-container class="inside-section">
@@ -205,6 +205,7 @@
 </template>
 
 <style scoped>
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -237,10 +238,8 @@
 .functions-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-left: 12%;
-  padding-right: 12%;
 }
 
 .function {

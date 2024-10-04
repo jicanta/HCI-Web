@@ -15,7 +15,7 @@ const centavos = 57;
   <v-main class="main-container bg-background">
 
     <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="6" md="8">
+      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
           <v-container class="inside-section">
               <h1 class="text-colortext2">Generar link de pago</h1>
