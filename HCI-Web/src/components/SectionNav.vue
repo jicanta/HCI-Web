@@ -1,13 +1,11 @@
 <template>
 
-    <v-col class="container bg-tertiary">
-        <v-col class="section bg-tertiary">
+    <v-col class="container bg-tertiary rounded">
+        <v-col class="section pb-1 pt-2 w-100">
             <v-icon v-if="icon" :class="{'text-secondary': selected}" size="24" class="text-colortext2 mr-2">{{ icon }}</v-icon>
             <h4 :class="{'text-secondary': selected}" class="d-md-flex d-sm-none text-no-wrap text-colortext2">{{ text }}</h4>
         </v-col>
-        <v-col class="px-0 py-1" :class="{'bg-secondary': selected}">
-
-        </v-col>
+        <v-col class="px-0 py-1 rounded-b w-100" :class="{'bg-secondary': selected}"/>
     </v-col>
 </template>
 
@@ -31,15 +29,13 @@
 <style scoped>
     .container {
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         display: flex;
         flex-direction: column;
         cursor: pointer;
         padding: 0px;
     }
     .section {
-        color: black;
-        padding: 16px;
         align-items: center;
         justify-content: flex-start;
         display: flex;

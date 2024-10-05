@@ -10,11 +10,10 @@
   
   <style scoped>
   .section {
-    color: black;
     padding: 16px;
     display: flex;
-    flex-grow: 1; /* Asegura que la sección ocupe todo el alto */
-    width: 100%; /* Asegura que la sección ocupe todo el ancho */
+    flex-grow: 1;
+    width: 100%;
     align-items: center;
     justify-content: center;
   }

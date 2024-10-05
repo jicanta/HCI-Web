@@ -1,6 +1,11 @@
 <template>
-    <v-container class="buttons-nav-bar bg-primary px-16" fluid>
+    <v-container class="buttons-nav-bar bg-primary px-4 py-2" fluid>
 
+      <v-container class="left-container">
+        <h1 class="font-weight-bold text-colortext"> Logo </h1>
+      </v-container>
+
+      <v-container class="center-container">
       <SectionNav
         v-for="section in sections"
         :key="section.route"
@@ -10,11 +15,15 @@
         @click="goToRoute(section.route)"
         class="mx-1"
       />
-      
     </v-container>
-  </template>
+
+      <v-container class="right-container">
+        <v-icon icon="mdi-help-circle-outline text-colortext cursor-pointer"></v-icon>
+      </v-container>
+    </v-container>
+</template>
   
-  <script setup>
+<script setup>
   import { useRouter } from 'vue-router';
   import SectionNav from './SectionNav.vue';
   
@@ -32,15 +41,43 @@
   const goToRoute = (route) => {
     router.push(route);
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .buttons-nav-bar {
-    color: black;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 100;
+  }
+  .left-container{
+    height: 100%;
+    width: 12.5%;
+
+    align-items: center;
+    justify-content: left;
     display: flex;
     flex-direction: row;
   }
-  </style>
+  .center-container{
+    height: 100%;
+    width: 75%;
+
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+  }
+  .right-container{
+    height: 100%;
+    width: 12.5%;
+
+    align-items: center;
+    justify-content: right;
+    display: flex;
+    flex-direction: row;
+  }
+</style>
   

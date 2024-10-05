@@ -14,9 +14,7 @@
 </script>
 
 <template>
-  <AppHeaderPrimaryScreen />
-
-  <v-main class="main-container bg-background">
+  <v-main class="main-container bg-background" fluid>
     <ButtonsNavBar :sections="sections"/>
 
     <BodyGrid>
@@ -34,7 +32,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
 }
 

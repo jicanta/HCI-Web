@@ -113,7 +113,7 @@
 
 
 <template>
-  <AppHeaderPrimaryScreen />
+  <!--<AppHeaderPrimaryScreen />-->
   <v-main class="main-container bg-background" fluid>
     <ButtonsNavBar :sections="sections"/>
     <BodyGrid>
