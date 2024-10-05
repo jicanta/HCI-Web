@@ -2,23 +2,41 @@
     <v-container class="buttons-nav-bar bg-primary px-4 py-2" fluid>
 
       <v-container class="left-container">
-        <h1 class="font-weight-bold text-colortext"> Logo </h1>
+        <a href="/">
+          <h1 class="font-weight-bold text-colortext"> Logo </h1>
+        </a>
       </v-container>
 
       <v-container class="center-container">
-      <SectionNav
-        v-for="section in sections"
-        :key="section.route"
-        :selected="section.selected"
-        :icon="section.icon"
-        :text="section.text"
-        @click="goToRoute(section.route)"
-        class="mx-1"
-      />
-    </v-container>
+        <SectionNav
+          v-for="section in sections"
+          :key="section.route"
+          :selected="section.selected"
+          :icon="section.icon"
+          :text="section.text"
+          @click="goToRoute(section.route)"
+          class="mx-1"
+        />
+      </v-container>
 
       <v-container class="right-container">
-        <v-icon icon="mdi-help-circle-outline text-colortext cursor-pointer"></v-icon>
+        <v-menu transition="slide-y-transition">
+          <template v-slot:activator="{ props }">
+            <SectionNav v-bind="props"
+            :selected="profile.selected"
+            :icon="profile.icon"
+            :text="profile.text"
+            />
+          </template>
+          <SectionNav 
+          v-for="profile in profileOptions"
+          :selected="profile.selected"
+          :icon="profile.icon"
+          :text="profile.text"
+          @click="goToRoute(profile.route)"
+          class="my-1"
+            />
+        </v-menu>
       </v-container>
     </v-container>
 </template>
@@ -26,6 +44,14 @@
 <script setup>
   import { useRouter } from 'vue-router';
   import SectionNav from './SectionNav.vue';
+
+  const profile = {text: "Tu Perfil", icon: "mdi-home", selected: false, route: ""}
+
+  const profileOptions = [
+    {text: "Tus Datos", icon: "mdi-home", selected: false, route: ""},
+    {text: "Personalizacion", icon: "mdi-home", selected: false, route: ""},
+    {text: "Cerrar Sesion", icon: "mdi-home", selected: false, route: ""}
+  ]
   
   const props = defineProps({
     sections: {
