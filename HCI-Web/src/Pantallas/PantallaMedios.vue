@@ -8,7 +8,7 @@
     {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
     {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
     {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: true, route: "/payment-methods"}, 
-    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"}
+    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
   ]
 
 </script>
@@ -19,9 +19,8 @@
 
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
-        <Section class="ma-3">
-          
-        </Section>
+      <Section class="ma-3">
+      </Section>
       </AppDivision>
     </BodyGrid>
   </v-main>

@@ -101,7 +101,7 @@
     {text: "Inicio", icon: "mdi-home", selected: true, route: "/"}, 
     {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
     {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"}
+    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
   ]
 
   const router = useRouter();
@@ -142,7 +142,7 @@
                     <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
                   </v-container>
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-file-document" color="primary"  elevation="4">Tus datos</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4">Tus datos</v-btn>
                   </v-container>
               </v-col>
   	          <v-col cols="auto" class="pl-0" >
@@ -161,7 +161,7 @@
         </Section>
         <Section class="ma-3">
           <v-container class="inside-section">
-            <p class="font-weight-light text-colortext2 mb-4">Medios de pago</p>
+            <p class="font-weight-bold text-colortext2 mb-4">Medios de pago</p>
             <v-container class="card bg-lime-darken-4 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
@@ -187,7 +187,7 @@
             
             <v-divider calss="my-2"/>
             
-            <h3 class="text-textcolor2 font-weight-light mt-8">Movimientos</h3>
+            <h3 class="text-textcolor2 font-weight-bold mt-8">Movimientos</h3>
 
             <v-container class="scrollable-container pa-1 h-50 mb-8 mt-1 border rounded">
               <!-- Si no hay transacciones este mes -->

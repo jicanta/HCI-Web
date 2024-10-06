@@ -3,16 +3,24 @@ import AppDivision from '@/components/AppDivision.vue';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
 import BodyGrid from '@/components/BodyGrid.vue';
 import Section from '@/components/Section.vue';
+import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
+import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 
 const pesos = 25761;
 const centavos = 57;
 
+const sections = [
+      {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
+      {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
+      {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
+      {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
+    ]
+
 </script>
 
 <template>
-  <AppHeaderSecondaryScreen title="Ingresar dinero" />
-
-  <v-main class="main-container bg-background">
+  <v-main class="main-container bg-background" fluid>
+    <ButtonsNavBarWithBack link_back="/"/>
 
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
@@ -47,7 +55,6 @@ const centavos = 57;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
 }
 

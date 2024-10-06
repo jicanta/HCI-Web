@@ -2,9 +2,7 @@
     <v-container class="buttons-nav-bar bg-primary px-4 py-1" fluid>
 
       <v-container class="left-container">
-        <a href="/">
-          <h1 class="font-weight-bold text-colortext"> Logo </h1>
-        </a>
+          <v-icon icon="mdi-arrow-left" @click="goToRoute(link_back)" class="rounded-circle bg-tertiary"/>
       </v-container>
 
       <v-container class="center-container">
@@ -52,10 +50,17 @@
     {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"},
     {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
   ]
+
+  const sections = [
+    {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
+    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
+    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
+    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
+  ]
   
   const props = defineProps({
-    sections: {
-        type: Array,
+    link_back: {
+        type: String,
         required: false,
     }
   });
