@@ -7,6 +7,7 @@ import PantallaMedios from '@/Pantallas/PantallaMedios.vue';
 import NotFoundPage from '@/Pantallas/NotFoundPage.vue';
 import SignInPage from '@/Pantallas/SignInPage.vue';
 import SignUpPage from '@/Pantallas/SignUpPage.vue';
+import AddPaymentMethodPage from '@/Pantallas/AddPaymentMethodPage.vue';
 
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
   { path: '/sign-in', name: 'SignIn', component: SignInPage },
   { path: '/sign-up', name: 'SignUp', component: SignUpPage },
+  { path: '/add-payment-method', name: 'AddPaymentMethod', component: AddPaymentMethodPage},
 ];
 
 const router = createRouter({

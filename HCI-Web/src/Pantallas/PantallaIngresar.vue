@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import AppDivision from '@/components/AppDivision.vue';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
 import BodyGrid from '@/components/BodyGrid.vue';
