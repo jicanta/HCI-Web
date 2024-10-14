@@ -6,8 +6,8 @@
           <v-card-title class="text-h4 mb-6 text-center">Iniciar sesión</v-card-title>
           <v-form @submit.prevent="handleSubmit">
             <v-text-field
-              v-model="username"
-              label="Usuario"
+              v-model="email"
+              label="Email"
               prepend-inner-icon="mdi-account"
               variant="outlined"
               class="mb-4"
@@ -36,8 +36,10 @@
             ¿No tiene una cuenta? 
             <router-link to="/sign-up" class="text-primary">Registrarse</router-link>
           </v-card-text>
-          <v-card-text class="text-center">
-            <router-link to="/recover-password" class="text-primary">Olvidé mi contraseña</router-link>
+          <v-card-text class="text-center text-caption">
+            <router-link to="/recover-password" class="text-primary text-decoration-none">
+              Olvidé mi contraseña
+            </router-link>
           </v-card-text>
         </v-card>
       </v-col>
@@ -61,3 +63,4 @@ const handleSubmit = () => {
   router.push('/');
 };
 </script>
+

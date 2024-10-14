@@ -13,7 +13,7 @@ const sections = [
       {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
       {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
       {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-      {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
+      {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
     ]
 
 </script>

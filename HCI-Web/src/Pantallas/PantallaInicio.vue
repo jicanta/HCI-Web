@@ -101,7 +101,7 @@
     {text: "Inicio", icon: "mdi-home", selected: true, route: "/"}, 
     {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
     {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/more"}
+    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
   ]
 
   const router = useRouter();
@@ -183,13 +183,13 @@
 
             <h3 class="text-textcolor2 font-weight-light">Categorías</h3>
 
-            <v-chart class="chart mt-8 w-100 h-50" :option="chartOption" />
+            <v-chart class="chart mt-8 mb-2 w-100 h-75" :option="chartOption" />
             
-            <v-divider calss="my-2"/>
+            <v-divider class="my-4"/>
             
-            <h3 class="text-textcolor2 font-weight-bold mt-8">Movimientos</h3>
+            <h3 class="text-textcolor2 font-weight-bold mt-2">Movimientos</h3>
 
-            <v-container class="scrollable-container pa-1 h-50 mb-8 mt-1 border rounded">
+            <v-container class="scrollable-container pa-1 h-25 mb-4 mt-0 border rounded">
               <!-- Si no hay transacciones este mes -->
               <template v-if="transactionsThisMonth.length === 0">
                 <p class="text-muted text-center">No hay movimientos este mes.</p>
@@ -271,3 +271,4 @@
 }
 
 </style>
+
