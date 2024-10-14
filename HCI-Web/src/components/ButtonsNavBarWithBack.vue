@@ -20,10 +20,9 @@
       <v-container class="right-container">
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
-            <SectionNav v-bind="props"
-            :selected="profile.selected"
-            :icon="profile.icon"
+            <ProfileSectionNav v-bind="props"
             :text="profile.text"
+            :name="profile.name"
             />
           </template>
           <SectionNav 
@@ -43,7 +42,7 @@
   import { useRouter } from 'vue-router';
   import SectionNav from './SectionNav.vue';
 
-  const profile = {text: "Tu Perfil", icon: "mdi-account", selected: false, route: ""}
+  const profile = {text: "Tu Perfil >", name: "Federico"}
 
   const profileOptions = [
     {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: ""},
