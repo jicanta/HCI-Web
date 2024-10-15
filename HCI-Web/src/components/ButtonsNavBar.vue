@@ -48,7 +48,7 @@
   const profile = {text: "Tu Perfil  >", icon: "mdi-account", selected: false, route: "", name: "Federico"}
 
   const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: ""},
+    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: "/mydata"},
     {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"},
     {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
   ]
