@@ -135,7 +135,6 @@
               </v-icon>
             </v-container>
             <v-divider class="my-2" />
-            <v-row></v-row>
             <v-container class="functions-container">
               <v-col cols="auto" class="pr-0" >
                   <v-container class="function">
@@ -183,13 +182,13 @@
 
             <h3 class="text-textcolor2 font-weight-light">Categorías</h3>
 
-            <v-chart class="chart mt-8 mb-2 w-100 h-75" :option="chartOption" />
+            <v-chart class="chart mt-8 mb-2 w-100 h-50" :option="chartOption" />
             
             <v-divider class="my-4"/>
             
             <h3 class="text-textcolor2 font-weight-bold mt-2">Movimientos</h3>
 
-            <v-container class="scrollable-container pa-1 h-25 mb-4 mt-0 border rounded">
+            <v-container class="scrollable-container pa-1 h-50 mb-4 mt-0 border rounded">
               <!-- Si no hay transacciones este mes -->
               <template v-if="transactionsThisMonth.length === 0">
                 <p class="text-muted text-center">No hay movimientos este mes.</p>
