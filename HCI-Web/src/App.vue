@@ -1,9 +1,3 @@
-<template>
-  <v-app class="app bg-background">
-    <router-view />
-  </v-app>
-</template>
-
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useTheme } from 'vuetify';
@@ -20,6 +14,12 @@ onMounted(() => {
   }
 });
 </script>
+
+<template>
+  <v-app class="app bg-background">
+    <router-view />
+  </v-app>
+</template>
 
 <style scoped>
 .app {

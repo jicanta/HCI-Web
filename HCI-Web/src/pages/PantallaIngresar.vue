@@ -15,7 +15,7 @@ const sections = [
       {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
       {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
     ]
-
+  
 </script>
 
 <template>

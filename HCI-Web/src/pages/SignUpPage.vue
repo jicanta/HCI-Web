@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height">
-    <v-row allign="center" justify="center">
+    <v-row align="center" justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="elevation-12 pa-8">
           <v-card-title class="text-h4 mb-6 text-center">Registrarse</v-card-title>

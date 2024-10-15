@@ -142,7 +142,7 @@
                     <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
                   </v-container>
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4">Tus datos</v-btn>
                   </v-container>
               </v-col>
   	          <v-col cols="auto" class="pl-0" >

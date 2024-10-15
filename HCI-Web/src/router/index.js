@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PantallaInicio from '@/Pantallas/PantallaInicio.vue';
-import PantallaMas from '@/Pantallas/PantallaMas.vue';
-import PantallaIngresar from '@/Pantallas/PantallaIngresar.vue';
-import PantallaMovimientos from '@/Pantallas/PantallaMovimientos.vue';
-import PantallaMedios from '@/Pantallas/PaymentMethodsPage.vue';
-import NotFoundPage from '@/Pantallas/NotFoundPage.vue';
-import SignInPage from '@/Pantallas/SignInPage.vue';
-import SignUpPage from '@/Pantallas/SignUpPage.vue';
-import AddPaymentMethodPage from '@/Pantallas/AddPaymentMethodPage.vue';
-import RecoverPasswordPage from '@/Pantallas/RecoverPasswordPage.vue';
-import InvestPage from '@/Pantallas/InvestPage.vue';
-import PaymentMethodsPage from '@/Pantallas/PaymentMethodsPage.vue';
-import MyData from '@/Pantallas/MyData.vue';
+import PantallaInicio from '@/pages/PantallaInicio.vue';
+import PantallaMas from '@/pages/PantallaMas.vue';
+import PantallaIngresar from '@/pages/PantallaIngresar.vue';
+import PantallaMovimientos from '@/pages/PantallaMovimientos.vue';
+import PantallaMedios from '@/pages/PaymentMethodsPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
+import SignInPage from '@/pages/SignInPage.vue';
+import SignUpPage from '@/pages/SignUpPage.vue';
+import AddPaymentMethodPage from '@/pages/AddPaymentMethodPage.vue';
+import RecoverPasswordPage from '@/pages/RecoverPasswordPage.vue';
+import InvestPage from '@/pages/InvestPage.vue';
+import PaymentMethodsPage from '@/pages/PaymentMethodsPage.vue';
+import MyData from '@/pages/MyData.vue';
 
 
 const routes = [

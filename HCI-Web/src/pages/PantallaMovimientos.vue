@@ -3,7 +3,6 @@
   import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
   import BodyGrid from '@/components/BodyGrid.vue';
   import Section from '@/components/Section.vue';
-  import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 
   const sections = [
       {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 

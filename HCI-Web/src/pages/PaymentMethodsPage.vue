@@ -25,21 +25,12 @@ const removePaymentMethod = (id) => {
 const addPaymentMethod = () => {
   router.push('/add-payment-method');
 };
-
-const sections = [
-    {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
-    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
-    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: true, route: "/payment-methods"}, 
-    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
-  ]
-
-
 </script>
 
 
 <template>
   <v-main class="main-container bg-background">
-    <ButtonsNavBar :sections="sections"/>
+    <ButtonsNavBarWithBack link_back="/payment-methods"/>
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
