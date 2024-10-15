@@ -16,15 +16,24 @@
         cvv: (value) => /^\d{3,4}$/.test(value) || 'CVV inválido',
     };
 
+    const step = ref(1);
+
+    const handleNext = () => {
+      step.value = 2; // Cambia a mostrar solo el campo CVV
+      console.log({
+          cardNumber: cardNumber.value,
+          expirationDate: expirationDate.value,
+          cardholderName: cardholderName.value,
+      });
+    };
+
     const handleSubmit = () => {
         console.log('Payment method submitted', {
-            cardNumber: cardNumber.value,
-            expirationDate: expirationDate.value,
             cvv: cvv.value,
-            cardholderName: cardholderName.value,
         });
         router.replace('/payment-methods');
     };
+
 </script>
 
 <template>
@@ -38,10 +47,10 @@
               <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
               
               <v-card class="pa-6 mb-6 card-container" color="error" rounded="lg">
-                <v-form @submit.prevent="handleSubmit">
+                <v-form @submit.prevent="handleNext" v-if="step === 1">
                   <div class="input-container mb-4">
-                    <label class="input-label">Numero de la tarjeta</label>
                     <v-text-field
+                      label="Numero de la tajeta"
                       v-model="cardNumber"
                       variant="outlined"
                       class="input-field"
@@ -52,10 +61,11 @@
                   </div>
                   
                   <v-row>
+                    <v-col cols="6"></v-col>
                     <v-col cols="6">
                       <div class="input-container mb-4">
-                        <label class="input-label">Vencimiento</label>
                         <v-text-field
+                          label="Venvicmiento"
                           v-model="expirationDate"
                           variant="outlined"
                           class="input-field"
@@ -64,11 +74,35 @@
                           hide-details
                         ></v-text-field>
                       </div>
+                    </v-col>                    
+                  </v-row>
+                  <div class="input-container mb-4">
+                    <v-text-field
+                      label="Nombre y Apellido"
+                      v-model="cardholderName"
+                      variant="outlined"
+                      class="input-field"
+                      :rules="[rules.required]"
+                      bg-color="white"
+                      hide-details
+                    ></v-text-field>
+                  </div>
+                </v-form>
+
+                <v-form @submit.prevent="handleSubmit" v-if="step === 2">
+                  <v-row>
+                    <v-col cols="12">
+                      <div class="magnetic-band"></div>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <div></div>
                     </v-col>
                     <v-col cols="6">
                       <div class="input-container mb-4">
-                        <label class="input-label">CVV</label>
                         <v-text-field
+                          label="CVV"
                           v-model="cvv"
                           variant="outlined"
                           class="input-field"
@@ -80,23 +114,11 @@
                       </div>
                     </v-col>
                   </v-row>
-                  
-                  <div class="input-container mb-4">
-                    <label class="input-label">Nombre y apellido</label>
-                    <v-text-field
-                      v-model="cardholderName"
-                      variant="outlined"
-                      class="input-field"
-                      :rules="[rules.required]"
-                      bg-color="white"
-                      hide-details
-                    ></v-text-field>
-                  </div>
                 </v-form>
               </v-card>
               
               <v-btn
-                @click="handleSubmit"
+                @click="handleNext"
                 color="secondary"
                 block
                 size="large"
@@ -129,6 +151,7 @@
   }
   
   .card-container {
+    aspect-ratio: 5/3;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -144,6 +167,13 @@
     font-weight: 500;
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 4px;
+  }
+  
+  .magnetic-band {
+  width: 100%; /* Ancho del rectángulo */
+  height: 70px; /* Alto del rectángulo */
+  background-color: black; /* Color de fondo negro */
+  margin-bottom: 10px;
   }
   
   :deep(.input-field) {
