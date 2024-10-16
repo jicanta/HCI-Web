@@ -141,7 +141,7 @@
                     <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
                   </v-container>
                   <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4">Tus datos</v-btn>
+                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
                   </v-container>
               </v-col>
   	          <v-col cols="auto" class="pl-0" >
@@ -169,6 +169,9 @@
             </v-container>
             <v-container class="card bg-blue-grey-lighten-3 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
+            </v-container>
+            <v-container class="d-flex flex-column justify-end mt-4">
+              <v-btn variant="tonal" class="w-100" @click="goToRoute('/payment-methods')">Ver Todos mis metodos de pago</v-btn>
             </v-container>
           </v-container>
         </Section>
@@ -228,7 +231,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .money-container {

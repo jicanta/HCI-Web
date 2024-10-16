@@ -5,9 +5,13 @@
     const router = useRouter();
 
     const cardNumber = ref('');
-    const expirationDate = ref('');
+    const expirationYear = ref('');
+    const expirationMonth = ref('');
     const cvv = ref('');
     const cardholderName = ref('');
+
+    const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+    const years = ["24","25","26","27","28","29"];
 
     const rules = {
         required: (value) => !!value || 'Campo requerido',
@@ -64,15 +68,26 @@
                     <v-col cols="6"></v-col>
                     <v-col cols="6">
                       <div class="input-container mb-4">
-                        <v-text-field
-                          label="Venvicmiento"
-                          v-model="expirationDate"
+                        <v-combobox
+                          v-model="expirationMonth"
+                          :items="months"
+                          label="Mes"
+                          bg-color="white"
                           variant="outlined"
                           class="input-field"
-                          :rules="[rules.required, rules.expirationDate]"
-                          bg-color="white"
                           hide-details
-                        ></v-text-field>
+                          :rules="[rules.required]"
+                        ></v-combobox>
+                        <v-combobox
+                          v-model="expirationYear"
+                          :items="years"
+                          label="Año"
+                          bg-color="white"
+                          variant="outlined"
+                          class="input-field"
+                          hide-details
+                          :rules="[rules.required]"
+                        ></v-combobox>
                       </div>
                     </v-col>                    
                   </v-row>
@@ -88,33 +103,34 @@
                     ></v-text-field>
                   </div>
                 </v-form>
-
-                <v-form @submit.prevent="handleSubmit" v-if="step === 2">
-                  <v-row>
-                    <v-col cols="12">
-                      <div class="magnetic-band"></div>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="6">
-                      <div></div>
-                    </v-col>
-                    <v-col cols="6">
-                      <div class="input-container mb-4">
-                        <v-text-field
-                          label="CVV"
-                          v-model="cvv"
-                          variant="outlined"
-                          class="input-field"
-                          :rules="[rules.required, rules.cvv]"
-                          type="password"
-                          bg-color="white"
-                          hide-details
-                        ></v-text-field>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-form>
+                <Transition>
+                  <v-form @submit.prevent="handleSubmit" v-if="step === 2">
+                    <v-row>
+                      <v-col cols="12">
+                        <div class="magnetic-band"></div>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="6">
+                        <div></div>
+                      </v-col>
+                      <v-col cols="6">
+                        <div class="input-container mb-4">
+                          <v-text-field
+                            label="CVV"
+                            v-model="cvv"
+                            variant="outlined"
+                            class="input-field"
+                            :rules="[rules.required, rules.cvv]"
+                            type="password"
+                            bg-color="white"
+                            hide-details
+                          ></v-text-field>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+              </Transition>
               </v-card>
               
               <v-btn
@@ -159,7 +175,7 @@
   
   .input-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   
   .input-label {
@@ -206,4 +222,15 @@
     padding-top: 0;
     padding-bottom: 0;
   }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 1s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
+
 </style>
