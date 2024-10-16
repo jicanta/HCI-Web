@@ -30,26 +30,24 @@ onMounted(() => {
 
 </script>
 
-<template>
-  <AppHeaderSecondaryScreen title="Más" />
+<template>ead
+  <ButtonsNavBarWithBack link_back="/"/>
 
   <v-main class="main-container  bg-background">
-    <TopMenu>
-      <v-container class="user-container">
-        <v-icon class="text-colortext mr-2" size="24">mdi-account-circle</v-icon>
-        <p class="text-colortext font-weight-medium">Nombre de usuario</p>
-      </v-container>
-
-      <v-container class="link-container bg-secondary my-4 rounded-lg elevation-1" @click="goToLink">
-        <p class="text-colortext"> Descarga nuestra app </p>
-        <v-icon class="text-colortext mx-2" size="24">mdi-open-in-new</v-icon>
-      </v-container>
-    </TopMenu>
 
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
-          <v-container class="options-container">
+          <h1>Descarga nuestra app!</h1>
+          <v-container class="link-container my-4 rounded-lg elevation-1" @click="goToLink">
+            <p class="text-colortext-black"> Hacé click acá </p>
+            <v-icon class="text-colortext-black mx-2" size="24">mdi-open-in-new</v-icon>
+          </v-container>
+        </Section>
+        <Section class="ma-3">
+          <v-container class="d-flex justify-center flex-column my-4 ">
+            <h1 class="pb-5 d-flex justify-center">Configuración</h1>
+            <v-divider />
             <v-container class="switch-option">
               <!-- Switch para alternar el tema -->
               <v-switch
