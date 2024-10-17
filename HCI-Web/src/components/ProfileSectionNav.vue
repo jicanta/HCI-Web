@@ -1,10 +1,9 @@
 <template>
-    <v-container class="section container rounded bg-tertiary">
+    <v-container class="section container rounded-xl bg-tertiary">
     <v-row>
         <v-col class="pl-5 pa-3 w-100">
             <!-- <v-icon v-if="icon" :class="{'text-secondary': selected}" size="24" class="text-colortext2 mr-2">{{ icon }}</v-icon> -->
-            <h4 class="d-md-flex d-sm-none text-no-wrap text-colortext2 px-0" justify="center">Hola {{ name }}</h4>
-            <h5 class="d-md-flex d-sm-none text-no-wrap text-colortext2 px-0">{{ text }}</h5>
+            <h2 class="d-md-flex justify-center d-sm-none text-no-wrap text-colortext2 px-0" justify="center">FM</h2>
         </v-col>
     </v-row>
 </v-container>
