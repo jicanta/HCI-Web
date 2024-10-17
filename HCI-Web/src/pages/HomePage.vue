@@ -114,20 +114,20 @@
 
 <template>
   <!--<AppHeaderPrimaryScreen />-->
-  <v-main class="main-container bg-background" fluid>
+  <v-main class="bg-background d-flex flex-column" fluid>
     <ButtonsNavBar :sections="sections"/>
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
-          <v-container class="inside-section">
+          <v-container class="d-flex flex-column w-100 h-100">
             <h2 class="text-colortext2">Hola, Nombre de usuario</h2>
             <v-divider class="my-2" />
             <p class="font-weight-light text-colortext2">Dinero disponible</p>
-            <v-container class="money-container">
+            <v-container class="d-flex flex-row align-center pa-0">
               <h1 class="font-weight-bold text-colortext2">
                 {{ showMoney ? '$' + pesos : '*******' }}
               </h1>
-              <v-container class="cents-container">
+              <v-container class="d-flex flex-columns pa-0 ma-0 h-100">
                 <p class="text-colortext2">{{ showMoney ? centavos : '**' }}</p>
               </v-container>
               <v-icon size="32" class="text-colortext2 mr-2" @click="toggleMoneyVisibility">
@@ -135,39 +135,29 @@
               </v-icon>
             </v-container>
             <v-divider class="my-2" />
-            <v-container class="functions-container">
-              <v-col cols="auto" class="pr-0" >
-                  <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
-                  </v-container>
-                  <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
-                  </v-container>
+            <v-container class="d-flex flex-row align-center justify-center">
+              <v-col>
+                    <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
+                    <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
               </v-col>
-  	          <v-col cols="auto" class="pl-0" >
-                  <v-container class="function" >
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
-                  </v-container>
-
-
-                  <v-container class="function">
-                    <v-btn rounded="lg" size="x-large" class=text-capitalize width="200px" append-icon="mdi-history" color="primary" elevation="4" >Link de pago</v-btn>
-                  </v-container>
+  	          <v-col>
+                    <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
+                    <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" >Link de pago</v-btn>
               </v-col>
             </v-container>
             <v-divider class="my-2" />
           </v-container>
         </Section>
         <Section class="ma-3">
-          <v-container class="inside-section">
+          <v-container>
             <p class="font-weight-bold text-colortext2 mb-4">Medios de pago</p>
-            <v-container class="card bg-lime-darken-4 my-1 rounded">
+            <v-container class="bg-lime-darken-4 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
-            <v-container class="card bg-shades-black my-1 rounded">
+            <v-container class="bg-shades-black my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
-            <v-container class="card bg-blue-grey-lighten-3 my-1 rounded">
+            <v-container class="bg-blue-grey-lighten-3 my-1 rounded">
               <p> •••• •••• •••• 4444 </p>
             </v-container>
             <v-container class="d-flex flex-column justify-end mt-4">
@@ -180,18 +170,18 @@
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
 
-          <v-container class="inside-section">
+          <v-container>
             <h2 class="font-weight-bold text-colortext2 mb-4">Este mes</h2>
 
             <h3 class="text-textcolor2 font-weight-light">Categorías</h3>
 
-            <v-chart class="chart mt-8 mb-2 w-100 h-50" :option="chartOption" />
+            <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption"/>
             
             <v-divider class="my-4"/>
             
             <h3 class="text-textcolor2 font-weight-bold mt-2">Movimientos</h3>
 
-            <v-container class="scrollable-container pa-1 h-50 mb-4 mt-0 border rounded">
+            <v-container class="pa-1 mb-4 mt-0 border rounded">
               <!-- Si no hay transacciones este mes -->
               <template v-if="transactionsThisMonth.length === 0">
                 <p class="text-muted text-center">No hay movimientos este mes.</p>
@@ -200,7 +190,7 @@
               <!-- Si hay transacciones-->
               <template v-else>
                 <ListItem
-                  v-for="transaction in transactionsThisMonth"
+                  v-for="transaction in transactionsThisMonth.slice(-3)"
                   :key="transaction.id"
                   :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                   :top="formatTransactionDate(transaction.date)"
@@ -220,57 +210,8 @@
 </template>
 
 <style scoped>
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.inside-section {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-}
-
-.money-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-}
-
-.cents-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 0px;
-  margin: 0px;
-  height: 100%;
-}
-
-.functions-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.function {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.scrollable-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
-
+  .chart{
+    height: 180px;
+  }
 </style>
 
