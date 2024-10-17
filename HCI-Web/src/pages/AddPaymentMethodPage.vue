@@ -41,7 +41,7 @@
 </script>
 
 <template>
-    <v-main class="main-container bg-background" fluid>
+    <v-main class="main-container" fluid>
       <ButtonsNavBarWithBack link_back="/payment-methods"/>
       
       <BodyGrid>
@@ -68,26 +68,25 @@
                     <v-col cols="6"></v-col>
                     <v-col cols="6">
                       <div class="input-container mb-4">
-                        <v-combobox
+                        <vSelect
                           v-model="expirationMonth"
                           :items="months"
-                          label="Mes"
+                          :label="expirationMonth == '' ? 'Mes' : ''"
                           bg-color="white"
-                          variant="outlined"
-                          class="input-field"
+                          
+                          class="input-field pr-1 pt-2 pb-2 rounded-lg"
                           hide-details
                           :rules="[rules.required]"
-                        ></v-combobox>
-                        <v-combobox
+                        ></vSelect>
+                        <vSelect
                           v-model="expirationYear"
                           :items="years"
-                          label="Año"
+                          :label="expirationYear == '' ? 'Año' : ''"
                           bg-color="white"
-                          variant="outlined"
-                          class="input-field"
+                          class="input-field pt-2 pb-2"
                           hide-details
                           :rules="[rules.required]"
-                        ></v-combobox>
+                        ></vSelect>
                       </div>
                     </v-col>                    
                   </v-row>
@@ -110,11 +109,8 @@
                         <div class="magnetic-band"></div>
                       </v-col>
                     </v-row>
-                    <v-row>
-                      <v-col cols="6">
-                        <div></div>
-                      </v-col>
-                      <v-col cols="6">
+                    <v-row class="d-flex justify-end">
+                      <v-col cols="4">
                         <div class="input-container mb-4">
                           <v-text-field
                             label="CVV"

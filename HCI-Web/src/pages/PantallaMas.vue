@@ -6,6 +6,7 @@ import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue'
 import BodyGrid from '@/components/BodyGrid.vue';
 import Section from '@/components/Section.vue';
 import TopMenu from '@/components/TopMenu.vue';
+import VChart from 'vue-echarts';
 
 const goToLink = () => {
   window.open('https://github.com/jicanta/HCI-Web', '_blank'); // Enlace externo

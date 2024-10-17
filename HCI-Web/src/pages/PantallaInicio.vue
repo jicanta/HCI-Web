@@ -211,7 +211,7 @@
               </template>
             </v-container>
 
-
+            <v-btn variant="tonal" class="w-100" @click="goToRoute('/movements')">Ver todos mis movimientos</v-btn>
           </v-container>
         </Section>
       </AppDivision>
