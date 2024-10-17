@@ -135,15 +135,15 @@
               </v-icon>
             </v-container>
             <v-divider class="my-2" />
-            <v-container class="d-flex flex-row align-center justify-center">
-              <v-col>
+            <v-container class="d-flex flex-row align-center justify-center pa-0">
+              <v-container class="w-50 d-flex flex-column align-center justify-center">
                     <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
                     <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
-              </v-col>
-  	          <v-col>
+              </v-container>
+  	          <v-container class="w-50 d-flex flex-column align-center justify-center">
                     <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
                     <v-btn class="text-capitalize ma-4 mx-4" rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" >Link de pago</v-btn>
-              </v-col>
+              </v-container>
             </v-container>
             <v-divider class="my-2" />
           </v-container>
