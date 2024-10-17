@@ -16,15 +16,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-app class="app bg-background">
+  <v-app class="bg-background d-flex flex-row h-screen">
     <router-view />
   </v-app>
 </template>
 
-<style scoped>
-.app {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-}
+<style>
+  * {
+    transition: background-color 0.8s ease, color 0.8s ease;
+  }
 </style>

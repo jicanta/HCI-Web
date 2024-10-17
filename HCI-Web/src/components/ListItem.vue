@@ -8,7 +8,7 @@
             </v-container>
             
             <v-container class="info-container mx-4">
-                <h2 class="text-truncate font-weight-bold">{{title}}</h2>
+                <h2 class="text-truncate font-weight-bold w-50">{{title}}</h2>
                 <p class="text-truncate font-weight-light">{{text}}</p>
             </v-container>
 
