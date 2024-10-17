@@ -54,7 +54,7 @@
                 <v-form @submit.prevent="handleNext" v-if="step === 1">
                   <div class="input-container mb-4">
                     <v-text-field
-                      label="Numero de la tajeta"
+                      placeholder="Numero de la tajeta"
                       v-model="cardNumber"
                       variant="outlined"
                       class="input-field"
@@ -92,7 +92,7 @@
                   </v-row>
                   <div class="input-container mb-4">
                     <v-text-field
-                      label="Nombre y Apellido"
+                      placeholder="Nombre y Apellido"
                       v-model="cardholderName"
                       variant="outlined"
                       class="input-field"
@@ -113,7 +113,7 @@
                       <v-col cols="4">
                         <div class="input-container mb-4">
                           <v-text-field
-                            label="CVV"
+                            placeholder="CVV"
                             v-model="cvv"
                             variant="outlined"
                             class="input-field"
