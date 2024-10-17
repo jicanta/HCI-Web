@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PantallaInicio from '@/pages/PantallaInicio.vue';
-import PantallaMas from '@/pages/PantallaMas.vue';
-import PantallaIngresar from '@/pages/PantallaIngresar.vue';
-import PantallaMovimientos from '@/pages/PantallaMovimientos.vue';
-import PantallaMedios from '@/pages/PaymentMethodsPage.vue';
+import HomePage from '@/pages/HomePage.vue';
+import MorePage from '@/pages/MorePage.vue';
+import DepositPage from '@/pages/DepositPage.vue';
+import ActivityPage from '@/pages/ActivityPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
 import SignInPage from '@/pages/SignInPage.vue';
 import SignUpPage from '@/pages/SignUpPage.vue';
@@ -15,10 +14,10 @@ import MyData from '@/pages/MyData.vue';
 
 
 const routes = [
-  { path: '/', name: 'Inicio', component: PantallaInicio },
-  { path: '/more', name: 'Mas', component: PantallaMas },
-  { path: '/deposit', name: 'Ingresar', component: PantallaIngresar },
-  { path: '/movements', name: 'Movimientos', component: PantallaMovimientos },
+  { path: '/', name: 'Inicio', component: HomePage },
+  { path: '/more', name: 'Mas', component: MorePage },
+  { path: '/deposit', name: 'Ingresar', component: DepositPage },
+  { path: '/movements', name: 'Movimientos', component: ActivityPage },
   { path: '/payment-methods', name: 'Medios de pago', component: PaymentMethodsPage },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
   { path: '/sign-in', name: 'SignIn', component: SignInPage },
