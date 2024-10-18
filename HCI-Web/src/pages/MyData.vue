@@ -1,5 +1,4 @@
 <!--nombre, apellido, dni, num telefono, nombre usuario, contraseña-->
-
 <script setup lang="js">
 
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
@@ -40,7 +39,7 @@ const dataAndName = [
           :propName="dataAndName.name"
           :content="dataAndName.content"
           :editable="dataAndName.editable"
-          class="pa-0"
+          class="pa-0 data-separator"
           />
         </Section>
       </AppDivision>
@@ -75,4 +74,9 @@ const dataAndName = [
   justify-content: flex-start;
 }
 
+.data-separator {
+  border-bottom: 1px solid rgba(255,255,255, 0.5);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
 </style>
