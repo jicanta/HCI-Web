@@ -50,9 +50,16 @@
             <v-container class="inside-section">
               <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
               
-              <v-card class="pa-6 mb-6 card-container" color="error" rounded="lg">
-                <v-form @submit.prevent="handleNext" v-if="step === 1">
-                  <div class="input-container mb-4">
+              <v-card :class="{ 'pt-10': step===2, 'pa-6': step===1 }"
+              class="mb-6 card-container" color="error" rounded="lg">
+                <v-form class="d-flex flex-column justify-between" @submit.prevent="handleNext" v-if="step === 1">
+                  <v-img
+                  class="pa-0 ma-0"
+                  width="50"
+                  height="55"
+                  src="@/assets/smart_chip.png"
+                ></v-img>
+                  <div class="input-container mb-4 mt-3 pt-5">
                     <v-text-field
                       placeholder="Numero de la tajeta"
                       v-model="cardNumber"
@@ -61,36 +68,49 @@
                       :rules="[rules.required, rules.cardNumber]"
                       bg-color="white"
                       hide-details
+                      density="compact"
+                      clearable
                     ></v-text-field>
                   </div>
                   
-                  <v-row>
-                    <v-col cols="6"></v-col>
-                    <v-col cols="6">
+                  <v-row class="d-flex justify-end pt-12">
+                    <v-col cols="7">
+                      <v-text-field
+                      placeholder="Nombre y Apellido"
+                      v-model="cardholderName"
+                      variant="outlined"
+                      class="input-field pt-2"
+                      :rules="[rules.required]"
+                      bg-color="white"
+                      hide-details
+                      density="compact"
+                      clearable
+                    ></v-text-field>
+                    </v-col>
+                    <v-col cols="5">
                       <div class="input-container mb-4">
-                        <vSelect
+                        <v-select
                           v-model="expirationMonth"
                           :items="months"
                           :label="expirationMonth == '' ? 'Mes' : ''"
                           bg-color="white"
-                          
-                          class="input-field pr-1 pt-2 pb-2 rounded-lg"
-                          hide-details
+                          density="compact"
+                          class= "pr-1 pt-2 pb-1"
                           :rules="[rules.required]"
-                        ></vSelect>
-                        <vSelect
+                        ></v-select>
+                        <v-select
                           v-model="expirationYear"
-                          :items="years"
+                          :items= "years"
                           :label="expirationYear == '' ? 'Año' : ''"
                           bg-color="white"
-                          class="input-field pt-2 pb-2"
-                          hide-details
+                          density="compact"
+                          class= "pr-1 pt-2 pb-1"
                           :rules="[rules.required]"
-                        ></vSelect>
+                        ></v-select>
                       </div>
                     </v-col>                    
                   </v-row>
-                  <div class="input-container mb-4">
+                  <!--<div class="input-container mb-4">
                     <v-text-field
                       placeholder="Nombre y Apellido"
                       v-model="cardholderName"
@@ -99,8 +119,11 @@
                       :rules="[rules.required]"
                       bg-color="white"
                       hide-details
+                      density="compact"
+                      clearable
                     ></v-text-field>
                   </div>
+                -->
                 </v-form>
                 <Transition>
                   <v-form @submit.prevent="handleSubmit" v-if="step === 2">
@@ -110,17 +133,18 @@
                       </v-col>
                     </v-row>
                     <v-row class="d-flex justify-end">
-                      <v-col cols="4">
+                      <v-col cols="3">
                         <div class="input-container mb-4">
                           <v-text-field
                             placeholder="CVV"
                             v-model="cvv"
                             variant="outlined"
-                            class="input-field"
+                            class="input-field pr-6 pt-2"
                             :rules="[rules.required, rules.cvv]"
                             type="password"
                             bg-color="white"
                             hide-details
+                            density="compact"
                           ></v-text-field>
                         </div>
                       </v-col>
@@ -167,6 +191,23 @@
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    display:flex;
+    flex-direction: column;
+  }
+
+
+  .card-sensor {
+    width: 50px;
+    height: 55px;
+    background-color: yellowgreen;
+    padding-bottom: 3px;
+    border-radius: 4px;
+  }
+
+  .input-selector{
+    max-width: 50%;
+   /* border: 2px solid #000; 
+    border-radius: 4px; */
   }
   
   .input-container {
@@ -183,7 +224,7 @@
   
   .magnetic-band {
   width: 100%; /* Ancho del rectángulo */
-  height: 70px; /* Alto del rectángulo */
+  height: 65px; /* Alto del rectángulo */
   background-color: black; /* Color de fondo negro */
   margin-bottom: 10px;
   }
