@@ -161,7 +161,7 @@
               <p> •••• •••• •••• 4444 </p>
             </v-container>
             <v-container class="d-flex flex-column justify-end mt-4">
-              <v-btn variant="tonal" class="w-100" @click="goToRoute('/payment-methods')">Ver Todos mis metodos de pago</v-btn>
+              <v-btn variant="tonal" class="w-100" @click="goToRoute('/payment-methods')">Ver Todos mis medios de pago</v-btn>
             </v-container>
           </v-container>
         </Section>
