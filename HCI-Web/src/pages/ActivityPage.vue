@@ -70,15 +70,6 @@
   <v-main class="bg-background d-flex flex-column align-center w-100" fluid>
     <ButtonsNavBar :sections="sections" />
     <BodyGrid>
-      <v-container fluid>
-      <v-btn
-        color="secondary"
-        icon="mdi-arrow-left"
-        class="top-left-button"
-        @click="handleClick"
-        >
-      </v-btn>
-    </v-container>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="list d-flex flex-column justify-start h-100 ma-3">
           <ListItem
@@ -128,10 +119,4 @@
     background-color: #aaa;
   }
 
-  .top-left-button {
-  position: fixed; 
-  top: 150px; 
-  left: 55px; 
-  z-index: 100; 
-}
   </style>

@@ -1,8 +1,19 @@
 <template>
+    <v-container fluid>
+      <v-btn
+        color="secondary"
+        icon="mdi-arrow-left"
+        class="top-left-button"
+        @click="handleClick"
+        >
+      </v-btn>
+    </v-container>
     <v-container class="buttons-nav-bar bg-primary px-4 py-1" fluid>
 
       <v-container class="left-container">
-          <v-icon icon="mdi-arrow-left" @click="goToRoute(link_back)" class="rounded-circle bg-tertiary"/>
+        <a href="/">
+          <h1 class="font-weight-bold text-colortext"> Logo </h1>
+        </a>
       </v-container>
 
       <v-container class="center-container">
@@ -109,5 +120,12 @@
     display: flex;
     flex-direction: row;
   }
+
+  .top-left-button {
+  position: fixed; 
+  top: 150px; 
+  left: 55px; 
+  z-index: 100; 
+}
 </style>
   
