@@ -1,0 +1,4 @@
+[build]
+  base = "HCI-Web"
+  publish = "dist"
+  command = "npm run build"
