@@ -26,11 +26,11 @@
             class="profile-rounded"/>
           </template>
           <SectionNav 
-          v-for="profile in profileOptions"
-          :selected="profile.selected"
-          :icon="profile.icon"
-          :text="profile.text"
-          @click="goToRoute(profile.route)"
+          v-for="option in profileOptions"
+          :selected="option.selected"
+          :icon="option.icon"
+          :text="option.text"
+          @click="goToRoute(option.route)"
           class="my-1"
           />
         </v-menu>
