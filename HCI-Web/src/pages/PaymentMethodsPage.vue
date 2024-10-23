@@ -1,25 +1,17 @@
 <script setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
 import BodyGrid from '@/components/BodyGrid.vue';
 import AppDivision from '@/components/AppDivision.vue';
 import Section from '@/components/Section.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 
 const router = useRouter();
-
-const paymentMethods = ref([
-  { id: 1, type: 'Visa', lastFour: '4444', color: 'green darken-3' },
-  { id: 2, type: 'Mastercard', lastFour: '5555', color: 'orange darken-3' },
-  { id: 3, type: 'American Express', lastFour: '1234', color: 'blue-grey darken-3' },
-]);
+const paymentMethodsStore = usePaymentMethodsStore();
 
 const removePaymentMethod = (id) => {
-  const index = paymentMethods.value.findIndex(method => method.id === id);
-  if (index !== -1) {
-    paymentMethods.value.splice(index, 1);
-  }
+  paymentMethodsStore.removePaymentMethod(id);
 };
 
 const addPaymentMethod = () => {
@@ -27,12 +19,11 @@ const addPaymentMethod = () => {
 };
 
 const sections = [
-    {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
-    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
-    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: true, route: "/payment-methods"}, 
-    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
-  ]
-
+  {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
+  {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
+  {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: true, route: "/payment-methods"}, 
+  {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
+]
 </script>
 
 
@@ -46,7 +37,7 @@ const sections = [
           <v-container class="inside-section">
             <h2 class="text-h5 mb-4">Tus Medios de Pago</h2>
             <v-list>
-              <v-list-item v-for="card in paymentMethods" :key="card.id" class="mb-2">
+              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class="mb-2">
                 <v-card width="100%" :color="card.color" dark>
                   <v-card-text class="d-flex justify-space-between align-center">
                     <div>

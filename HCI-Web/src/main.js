@@ -10,11 +10,15 @@ import { createApp } from 'vue';
 // Router
 import router from './router';
 
-const app = createApp(App);
+// Pinia
+import { createPinia } from 'pinia';
 
+const app = createApp(App);
+const pinia = createPinia();
 // Registra plugins (Vuetify, etc.)
 registerPlugins(app);
 
 app.use(router);
+app.use(pinia);
 
 app.mount('#app');

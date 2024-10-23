@@ -1,8 +1,10 @@
 <script setup>
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
+    import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 
     const router = useRouter();
+    const paymentMethodsStore = usePaymentMethodsStore();
 
     const cardNumber = ref('');
     const expirationYear = ref('');
@@ -23,21 +25,36 @@
     const step = ref(1);
 
     const handleNext = () => {
-      step.value = 2; // Cambia a mostrar solo el campo CVV
-      console.log({
-          cardNumber: cardNumber.value,
-          expirationDate: expirationDate.value,
-          cardholderName: cardholderName.value,
-      });
+      step.value = 2;
     };
 
     const handleSubmit = () => {
-        console.log('Payment method submitted', {
-            cvv: cvv.value,
-        });
+        const newPaymentMethod = {
+            type: getCardType(cardNumber.value),
+            lastFour: cardNumber.value.slice(-4),
+            color: getCardColor(getCardType(cardNumber.value))
+        };
+        paymentMethodsStore.addPaymentMethod(newPaymentMethod);
         router.replace('/payment-methods');
     };
 
+    function getCardType(cardNumber) {
+        // Implement logic to determine card type based on number
+        // This is a simplified example
+        if (cardNumber.startsWith('4')) return 'Visa';
+        if (cardNumber.startsWith('5')) return 'Mastercard';
+        if (cardNumber.startsWith('3')) return 'American Express';
+        return 'Unknown';
+    }
+
+    function getCardColor(cardType) {
+        switch (cardType) {
+            case 'Visa': return 'green darken-3';
+            case 'Mastercard': return 'orange darken-3';
+            case 'American Express': return 'blue-grey darken-3';
+            default: return 'grey darken-3';
+        }
+    }
 </script>
 
 <template>
@@ -271,3 +288,4 @@
   }
 
 </style>
+
