@@ -68,64 +68,87 @@
               <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
               
               <v-card :class="{ 'pt-10': step===2, 'pa-6': step===1 }"
-              class="mb-6 card-container" color="error" rounded="lg">
+              class="mb-6 card-container" color="primary" rounded="lg">
                 <v-form class="d-flex flex-column justify-between" @submit.prevent="handleNext" v-if="step === 1">
                   <v-img
-                  class="pa-0 ma-0"
-                  width="50"
-                  height="55"
+                  width="130"
                   src="@/assets/smart_chip.png"
-                ></v-img>
-                  <div class="input-container mb-4 mt-3 pt-5">
+                  ></v-img>
+                  <div class="input-container mb-4 mt-3 ">
                     <v-text-field
                       placeholder="Numero de la tajeta"
                       v-model="cardNumber"
                       variant="outlined"
                       class="input-field"
                       :rules="[rules.required, rules.cardNumber]"
-                      bg-color="white"
+                      bg-color= "rgba(255, 255, 255, 0.5)"
                       hide-details
                       density="compact"
                       clearable
                     ></v-text-field>
                   </div>
-                  
-                  <v-row class="d-flex justify-end pt-12">
-                    <v-col cols="7">
+                  <v-row>
+                    <v-col></v-col>
+                    <v-col cols="3">
+                        <v-select
+                          placeholder="mes"
+                          v-model="expirationMonth"
+                          :items="months"
+                          variant="outlined"
+                          class="input-field pr-1 pt-2"
+                          :rules="[rules.required]"
+                          bg-color= "rgba(255, 255, 255, 0.5)"
+                          hide-details
+                          density="compact"
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-select
+                          placeholder="mes"
+                          v-model="expirationYear"
+                          :items="years"
+                          variant="outlined"
+                          class="input-field pr-1 pt-2"
+                          :rules="[rules.required]"
+                          bg-color= "rgba(255, 255, 255, 0.5)"
+                          hide-details
+                          density="compact"
+                        ></v-select>
+                    </v-col>      
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
                       <v-text-field
                       placeholder="Nombre y Apellido"
                       v-model="cardholderName"
                       variant="outlined"
-                      class="input-field pt-2"
+                      class="input-field"
                       :rules="[rules.required]"
-                      bg-color="white"
+                      bg-color= "rgba(255, 255, 255, 0.5)"
                       hide-details
                       density="compact"
                       clearable
-                    ></v-text-field>
+                      ></v-text-field>
                     </v-col>
-                    <v-col cols="5">
-                      <div class="input-container mb-4">
-                        <v-select
-                          v-model="expirationMonth"
-                          :items="months"
-                          :label="expirationMonth == '' ? 'Mes' : ''"
-                          bg-color="white"
-                          density="compact"
-                          class= "pr-1 pt-2 pb-1"
-                          :rules="[rules.required]"
-                        ></v-select>
-                        <v-select
-                          v-model="expirationYear"
-                          :items= "years"
-                          :label="expirationYear == '' ? 'Año' : ''"
-                          bg-color="white"
-                          density="compact"
-                          class= "pr-1 pt-2 pb-1"
-                          :rules="[rules.required]"
-                        ></v-select>
+                    <v-col cols="6">
+                      <div class="d-flex justify-end"> 
+                        <v-img
+                          v-if="getCardType(cardNumber) == 'Mastercard'" 
+                          height="80"
+                          src="@/assets/master_logo.png"
+                        ></v-img>
+                        <v-img
+                          v-if="getCardType(cardNumber)== 'Visa'" 
+                          height="40"
+                          src="@/assets/visa_logo.png"
+                        ></v-img>
+                        <v-img
+                          v-if="getCardType(cardNumber) == 'American Express'" 
+                          height="60"
+                          src="@/assets/amex_logo.png"
+                        ></v-img>
                       </div>
-                    </v-col>                    
+                    </v-col>
                   </v-row>
                   <!--<div class="input-container mb-4">
                     <v-text-field
@@ -159,7 +182,7 @@
                             class="input-field pr-6 pt-2"
                             :rules="[rules.required, rules.cvv]"
                             type="password"
-                            bg-color="white"
+                            bg-color= "rgba(255, 255, 255, 0.5)"
                             hide-details
                             density="compact"
                           ></v-text-field>
@@ -212,6 +235,9 @@
     flex-direction: column;
   }
 
+  .right-align {
+    
+}
 
   .card-sensor {
     width: 50px;
@@ -253,6 +279,7 @@
     .v-field__outline__notch::after {
       opacity: 0.7;
       border-color: rgba(0, 0, 0, 0.38) !important;
+      background-color: rgba(255, 255, 255, 0.5);
     }
   
     .v-field__input {
