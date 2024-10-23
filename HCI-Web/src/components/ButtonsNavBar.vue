@@ -23,7 +23,7 @@
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
             <ProfileSectionNav v-bind="props"
-            class="profile-rounded"/>
+            class="align-center justify-center display-flex flex-row" style="height: 50px; width: 50px;"/>
           </template>
           <SectionNav 
           v-for="option in profileOptions"
@@ -98,14 +98,6 @@
     height: 100%;
     width: 12.5%;
 
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-  }
-  .profile-rounded{
-    height: 50px;
-    width: 50px;
     align-items: center;
     justify-content: center;
     display: flex;
