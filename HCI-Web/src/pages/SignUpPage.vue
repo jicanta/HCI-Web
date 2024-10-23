@@ -130,15 +130,15 @@ const handleSubmit = async () => {
   gap: 0.75rem;
 }
 
-:deep(.v-text-field .v-input__details) {
+.v-text-field .v-input__details {
   display: none;
 }
 
-:deep(.v-text-field) {
+.v-text-field {
   margin-bottom: 0.5rem;
 }
 
-:deep(.v-btn) {
+.v-btn {
   text-transform: none;
   font-weight: 500;
 }
