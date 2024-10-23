@@ -36,7 +36,7 @@
               :nudge-width="200"
               offset-y
             >
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ props }">
                 <v-text-field
                   v-model="confirmPassword"
                   label="Confirmar contraseña"
@@ -45,8 +45,7 @@
                   :append-inner-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append-inner="showConfirmPassword = !showConfirmPassword"
                   density="compact"
-                  v-bind="attrs"
-                  v-on="on"
+                  v-bind="props"
                 ></v-text-field>
               </template>
               <v-card v-if="showPasswordMismatch" color="error" class="pa-2">
@@ -131,15 +130,15 @@ const handleSubmit = async () => {
   gap: 0.75rem;
 }
 
-:deep(.v-text-field .v-input__details) {
+.v-text-field .v-input__details {
   display: none;
 }
 
-:deep(.v-text-field) {
+.v-text-field {
   margin-bottom: 0.5rem;
 }
 
-:deep(.v-btn) {
+.v-btn {
   text-transform: none;
   font-weight: 500;
 }

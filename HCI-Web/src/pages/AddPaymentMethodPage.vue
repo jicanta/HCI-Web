@@ -210,7 +210,7 @@
 </template>
   
   
-<style scoped>
+ <style>
   .main-container {
     display: flex;
     flex-direction: column;
@@ -235,43 +235,38 @@
     flex-direction: column;
   }
 
-  .right-align {
-    
+
+.card-sensor {
+  width: 50px;
+  height: 55px;
+  background-color: yellowgreen;
+  padding-bottom: 3px;
+  border-radius: 4px;
 }
 
-  .card-sensor {
-    width: 50px;
-    height: 55px;
-    background-color: yellowgreen;
-    padding-bottom: 3px;
-    border-radius: 4px;
-  }
+.input-selector {
+  max-width: 50%;
+}
 
-  .input-selector{
-    max-width: 50%;
-   /* border: 2px solid #000; 
-    border-radius: 4px; */
-  }
-  
-  .input-container {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .input-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.6);
-    margin-bottom: 4px;
-  }
-  
-  .magnetic-band {
-  width: 100%; /* Ancho del rectángulo */
-  height: 65px; /* Alto del rectángulo */
-  background-color: black; /* Color de fondo negro */
+.input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
+}
+
+.magnetic-band {
+  width: 100%;
+  height: 65px;
+  background-color: black;
   margin-bottom: 10px;
   }
-  
+
   :deep(.input-field) {
     .v-field__outline__start,
     .v-field__outline__end,
@@ -279,7 +274,6 @@
     .v-field__outline__notch::after {
       opacity: 0.7;
       border-color: rgba(0, 0, 0, 0.38) !important;
-      background-color: rgba(255, 255, 255, 0.5);
     }
   
     .v-field__input {
@@ -304,15 +298,14 @@
     padding-bottom: 0;
   }
 
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 1s ease;
-  }
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1s ease;
+}
 
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>
 

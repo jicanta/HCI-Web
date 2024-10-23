@@ -110,16 +110,16 @@ const copyToClipboard = async () => {
   </v-main>
 </template>
 
-<style scoped>
-:deep(.v-field__outline__start) {
-  border-radius: 8px 0 0 8px !important;
+<style>
+.v-field__outline__start {
+  border-radius: 8px 0 0 8px;
 }
 
-:deep(.v-field__outline__end) {
-  border-radius: 0 8px 8px 0 !important;
+.v-field__outline__end {
+  border-radius: 0 8px 8px 0;
 }
 
-:deep(.v-btn) {
+.v-btn {
   text-transform: none;
   font-weight: bold;
   font-size: 1rem;

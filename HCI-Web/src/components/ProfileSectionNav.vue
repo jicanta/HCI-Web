@@ -3,7 +3,7 @@
     <v-row>
         <v-col class="pl-5 pa-3 w-100">
             <!-- <v-icon v-if="icon" :class="{'text-secondary': selected}" size="24" class="text-colortext2 mr-2">{{ icon }}</v-icon> -->
-            <h2 class="d-md-flex justify-center d-sm-none text-no-wrap text-colortext2 px-0" justify="center">FM</h2>
+            <h2 class="d-md-flex d-sm-none text-no-wrap text-colortext2 px-0 font-weight-regular" justify="center">FM</h2>
         </v-col>
     </v-row>
 </v-container>

@@ -11,6 +11,7 @@ import RecoverPasswordPage from '@/pages/RecoverPasswordPage.vue';
 import InvestPage from '@/pages/InvestPage.vue';
 import PaymentMethodsPage from '@/pages/PaymentMethodsPage.vue';
 import MyData from '@/pages/MyData.vue';
+import PaymentPage from '@/pages/PaymentPage.vue';
 
 
 const routes = [
@@ -24,8 +25,9 @@ const routes = [
   { path: '/sign-up', name: 'SignUp', component: SignUpPage },
   { path: '/add-payment-method', name: 'AddPaymentMethod', component: AddPaymentMethodPage},
   { path: '/recover-password', name: 'RecoverPassword', component: RecoverPasswordPage},
-  { path: '/invest', name: 'Invest', component: InvestPage},
-  { path: '/mydata', name: 'My Data', component: MyData}
+  { path: '/invest', name: 'Invest', component: InvestPage },
+  { path: '/mydata', name: 'My Data', component: MyData },
+  { path: '/pay', name: 'Pay', component: PaymentPage }
 ];
 
 const router = createRouter({

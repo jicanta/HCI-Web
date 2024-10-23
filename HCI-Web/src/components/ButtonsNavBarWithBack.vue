@@ -82,56 +82,56 @@
   };
 </script>
   
-<style scoped>
-  .buttons-nav-bar {
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    position: fixed;
-    z-index: 100;
-  }
-  .left-container{
-    height: 100%;
-    width: 12.5%;
+<style>
+.buttons-nav-bar {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  z-index: 100;
+}
 
-    align-items: center;
-    justify-content: left;
-    display: flex;
-    flex-direction: row;
-  }
-  .center-container{
-    height: 100%;
-    width: 75%;
+.left-container {
+  height: 100%;
+  width: 12.5%;
+  align-items: center;
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+}
 
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
-    flex-direction: row;
-  }
-  .right-container{
-    height: 100%;
-    width: 12.5%;
+.center-container {
+  height: 100%;
+  width: 75%;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+}
 
-    align-items: center;
-    justify-content: right;
-    display: flex;
-    flex-direction: row;
-  }
-  .profile-rounded{
-    height: 50px;
-    width: 50px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-  }
+.right-container {
+  height: 100%;
+  width: 12.5%;
+  align-items: center;
+  justify-content: right;
+  display: flex;
+  flex-direction: row;
+}
 
-  .top-left-button {
-  position: fixed; 
-  top: 150px; 
-  left: 55px; 
-  z-index: 100; 
+.profile-rounded {
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.top-left-button {
+  position: fixed;
+  top: 150px;
+  left: 55px;
+  z-index: 100;
 }
 </style>
-  
