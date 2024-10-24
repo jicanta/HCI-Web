@@ -159,119 +159,120 @@
     };
 </script>
 
+
 <template>
-  <v-main class="main-container" fluid>
-    <ButtonsNavBarWithBack/>
-    
-    <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
-        <Section class="ma-3">
-          <v-container class="inside-section">
-            <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
-            
-            <div class="card-container mb-6">
-              <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
-                <v-card rounded="lg" class="card-face card-front">
-                  <v-form ref="form" class="d-flex flex-column justify-center align-center h-100">
-                    <v-container class="w-100 h-25 pa-0 h-25">
-                      <v-img
-                        width="100"
-                        src="@/assets/smart-chip.png"
-                      />
-                    </v-container>
-                    <v-container class="py-2 w-100 h-25">
-                        <v-text-field
-                          rounded="sm"
-                          placeholder="Numero de la tajeta"
-                          v-model="formattedCardNumber"
-                          variant="outlined"
-                          class="input-field"
-                          :rules="[rules.required, rules.cardNumber]"
-                          bg-color="white"
-                          density="compact"
-                          clearable
-                          @input="updateCardNumber"
-                          maxlength="19"
-                        />
-                    </v-container>
-                    
-                    <v-container class="d-flex flex-row justify-center align-center py-0 px-1 w-100 h-25">
-                        <v-col cols="6" class="d-flex flex-column justify-start">
-                          <v-text-field
-                            rounded="sm"
-                            placeholder="Nombre y Apellido"
-                            v-model="formattedCardholderName"
-                            variant="outlined"
-                            :rules="[rules.required, rules.cardholderName]"
-                            bg-color="white"
-                            hide-details
-                            density="compact"
-                            clearable
-                            @keypress="onlyText"
-                          />
-                        </v-col>
-                        <v-col cols="3">
-                          <v-select
-                            rounded="sm"
-                            v-model="expirationMonth"
-                            :items="months"
-                            label="Mes"
-                            bg-color="white"
-                            hide-details
-                            density="compact"
-                            :rules="[rules.required]"
-                          />
-                        </v-col>
-                        <v-col cols="3">
-                          <v-select
-                            rounded="sm"
-                            v-model="expirationYear"
-                            :items="years"
-                            label="Años"
-                            bg-color="white"
-                            hide-details
-                            density="compact"
-                            :rules="[rules.required]"
-                          />
-                        </v-col>
-                    </v-container>
-
-                    <div class="d-flex flex-row justify-end w-100 h-25">
-                      <v-img
-                        v-if="cardNumber.length > 0"
-                        :src="cardLogo"
-                        max-width="60"
-                        contain
-                        class="card-logo"
-                      ></v-img>
-                    </div>
-                  </v-form>
-                </v-card>
-                <v-card rounded="lg" class="card-face card-back">
-                  <div class="card-content">
-                    <div class="cvv-strip"></div>
-                    <div class="cvv-container">
-                      <v-text-field
-                        placeholder="CVV"
-                        v-model="cvv"
-                        variant="outlined"
-                        class="cvv-input"
-                        :rules="[rules.required, rules.cvv]"
-                        bg-color="white"
-                        hide-details
-                        density="compact"
-                        type="password"
-                        inputmode="numeric"
-                        maxlength="3"
-                        @input="validateCVV"
-                      ></v-text-field>
-                    </div>
+    <v-main class="main-container" fluid>
+      <ButtonsNavBarWithBack link_back="/payment-methods"/>
+      
+      <BodyGrid>
+        <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
+          <Section class="ma-3">
+            <v-container class="inside-section">
+              <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
+              
+              <v-card :class="['card-wrapper', { 'is-flipped': showBack }]" color="primary" rounded="lg">
+                <div class="card-front">
+                <v-form class="d-flex flex-column justify-between" @submit.prevent="handleNext" v-if="step === 1">
+                  <v-img
+                  width="130"
+                  :src="smartChip"
+                  ></v-img>
+                  <div class="input-container mb-4 mt-3 ">
+                    <v-text-field
+                      placeholder="Numero de la tajeta"
+                      v-model="cardNumber"
+                      variant="outlined"
+                      class="input-field"
+                      :rules="[rules.required, rules.cardNumber]"
+                      bg-color= "rgba(255, 255, 255, 0.5)"
+                      hide-details
+                      density="compact"
+                      clearable
+                    ></v-text-field>
                   </div>
-                </v-card>
-              </div>
-            </div>
-
-            <v-btn
+                  <v-row>
+                    <v-col></v-col>
+                    <v-col cols="3">
+                        <v-select
+                          placeholder="mes"
+                          v-model="expirationMonth"
+                          :items="months"
+                          variant="outlined"
+                          class="input-field pr-1 pt-2"
+                          :rules="[rules.required]"
+                          bg-color= "rgba(255, 255, 255, 0.5)"
+                          hide-details
+                          density="compact"
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-select
+                          placeholder="mes"
+                          v-model="expirationYear"
+                          :items="years"
+                          variant="outlined"
+                          class="input-field pr-1 pt-2"
+                          :rules="[rules.required]"
+                          bg-color= "rgba(255, 255, 255, 0.5)"
+                          hide-details
+                          density="compact"
+                        ></v-select>
+                    </v-col>      
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field
+                      placeholder="Nombre y Apellido"
+                      v-model="cardholderName"
+                      variant="outlined"
+                      class="input-field"
+                      :rules="[rules.required]"
+                      bg-color= "rgba(255, 255, 255, 0.5)"
+                      hide-details
+                      density="compact"
+                      clearable
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6" class="d-flex justify-end aligned-right">
+                        <v-img
+                          height="80"
+                          :src="cardLogo"
+                        ></v-img>
+                    </v-col>
+                  </v-row>
+                </v-form>
+                </div>
+                <Transition>
+                  <div class="card-back">
+                  <v-form @submit.prevent="handleSubmit" v-if="step === 2">
+                    <v-row>
+                      <v-col cols="12">
+                        <div class="magnetic-band"></div>
+                      </v-col>
+                    </v-row>
+                    <v-row class="d-flex justify-end">
+                      <v-col cols="3">
+                        <div class="input-container mb-4">
+                          <v-text-field
+                            placeholder="CVV"
+                            v-model="cvv"
+                            variant="outlined"
+                            class="input-field pr-6 pt-2"
+                            :rules="[rules.required, rules.cvv]"
+                            type="password"
+                            bg-color= "rgba(255, 255, 255, 0.5)"
+                            hide-details
+                            density="compact"
+                          ></v-text-field>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </div>
+              </Transition>
+              </v-card>
+              
+              <v-btn
               @click="handleNext"
               color="secondary"
               block
@@ -281,11 +282,11 @@
             >
               {{ showBack ? 'Confirmar' : 'Siguiente' }}
             </v-btn>
-          </v-container>
-        </Section>
-      </AppDivision>
-    </BodyGrid>
-  </v-main>
+            </v-container>
+          </Section>
+        </AppDivision>
+      </BodyGrid>
+    </v-main>
 </template>
   
   
@@ -297,23 +298,25 @@
   width: 100%;
 }
 
-.inside-section {
+  
+  .inside-section {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
   align-items: stretch;
 }
+  
+  .card-container {
+    aspect-ratio: 5/3;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display:flex;
+    flex-direction: column;
+  }
 
-.card-container {
-  perspective: 1000px;
-  width: 100%;
-  max-width: 450px;
-  height: 250px;
-  margin: 0 auto;
-}
-
-.card-wrapper {
+  .card-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
@@ -395,8 +398,80 @@
   max-height: 100%;
   object-fit: contain;
 }
+
+  .card-sensor {
+    width: 50px;
+    height: 55px;
+    background-color: yellowgreen;
+    padding-bottom: 3px;
+    border-radius: 4px;
+  }
+
+  .input-selector{
+    max-width: 50%;
+   /* border: 2px solid #000; 
+    border-radius: 4px; */
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .input-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 4px;
+  }
+  
+  .magnetic-band {
+  width: 100%; /* Ancho del rectángulo */
+  height: 65px; /* Alto del rectángulo */
+  background-color: black; /* Color de fondo negro */
+  margin-bottom: 10px;
+  }
+  
+  :deep(.input-field) {
+    .v-field__outline__start,
+    .v-field__outline__end,
+    .v-field__outline__notch::before,
+    .v-field__outline__notch::after {
+      opacity: 0.7;
+      border-color: rgba(0, 0, 0, 0.38) !important;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  
+    .v-field__input {
+      color: black !important;
+      font-size: 16px;
+      padding-top: 0;
+    }
+  
+    &.v-text-field--focused {
+      .v-field__outline__start,
+      .v-field__outline__end,
+      .v-field__outline__notch::before,
+      .v-field__outline__notch::after {
+        border-color: black !important;
+        opacity: 1;
+      }
+    }
+  }
+  
+  :deep(.v-col) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 1s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
+
 </style>
-
-
-
-
