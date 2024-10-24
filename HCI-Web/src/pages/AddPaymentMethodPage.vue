@@ -8,7 +8,7 @@
     import mastercardLogo from '@/assets/mastercard-logo.png';
     import amexLogo from '@/assets/amex-logo.png';
     import smartChip from '@/assets/smart-chip.png';
-import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+    import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 
     const router = useRouter();
     const paymentMethodsStore = usePaymentMethodsStore();
@@ -55,6 +55,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
           showBack.value = true;
         }
       } else {
+        handleSubmit();
         console.log('Form submitted');
       }
     };
@@ -76,16 +77,16 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
         else if (cardNumber.startsWith('5')) type = 'Mastercard';
         else type = 'Unknown';
         
-        console.log('Card Type:', type); // Debugging log
+        console.log('Card Type:', type);
         return type;
     }
 
     function getCardColor(cardType) {
         switch (cardType) {
-            case 'Visa': return 'green darken-3';
-            case 'Mastercard': return 'orange darken-3';
-            case 'American Express': return 'blue-grey darken-3';
-            default: return 'grey darken-3';
+            case 'Visa': return 'visa-card';
+            case 'Mastercard': return 'master-card';
+            case 'American Express': return 'american-card';
+            default: return 'defaulty-card';
         }
     }
 
