@@ -1,14 +1,7 @@
 <template>
-    <v-container class="section container rounded-xl bg-tertiary">
-    <v-row>
-        <v-col class="pl-5 pa-3 w-100">
-            <!-- <v-icon v-if="icon" :class="{'text-secondary': selected}" size="24" class="text-colortext2 mr-2">{{ icon }}</v-icon> -->
-            <h2 class="d-md-flex d-sm-none text-no-wrap text-colortext2 px-0 font-weight-regular" justify="center">FM</h2>
-        </v-col>
-    </v-row>
-</v-container>
-
-
+    <v-container class="rounded-circle bg-tertiary d-flex align-center justify-center cursor-pointer">
+        <h2 class="font-weight-regular text-textcolor"> FM </h2>
+    </v-container>
 </template>
 
 <script setup>
@@ -29,35 +22,5 @@
 </script>
 
 <style scoped>
-    .container {
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        padding: 0px;
-
-    }
-    .section {
-        align-items: center;
-        justify-content: flex-start;
-        display: flex;
-        flex-direction: row;
-        box-shadow: inset 0px 4px 2px rgba(0, 0, 0, 0.1), 
-        inset 0px 0px 0px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .section:hover {
-        box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.2), 
-        inset -4px -4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .section:active {
-        box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 
-        inset -2px -2px 4px rgba(0, 0, 0, 0.2);
-        background-color: rgba(0, 0, 0, 0.05);
-    }
 
 </style>
