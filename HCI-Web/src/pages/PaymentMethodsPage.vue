@@ -6,6 +6,7 @@ import AppDivision from '@/components/AppDivision.vue';
 import Section from '@/components/Section.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
+import { ref } from 'vue';
 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
@@ -24,6 +25,7 @@ const sections = [
   {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: true, route: "/payment-methods"}, 
   {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
 ]
+const editState = ref(false);
 </script>
 
 
@@ -35,7 +37,21 @@ const sections = [
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h2 class="text-h5 mb-4">Tus Medios de Pago</h2>
+            <V-row>
+              <v-col cols="7">
+                <h2 class="text-h5 mb-4">Tus Medios de Pago</h2>
+              </v-col>
+              <v-col cols="5">
+                <div class="d-flex justify-end">
+                  <v-btn 
+                    class="rounded-xl"
+                    @click="editState = !editState"
+                  >
+                  {{ editState ? 'Cancelar' : 'Editar' }}
+                  </v-btn>          
+                </div>
+              </v-col>            
+            </V-row>
             <v-list>
               <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class="mb-2">
                 <v-card width="100%" :color="card.color" dark>
@@ -45,6 +61,7 @@ const sections = [
                       <div>•••• •••• •••• {{ card.lastFour }}</div>
                     </div>
                     <v-btn
+                      v-if="editState"
                       icon
                       small
                       @click="removePaymentMethod(card.id)"
