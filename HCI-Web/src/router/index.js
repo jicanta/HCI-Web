@@ -15,19 +15,19 @@ import PaymentPage from '@/pages/PaymentPage.vue';
 
 
 const routes = [
-  { path: '/', name: 'Inicio', component: HomePage },
-  { path: '/more', name: 'Mas', component: MorePage },
-  { path: '/deposit', name: 'Ingresar', component: DepositPage },
-  { path: '/movements', name: 'Movimientos', component: ActivityPage },
-  { path: '/payment-methods', name: 'Medios de pago', component: PaymentMethodsPage },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
-  { path: '/sign-in', name: 'SignIn', component: SignInPage },
-  { path: '/sign-up', name: 'SignUp', component: SignUpPage },
-  { path: '/add-payment-method', name: 'AddPaymentMethod', component: AddPaymentMethodPage},
-  { path: '/recover-password', name: 'RecoverPassword', component: RecoverPasswordPage},
-  { path: '/invest', name: 'Invest', component: InvestPage },
-  { path: '/mydata', name: 'My Data', component: MyData },
-  { path: '/pay', name: 'Pay', component: PaymentPage }
+  { path: '/', name: 'home', component: HomePage },
+  { path: '/more', name: 'more', component: () => import('../pages/MorePage.vue') },
+  { path: '/deposit', name: 'deposit', component: () => import('../pages/DepositPage.vue') },
+  { path: '/movements', name: 'movements', component: () => import('../pages/ActivityPage.vue') },
+  { path: '/payment-methods', name: 'paymentMethods', component: () => import('../pages/PaymentMethodsPage.vue') },
+  { path: '/:pathMatch(.*)*', name: 'notFound', component: () => import('../pages/NotFoundPage.vue') },
+  { path: '/sign-in', name: 'signIn', component: () => import('../pages/SignInPage.vue') },
+  { path: '/sign-up', name: 'signUp', component: () => import('../pages/SignUpPage.vue') },
+  { path: '/add-payment-method', name: 'addPaymentMethod', component: () => import('../pages/AddPaymentMethodPage.vue')},
+  { path: '/recover-password', name: 'recoverPassword', component: () => import('../pages/RecoverPasswordPage.vue')},
+  { path: '/invest', name: 'invest', component: () => import('../pages/InvestPage.vue') },
+  { path: '/about', name: 'about', component: () => import('../pages/MyData.vue') },
+  { path: '/pay', name: 'pay', component: () => import('../pages/PaymentPage.vue') }
 ];
 
 const router = createRouter({

@@ -64,10 +64,10 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
   };
 
   const sections = [
-    {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
-    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
-    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-    {text: "Invertir", icon: "mdi-cash-plus", selected: true, route: "/invest"}
+    {text: "Inicio", icon: "mdi-home", selected: false, route: "home"}, 
+    {text: "Movimientos", icon: "mdi-history", selected: false, route: "movements"}, 
+    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "paymentMethods"}, 
+    {text: "Invertir", icon: "mdi-cash-plus", selected: true, route: "invest"}
   ]
 
   const chartData = ref({
@@ -104,7 +104,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 <template>
   <v-main class="main-container" fluid>
     
-    <ButtonsNavBarWithBack :link-back="'/'"/>
+    <ButtonsNavBar :sections="sections" />
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
         <Section class="ma-3">

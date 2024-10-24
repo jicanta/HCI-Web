@@ -182,57 +182,72 @@
             
             <div class="card-container mb-6">
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
-                <v-card color="error" rounded="lg" class="card-face card-front">
+                <v-card color="black" rounded="lg" class="card-face card-front">
                   <v-form ref="form" class="card-content">
-                    <v-text-field
-                      placeholder="Numero de la tajeta"
-                      v-model="formattedCardNumber"
-                      variant="outlined"
-                      class="input-field"
-                      :rules="[rules.required, rules.cardNumber]"
-                      bg-color="white"
-                      hide-details
-                      density="compact"
-                      clearable
-                      @input="updateCardNumber"
-                      maxlength="19"
-                    ></v-text-field>
-                    
-                    <div class="input-container mb-4">
-                      <v-text-field
-                        placeholder="Nombre y Apellido"
-                        v-model="formattedCardholderName"
+                    <v-container>
+                      <v-img
+                      width="100"
+                      src="@/assets/smart-chip.png"
+                      ></v-img>
+                    </v-container>
+                    <v-container class="pa-0">
+                      <v-row>
+                        <v-text-field
+                        placeholder="Numero de la tajeta"
+                        v-model="formattedCardNumber"
                         variant="outlined"
                         class="input-field"
-                        :rules="[rules.required, rules.cardholderName]"
+                        :rules="[rules.required, rules.cardNumber]"
                         bg-color="white"
                         hide-details
                         density="compact"
                         clearable
-                        @keypress="onlyText"
-                      ></v-text-field>
-                    </div>
+                        @input="updateCardNumber"
+                        maxlength="19"
+                        ></v-text-field>
+                      </v-row>
+                    </v-container>
                     
-                    <div class="d-flex justify-space-between mb-4">
-                      <v-select
-                        v-model="expirationMonth"
-                        :items="months"
-                        label="Mes"
-                        bg-color="white"
-                        density="compact"
-                        class="expiration-select mr-2"
-                        :rules="[rules.required]"
-                      ></v-select>
-                      <v-select
-                        v-model="expirationYear"
-                        :items="years"
-                        label="Año"
-                        bg-color="white"
-                        density="compact"
-                        class="expiration-select ml-2"
-                        :rules="[rules.required]"
-                      ></v-select>
-                    </div>
+                    <v-container class="pa-0">
+                      <v-row>
+                        <v-col cols="6">
+                          <v-text-field
+                          placeholder="Nombre y Apellido"
+                          v-model="formattedCardholderName"
+                          variant="outlined"
+                          class="input-field"
+                          :rules="[rules.required, rules.cardholderName]"
+                          bg-color="white"
+                          hide-details
+                          density="compact"
+                          clearable
+                          @keypress="onlyText"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                          <v-select
+                          v-model="expirationMonth"
+                          :items="months"
+                          label="Mes"
+                          bg-color="white"
+                          density="compact"
+                          class="expiration-select"
+                          :rules="[rules.required]"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="3">
+                          <v-select
+                          v-model="expirationYear"
+                          :items="years"
+                          label="Años"
+                          bg-color="white"
+                          density="compact"
+                          class="expiration-select"
+                          :rules="[rules.required]"
+                          ></v-select>
+                        </v-col>
+                      </v-row>
+                    </v-container>
 
                     <div v-if="cardNumber.length > 0" class="card-logo-container">
                       <v-img
@@ -244,7 +259,7 @@
                     </div>
                   </v-form>
                 </v-card>
-                <v-card color="error" rounded="lg" class="card-face card-back">
+                <v-card color="black" rounded="lg" class="card-face card-back">
                   <div class="card-content">
                     <div class="cvv-strip"></div>
                     <div class="cvv-container">
@@ -267,6 +282,9 @@
                 </v-card>
               </div>
             </div>
+
+            
+
             
             <v-btn
               @click="handleNext"

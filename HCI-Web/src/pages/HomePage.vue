@@ -33,8 +33,8 @@
             <v-col class="w-100 d-flex">
               <v-row class="d-flex flex-row align-center justify-center w-100">
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="goToRoute('/deposit')" >Ingresar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/mydata')">Tus datos</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4" @click="router.push({ name: 'deposit' })" >Ingresar</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="router.push({name: 'about'})">Tus datos</v-btn>
                 </v-col>
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
@@ -64,7 +64,7 @@
           
           </v-container>
           <v-card-actions>
-            <v-btn class="bg-primary w-100" @click="goToRoute('/payment-methods')">Ver medios de pago</v-btn>
+            <v-btn class="bg-primary w-100" @click="router.push({name: 'paymentMethods'})">Ver medios de pago</v-btn>
           </v-card-actions>
 
         </v-card>
@@ -78,7 +78,7 @@
           class="bg-tertiary w-100 my-4 pa-2"
         >
           <v-card-actions>
-            <v-btn class="bg-primary w-100" @click="goToRoute('/movements')">Ver movimientos</v-btn>
+            <v-btn class="bg-primary w-100" @click="router.push({ name:'movements' })">Ver movimientos</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -125,10 +125,10 @@ import { useRouter } from 'vue-router';
   };
 
   const sections = [
-    {text: "Inicio", icon: "mdi-home", selected: true, route: "/"}, 
-    {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
-    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
+    {text: "Inicio", icon: "mdi-home", selected: true, route: "home"}, 
+    {text: "Movimientos", icon: "mdi-history", selected: false, route: "movements"}, 
+    {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "paymentMethods"}, 
+    {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "invest"}
   ]
 
 </script>

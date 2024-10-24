@@ -43,11 +43,9 @@
   import SectionNav from './SectionNav.vue';
   import ProfileSectionNav from './ProfileSectionNav.vue';
 
-  const profile = {text: "Tu Perfil  >", icon: "mdi-account", selected: false, route: "", name: "Federico"}
-
   const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: "/mydata"},
-    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"},
+    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: "about"},
+    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "more"},
     {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
   ]
   
@@ -62,7 +60,7 @@
   const router = useRouter();
   
   const goToRoute = (route) => {
-    router.push(route);
+    router.push({name: route});
   };
 </script>
   
