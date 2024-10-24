@@ -78,7 +78,7 @@
           class="bg-tertiary w-100 my-4 pa-2"
         >
           <v-card-actions>
-            <v-btn class="bg-primary w-100" @click="goToRoute('/payment-methods')">Ver movimientos</v-btn>
+            <v-btn class="bg-primary w-100" @click="goToRoute('/movements')">Ver movimientos</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
