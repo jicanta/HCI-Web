@@ -77,6 +77,23 @@
           title="Última actividad"
           class="bg-tertiary w-100 my-4 pa-2"
         >
+          <v-container class="d-flex flex-column justify-center align-center pa-1 mb-4 mt-0 border rounded">
+            <template v-if="transactions === null || transactions.length === 0">
+              <p class="text-muted text-center">No hay movimientos.</p>
+            </template>
+
+            <template v-else>
+              <ListItem
+                v-for="transaction in transactions.slice(-3)"
+                :key="transaction.id"
+                :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
+                :top="formatTransactionDate(transaction.date)"
+                :title="transaction.description"
+                :text="transaction.category"
+                :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
+              />
+            </template>
+          </v-container>
           <v-card-actions>
             <v-btn class="bg-primary w-100" @click="router.push({ name:'movements' })">Ver movimientos</v-btn>
           </v-card-actions>
@@ -88,6 +105,7 @@
 
 <script setup>
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
+import ListItem from '@/components/ListItem.vue';
   import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -100,11 +118,14 @@ import { useRouter } from 'vue-router';
   */
 
   var availableBalance = ref(0);
+  var transactions = ref([]);
 
   onMounted(
     () => {
       availableBalance.value = localStorage.getItem("availableBalance");
+      transactions.value = JSON.parse(localStorage.getItem("transactions"));
     }
+    
   );
   
   const getCents = (balance) => {
@@ -130,6 +151,22 @@ import { useRouter } from 'vue-router';
     {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "paymentMethods"}, 
     {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "invest"}
   ]
+
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth() + 1;
+  const currentYear = today.getFullYear();
+
+  const formatTransactionDate = (transactionDate) => {
+    const { day, month, year } = transactionDate;
+    
+    if (day === currentDay && month === currentMonth && year === currentYear) {
+      return "Hoy";
+    }
+
+    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    return `${day} de ${monthNames[month - 1]}`;
+  };
 
 </script>
 
