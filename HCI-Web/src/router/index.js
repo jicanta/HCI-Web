@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
 import MorePage from '@/pages/MorePage.vue';
-import DepositPage from '@/pages/DepositPage.vue';
+import DepositPage from '@/pages/PaymentLinkPage.vue';
 import ActivityPage from '@/pages/ActivityPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
 import SignInPage from '@/pages/SignInPage.vue';
@@ -17,7 +17,7 @@ import PaymentPage from '@/pages/PaymentPage.vue';
 const routes = [
   { path: '/', name: 'home', component: HomePage },
   { path: '/more', name: 'more', component: () => import('../pages/MorePage.vue') },
-  { path: '/deposit', name: 'deposit', component: () => import('../pages/DepositPage.vue') },
+  { path: '/payment-link', name: 'payment-link', component: () => import('../pages/PaymentLinkPage.vue') },
   { path: '/movements', name: 'movements', component: () => import('../pages/ActivityPage.vue') },
   { path: '/payment-methods', name: 'paymentMethods', component: () => import('../pages/PaymentMethodsPage.vue') },
   { path: '/:pathMatch(.*)*', name: 'notFound', component: () => import('../pages/NotFoundPage.vue') },
