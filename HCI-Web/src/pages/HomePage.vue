@@ -34,11 +34,11 @@
               <v-row class="d-flex flex-row align-center justify-center w-100">
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4">Ingresar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute('/account')">Tus datos</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute({ name: 'account' })">Tus datos</v-btn>
                 </v-col>
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" @click="goToRoute('/payment-link')">Link de pago</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" @click="goToRoute({ name: 'paymentLink' })">Link de pago</v-btn>
                 </v-col>
               </v-row>
             </v-col>
@@ -104,9 +104,9 @@
 </template>
 
 <script setup>
-  import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
+import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 import ListItem from '@/components/ListItem.vue';
-  import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
   /*

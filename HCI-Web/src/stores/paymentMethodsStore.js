@@ -3,9 +3,9 @@ import { defineStore } from 'pinia'
 export const usePaymentMethodsStore = defineStore('paymentMethods', {
   state: () => ({
     paymentMethods: [
-      { id: 1, type: 'Visa', lastFour: '4444', color: 'green darken-3' },
-      { id: 2, type: 'Mastercard', lastFour: '5555', color: 'orange darken-3' },
-      { id: 3, type: 'American Express', lastFour: '1234', color: 'blue-grey darken-3' },
+      { id: 1, type: 'Visa', number: '4444444444444', color: 'black darken-3' },
+      { id: 2, type: 'Mastercard', number: '555566666666666', color: 'blue darken-1' },
+      { id: 3, type: 'American Express', number: '3444444444444444', color: 'orange darken-3' },
     ]
   }),
   actions: {

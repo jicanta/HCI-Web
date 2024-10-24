@@ -17,7 +17,7 @@ import PaymentPage from '@/pages/PaymentPage.vue';
 const routes = [
   { path: '/', name: 'home', component: HomePage },
   { path: '/more', name: 'more', component: () => import('../pages/MorePage.vue') },
-  { path: '/payment-link', name: 'payment-link', component: () => import('../pages/PaymentLinkPage.vue') },
+  { path: '/payment-link', name: 'paymentLink', component: () => import('../pages/PaymentLinkPage.vue') },
   { path: '/movements', name: 'movements', component: () => import('../pages/ActivityPage.vue') },
   { path: '/payment-methods', name: 'paymentMethods', component: () => import('../pages/PaymentMethodsPage.vue') },
   { path: '/:pathMatch(.*)*', name: 'notFound', component: () => import('../pages/NotFoundPage.vue') },

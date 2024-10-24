@@ -38,7 +38,6 @@
         flex-direction: column;
         cursor: pointer;
         padding: 0px;
-
     }
     .section {
         align-items: center;
@@ -49,12 +48,13 @@
         inset 0px 0px 0px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        
     }
 
-    .section:hover {
+   /* .section:hover {
         box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.2), 
         inset -4px -4px 6px rgba(0, 0, 0, 0.2);
-    }
+    }*/
 
     .section:active {
         box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 

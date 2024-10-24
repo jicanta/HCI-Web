@@ -236,7 +236,7 @@
                         </v-col>
                     </v-container>
 
-                    <v-contianer class="d-flex flex-row justify-end w-100 h-25">
+                    <div class="d-flex flex-row justify-end w-100 h-25">
                       <v-img
                         v-if="cardNumber.length > 0"
                         :src="cardLogo"
@@ -244,7 +244,7 @@
                         contain
                         class="card-logo"
                       ></v-img>
-                    </v-contianer>
+                    </div>
                   </v-form>
                 </v-card>
                 <v-card rounded="lg" class="card-face card-back">
