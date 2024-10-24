@@ -8,6 +8,7 @@
     import mastercardLogo from '@/assets/mastercard-logo.png';
     import amexLogo from '@/assets/amex-logo.png';
     import smartChip from '@/assets/smart-chip.png';
+import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 
     const router = useRouter();
     const paymentMethodsStore = usePaymentMethodsStore();
@@ -36,7 +37,6 @@
 
     const form = ref(null);
 
-    // Add this computed property to check if the first page is valid
     const isFirstPageValid = computed(() => {
       return (
         cardNumber.value.length === 16 &&
@@ -55,7 +55,6 @@
           showBack.value = true;
         }
       } else {
-        // Handle form submission
         console.log('Form submitted');
       }
     };
@@ -90,13 +89,11 @@
         }
     }
 
-    // Update this computed property
     const formattedCardNumber = computed(() => {
       const groups = cardNumber.value.match(/\d{1,4}/g) || [];
       return groups.join('-');
     });
 
-    // Add this method to handle keypress events
     const onlyNumbers = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -104,16 +101,13 @@
       }
     };
 
-    // Add this computed property for cardholderName
     const formattedCardholderName = computed({
       get: () => cardholderName.value,
       set: (value) => {
-        // Remove any digits and limit to 50 characters
         cardholderName.value = value.replace(/\d/g, '').slice(0, 50);
       }
     });
 
-    // Add this method to handle keypress events for text only
     const onlyText = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if ((charCode >= 48 && charCode <= 57) || charCode === 46) {
@@ -121,7 +115,6 @@
       }
     };
 
-    // Add this computed property for CVV
     const formattedCVV = computed({
       get: () => cvv.value,
       set: (value) => {
@@ -131,7 +124,6 @@
       }
     });
 
-    // Add this method to handle keypress events for CVV
     const onlyNumbersCVV = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -139,10 +131,8 @@
       }
     };
 
-    // Add this computed property for card type
     const cardType = computed(() => getCardType(cardNumber.value));
 
-    // Update this computed property for card logo
     const cardLogo = computed(() => {
       if (cardNumber.value.length === 0) return null;
       
@@ -163,16 +153,14 @@
     };
 
     const updateCardNumber = (event) => {
-      // Remove any non-digit characters
       const cleaned = event.target.value.replace(/\D/g, '');
-      // Limit to 16 digits
       cardNumber.value = cleaned.slice(0, 16);
     };
 </script>
 
 <template>
   <v-main class="main-container" fluid>
-    <ButtonsNavBarWithBack link_back="/payment-methods"/>
+    <ButtonsNavBarWithBack/>
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
@@ -182,84 +170,83 @@
             
             <div class="card-container mb-6">
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
-                <v-card color="black" rounded="lg" class="card-face card-front">
-                  <v-form ref="form" class="card-content">
-                    <v-container>
+                <v-card rounded="lg" class="card-face card-front">
+                  <v-form ref="form" class="d-flex flex-column justify-center align-center h-100">
+                    <v-container class="w-100 h-25 pa-0 h-25">
                       <v-img
-                      width="100"
-                      src="@/assets/smart-chip.png"
-                      ></v-img>
+                        width="100"
+                        src="@/assets/smart-chip.png"
+                      />
                     </v-container>
-                    <v-container class="pa-0">
-                      <v-row>
+                    <v-container class="py-2 w-100 h-25">
                         <v-text-field
-                        placeholder="Numero de la tajeta"
-                        v-model="formattedCardNumber"
-                        variant="outlined"
-                        class="input-field"
-                        :rules="[rules.required, rules.cardNumber]"
-                        bg-color="white"
-                        hide-details
-                        density="compact"
-                        clearable
-                        @input="updateCardNumber"
-                        maxlength="19"
-                        ></v-text-field>
-                      </v-row>
-                    </v-container>
-                    
-                    <v-container class="pa-0">
-                      <v-row>
-                        <v-col cols="6">
-                          <v-text-field
-                          placeholder="Nombre y Apellido"
-                          v-model="formattedCardholderName"
+                          rounded="sm"
+                          placeholder="Numero de la tajeta"
+                          v-model="formattedCardNumber"
                           variant="outlined"
                           class="input-field"
-                          :rules="[rules.required, rules.cardholderName]"
+                          :rules="[rules.required, rules.cardNumber]"
                           bg-color="white"
-                          hide-details
                           density="compact"
                           clearable
-                          @keypress="onlyText"
-                          ></v-text-field>
+                          @input="updateCardNumber"
+                          maxlength="19"
+                        />
+                    </v-container>
+                    
+                    <v-container class="d-flex flex-row justify-center align-center py-0 px-1 w-100 h-25">
+                        <v-col cols="6" class="d-flex flex-column justify-start">
+                          <v-text-field
+                            rounded="sm"
+                            placeholder="Nombre y Apellido"
+                            v-model="formattedCardholderName"
+                            variant="outlined"
+                            :rules="[rules.required, rules.cardholderName]"
+                            bg-color="white"
+                            hide-details
+                            density="compact"
+                            clearable
+                            @keypress="onlyText"
+                          />
                         </v-col>
                         <v-col cols="3">
                           <v-select
-                          v-model="expirationMonth"
-                          :items="months"
-                          label="Mes"
-                          bg-color="white"
-                          density="compact"
-                          class="expiration-select"
-                          :rules="[rules.required]"
-                          ></v-select>
+                            rounded="sm"
+                            v-model="expirationMonth"
+                            :items="months"
+                            label="Mes"
+                            bg-color="white"
+                            hide-details
+                            density="compact"
+                            :rules="[rules.required]"
+                          />
                         </v-col>
                         <v-col cols="3">
                           <v-select
-                          v-model="expirationYear"
-                          :items="years"
-                          label="Años"
-                          bg-color="white"
-                          density="compact"
-                          class="expiration-select"
-                          :rules="[rules.required]"
-                          ></v-select>
+                            rounded="sm"
+                            v-model="expirationYear"
+                            :items="years"
+                            label="Años"
+                            bg-color="white"
+                            hide-details
+                            density="compact"
+                            :rules="[rules.required]"
+                          />
                         </v-col>
-                      </v-row>
                     </v-container>
 
-                    <div v-if="cardNumber.length > 0" class="card-logo-container">
+                    <v-contianer class="d-flex flex-row justify-end w-100 h-25">
                       <v-img
+                        v-if="cardNumber.length > 0"
                         :src="cardLogo"
                         max-width="60"
                         contain
                         class="card-logo"
                       ></v-img>
-                    </div>
+                    </v-contianer>
                   </v-form>
                 </v-card>
-                <v-card color="black" rounded="lg" class="card-face card-back">
+                <v-card rounded="lg" class="card-face card-back">
                   <div class="card-content">
                     <div class="cvv-strip"></div>
                     <div class="cvv-container">
@@ -283,9 +270,6 @@
               </div>
             </div>
 
-            
-
-            
             <v-btn
               @click="handleNext"
               color="secondary"
@@ -341,6 +325,7 @@
 }
 
 .card-face {
+  background: linear-gradient(-45deg, black, rgb(85, 85, 85));
   width: 100%;
   height: 100%;
   position: absolute;
@@ -403,17 +388,6 @@
 }
 
 /* ... other styles ... */
-
-.card-logo-container {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  width: 60px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .card-logo {
   max-width: 100%;
