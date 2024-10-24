@@ -23,7 +23,10 @@
 
     const rules = {
         required: (value) => !!value || 'Campo requerido',
-        cardNumber: (value) => /^\d{16}$/.test(value) || 'Número de tarjeta inválido (debe tener 16 dígitos)',
+        cardNumber: (value) => {
+            const digitsOnly = value.replace(/\D/g, '');
+            return digitsOnly.length === 16 || 'El número de tarjeta debe tener 16 dígitos';
+        },
         expirationDate: (value) => /^(0[1-9]|1[0-2])\/\d{2}$/.test(value) || 'Formato inválido (MM/YY)',
         cvv: (value) => value.length === 3 || 'CVV debe tener 3 dígitos',
         cardholderName: (value) => /^[a-zA-Z\s]*$/.test(value) || 'Solo se permiten letras y espacios',
@@ -88,13 +91,9 @@
     }
 
     // Update this computed property
-    const formattedCardNumber = computed({
-      get: () => cardNumber.value,
-      set: (value) => {
-        // Only allow digits and limit to 16 digits
-        const numericValue = value.replace(/\D/g, '');
-        cardNumber.value = numericValue.slice(0, 16);
-      }
+    const formattedCardNumber = computed(() => {
+      const groups = cardNumber.value.match(/\d{1,4}/g) || [];
+      return groups.join('-');
     });
 
     // Add this method to handle keypress events
@@ -162,6 +161,13 @@
     const validateCVV = (event) => {
       cvv.value = cvv.value.replace(/\D/g, '').slice(0, 3);
     };
+
+    const updateCardNumber = (event) => {
+      // Remove any non-digit characters
+      const cleaned = event.target.value.replace(/\D/g, '');
+      // Limit to 16 digits
+      cardNumber.value = cleaned.slice(0, 16);
+    };
 </script>
 
 <template>
@@ -178,23 +184,19 @@
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
                 <v-card color="error" rounded="lg" class="card-face card-front">
                   <v-form ref="form" class="card-content">
-                    <div class="input-container mb-4">
-                      <v-text-field
-                        placeholder="Numero de la tajeta"
-                        v-model="formattedCardNumber"
-                        variant="outlined"
-                        class="input-field"
-                        :rules="[rules.required, rules.cardNumber]"
-                        bg-color="white"
-                        hide-details
-                        density="compact"
-                        clearable
-                        type="tel"
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        @keypress="onlyNumbers"
-                      ></v-text-field>
-                    </div>
+                    <v-text-field
+                      placeholder="Numero de la tajeta"
+                      v-model="formattedCardNumber"
+                      variant="outlined"
+                      class="input-field"
+                      :rules="[rules.required, rules.cardNumber]"
+                      bg-color="white"
+                      hide-details
+                      density="compact"
+                      clearable
+                      @input="updateCardNumber"
+                      maxlength="19"
+                    ></v-text-field>
                     
                     <div class="input-container mb-4">
                       <v-text-field
