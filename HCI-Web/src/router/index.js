@@ -26,7 +26,7 @@ const routes = [
   { path: '/add-payment-method', name: 'addPaymentMethod', component: () => import('../pages/AddPaymentMethodPage.vue')},
   { path: '/recover-password', name: 'recoverPassword', component: () => import('../pages/RecoverPasswordPage.vue')},
   { path: '/invest', name: 'invest', component: () => import('../pages/InvestPage.vue') },
-  { path: '/about', name: 'about', component: () => import('../pages/MyData.vue') },
+  { path: '/account', name: 'account', component: () => import('../pages/MyData.vue') },
   { path: '/pay', name: 'pay', component: () => import('../pages/PaymentPage.vue') }
 ];
 
