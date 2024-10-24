@@ -1,63 +1,12 @@
 <template>
-    <v-container fluid>
-      <v-btn
-        color="secondary"
-        icon="mdi-arrow-left"
-        class="top-left-button"
-        @click="handleClick"
-        >
-      </v-btn>
-    </v-container>
-    <v-container class="buttons-nav-bar bg-primary px-4 py-1" fluid>
+    <ButtonsNavBar :sections="sections"/>
+    <v-btn @click="goBack()" class="top-left-button bg-primary" icon="mdi-arrow-left" width="48px" height="48px">
 
-      <v-container class="left-container">
-        <a href="/">
-          <h1 class="font-weight-bold text-colortext"> Logo </h1>
-        </a>
-      </v-container>
-
-      <v-container class="center-container">
-        <SectionNav
-          v-for="section in sections"
-          :key="section.route"
-          :selected="section.selected"
-          :icon="section.icon"
-          :text="section.text"
-          @click="goToRoute(section.route)"
-          class="mx-1"
-        />
-      </v-container>
-
-      <v-container class="right-container">
-        <v-menu transition="slide-y-transition">
-          <template v-slot:activator="{ props }">
-            <ProfileSectionNav v-bind="props"
-            class="profile-rounded"/>
-          </template>
-          <SectionNav 
-          v-for="profile in profileOptions"
-          :selected="profile.selected"
-          :icon="profile.icon"
-          :text="profile.text"
-          @click="goToRoute(profile.route)"
-          class="my-1"
-          />
-        </v-menu>
-      </v-container>
-    </v-container>
+    </v-btn>
 </template>
   
 <script setup>
   import { useRouter } from 'vue-router';
-  import SectionNav from './SectionNav.vue';
-
-  const profile = {text: "Tu Perfil >", name: "Federico"}
-
-  const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: "/mydata"},
-    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "/more"},
-    {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
-  ]
 
   const sections = [
     {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
@@ -65,73 +14,20 @@
     {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
     {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
   ]
-  
-  const props = defineProps({
-    link_back: {
-        type: String,
-        required: false,
-    }
-  });
-  
 
   const router = useRouter();
-  
-  // Función para manejar la navegación
-  const goToRoute = (route) => {
-    router.push(route);
+
+  const goBack = () => {
+    router.back();
   };
+  
 </script>
   
 <style>
-.buttons-nav-bar {
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  z-index: 100;
-}
-
-.left-container {
-  height: 100%;
-  width: 12.5%;
-  align-items: center;
-  justify-content: left;
-  display: flex;
-  flex-direction: row;
-}
-
-.center-container {
-  height: 100%;
-  width: 75%;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-}
-
-.right-container {
-  height: 100%;
-  width: 12.5%;
-  align-items: center;
-  justify-content: right;
-  display: flex;
-  flex-direction: row;
-}
-
-.profile-rounded {
-  height: 50px;
-  width: 50px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-}
-
-.top-left-button {
-  position: fixed;
-  top: 150px;
-  left: 55px;
-  z-index: 100;
-}
+  .top-left-button {
+    position: fixed;
+    top: 106px;
+    left: 12px;
+    z-index: 999;
+  }
 </style>

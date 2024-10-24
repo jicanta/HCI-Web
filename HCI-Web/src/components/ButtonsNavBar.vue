@@ -61,7 +61,6 @@
 
   const router = useRouter();
   
-  // Función para manejar la navegación
   const goToRoute = (route) => {
     router.push(route);
   };
