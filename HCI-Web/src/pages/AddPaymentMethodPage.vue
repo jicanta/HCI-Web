@@ -240,7 +240,7 @@
                         placeholder="Nombre y Apellido"
                         v-model="formattedCardholderName"
                         variant="outlined"
-                        class="input-field"
+                        class="name-container"
                         :rules="[rules.required, rules.cardholderName]"
                         bg-color="rgba(255, 255, 255, 0.5)"
                         hide-details
@@ -254,7 +254,6 @@
                       <div v-if="cardNumber.length > 0" class="card-logo-container mb-2">
                         <v-img
                           :src="cardLogo"
-                          max-width="80"
                           contain
                           class="card-logo"
                         ></v-img>
@@ -414,9 +413,14 @@
 }
 
 .card-logo {
-  max-width: 100%;
+  max-width: 65px;
   max-height: 100%;
   object-fit: contain;
+}
+
+.name-container{
+  width: 110%;
+  align-items: center;
 }
 </style>
 
