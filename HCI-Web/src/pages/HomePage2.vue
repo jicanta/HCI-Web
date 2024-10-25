@@ -4,8 +4,8 @@
   import BodyGrid from '@/components/BodyGrid.vue';
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
   import Section from '@/components/Section.vue';
-  import VChart from 'vue-echarts';
   import { ref, computed } from 'vue';
+  import VChart from 'vue-echarts';
   import { use } from 'echarts/core';
   import { CanvasRenderer } from 'echarts/renderers';
   import { PieChart } from 'echarts/charts';

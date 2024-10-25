@@ -77,7 +77,10 @@
           title="Última actividad"
           class="bg-tertiary w-100 my-4 pa-2"
         >
+          <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
+          
           <v-container class="d-flex flex-column justify-center align-center pa-1 mb-4 mt-0 border rounded">
+
             <template v-if="transactions === null || transactions.length === 0">
               <p class="text-muted text-center">No hay movimientos.</p>
             </template>
@@ -106,7 +109,7 @@
 <script setup>
 import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 import ListItem from '@/components/ListItem.vue';
-import { onMounted, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
   /*
@@ -153,6 +156,50 @@ import { useRouter } from 'vue-router';
   ]
 
   import { formatTransactionDate } from '@/back-libs/date';
+
+  import VChart from 'vue-echarts';
+  import { use } from 'echarts/core';
+  import { CanvasRenderer } from 'echarts/renderers';
+  import { PieChart } from 'echarts/charts';
+  import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+
+  use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
+
+  const spendingByCategory = computed(() => {
+    const categories = {};
+    transactions.value.forEach(transaction => {
+      if (transaction.amount < 0) {
+        categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
+      }
+    });
+    return Object.entries(categories).map(([name, value]) => ({ name, value }));
+  });
+
+  const chartOption = computed(() => ({
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: ${c} ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: 'Spending',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        label: { show: false, position: 'center' },
+        emphasis: {
+          label: { show: true, fontSize: '18', fontWeight: 'bold' }
+        },
+        labelLine: { show: false },
+        data: spendingByCategory.value
+      }
+    ]
+  }));
+
 
 </script>
 
