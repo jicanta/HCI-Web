@@ -52,7 +52,7 @@ const copyToClipboard = async () => {
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h2 class="text-h5 mb-4">Depositar dinero</h2>
+            <h1 class="text-h4 mb-6 text-center">Depositar dinero</h1>
             <p>Saldo actual: ${{ pesos }}.{{ centavos }}</p>
             <v-text-field
               v-model="saldo"
