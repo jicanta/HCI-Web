@@ -10,12 +10,16 @@ import { ref } from 'vue';
 import visaLogo from '@/assets/visa-logo.png';
 import mastercardLogo from '@/assets/mastercard-logo.png';
 import amexLogo from '@/assets/amex-logo.png';
+import SimpleCard from '@/components/SimpleCard.vue'
 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
 
 const removePaymentMethod = (id) => {
   paymentMethodsStore.removePaymentMethod(id);
+  if(paymentMethodsStore.paymentMethods.length == 0){
+    editState.value = false;
+  }
 };
 
 const isHovered = ref('false');
@@ -45,6 +49,7 @@ function cardLogo(type){
       }
 };
 
+const name = ref('Federico Magri');   //TODO: CAMBIAR PARA QUE CONSIGA EL NOMBRE
 
 </script>
 
@@ -64,6 +69,7 @@ function cardLogo(type){
               <v-col cols="5">
                 <div class="d-flex justify-end">
                   <v-btn 
+                    v-if="paymentMethodsStore.paymentMethods.length > 0"
                     class="rounded-xl"
                     @click="editState = !editState"
                   >
@@ -82,24 +88,71 @@ function cardLogo(type){
                 :color="card.color"
                 @mouseover = "isHovered = card.id"
                 @mouseleave = "isHovered = null">
-                <component />
                   <v-card-text class="d-flex justify-space-between align-center pa-0">
                     <v-container>
-                      <v-row class="align-center justify-space-between">
+
+                      <!--
+                      <v-row v-if="isHovered === card.id" class="d-flex flex-row align-center justify-space between">
                         <v-col >
-                          <div class="d-flex flex-column">
+                          <div class="d-flex flex-column">  
+                            <div>
+                              <v-img
+                                src="../assets/smart-chip.png"
+                                max-width="60"
+                                ></v-img>
+                            </div>
+                            <div class="pt-2">{{ card.number }}</div>
+                            <div class="pt-2">{{ name }}</div>
+                          </div>
+                        </v-col>
+                        <v-col class="">
+                          <v-img 
+                            :src="paymentMethodsStore.cardLogo(card.type)"
+                            max-width="50"
+                            contain
+                            class="card-logo"
+                          ></v-img>
+                        </v-col>
+                      </v-row>
+                    -->
+                    <v-row v-if="isHovered === card.id" class="d-flex flex-row justify-space-between">
+                      <v-col>
+                        <div class="d-flex flex-column">  
+                          <div>
+                            <v-img
+                              src="../assets/smart-chip.png"
+                              max-width="60"
+                            ></v-img>
+                          </div>
+                          <div class="pt-2">{{ card.number }}</div>
+                          <div class="pt-2">{{ name }}</div>
+                        </div>
+                      </v-col>
+                      <v-col class="d-flex justify-end align-end">
+                        <v-img 
+                          :src="paymentMethodsStore.cardLogo(card.type)"
+                          max-width="50"
+                          contain
+                          class="card-logo"
+                        ></v-img>
+                      </v-col>
+                    </v-row>
+
+
+                      <v-row v-else class="align-center justify-space-between">
+                        <v-col >
+                          <div class="d-flex flex-column">  
                             <div class="text-subtitle-1">{{ card.type }}</div>
                             <div>{{ card.number }}</div>
                           </div>
                         </v-col>
-
                         <v-col class="d-flex justify-end">
-                          <v-img
-                            :src="cardLogo(card.type)"
-                            max-width="50"
-                            contain
-                            class="card-logo "
-                          ></v-img>
+                        <v-img
+                          :src="paymentMethodsStore.cardLogo(card.type)"
+                          max-width="50"
+                          contain
+                          class="card-logo "
+                        ></v-img>
                         </v-col>
                       </v-row>
                     </v-container>

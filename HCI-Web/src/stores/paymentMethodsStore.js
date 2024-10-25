@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+import visaLogo from '@/assets/visa-logo.png';
+import mastercardLogo from '@/assets/mastercard-logo.png';
+import amexLogo from '@/assets/amex-logo.png';
 
 export const usePaymentMethodsStore = defineStore('paymentMethods', {
   state: () => ({
@@ -20,6 +23,19 @@ export const usePaymentMethodsStore = defineStore('paymentMethods', {
       if (index !== -1) {
         this.paymentMethods.splice(index, 1)
       }
+    },
+    cardLogo(type){
+      switch (type) {
+          case 'Visa':
+            return visaLogo;
+          case 'Mastercard':
+            return mastercardLogo;
+          case 'American Express':
+            return amexLogo;
+          default:
+            return null;
+        }
     }
+
   }
 })
