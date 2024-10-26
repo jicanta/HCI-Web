@@ -107,12 +107,19 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
     <ButtonsNavBar :sections="sections" />
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
+        <v-card 
+          class="bg-tertiary w-100 h-40 my-4 pa-2"
+            >
+          <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
+            <v-row class="align-center justify-space-between" no-gutters>
+              <v-col class="mr-2 text-h4 d-flex align-center justify-center">
+                Invertir
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h1 class="text-h4 mb-6 text-center">Invertir</h1>
-            
-            
-            
             <h2 class="text-h5 mb-4">Inversión Actual</h2>
             <v-card class="mb-4 pa-4">
               <v-row>
