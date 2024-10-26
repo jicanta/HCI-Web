@@ -50,8 +50,8 @@ function formattedCardNumber(cardNumber) {
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
-        <Section class="ma-3 d-flex align-start" height="550px">
-          <v-container class="inside-section mb-auto">
+        <Section class="ma-3 d-flex align-start" height="auto">
+          <v-container class="inside-section mb-auto fill-height d-flex flex-column">
             <v-row>
               <v-col cols="7">
                 <h2 class="text-h5 mb-4">Medios de Pago</h2>
@@ -137,14 +137,16 @@ function formattedCardNumber(cardNumber) {
                 </v-card>
               </v-list-item>
             </v-list>
-            <v-btn
-              color="primary"
-              block
-              class="mt-auto"
-              @click="addPaymentMethod"
-            >
-              Agregar método de pago
-            </v-btn>
+            <div>
+              <v-btn 
+                color="primary"
+                block
+                class="mt-auto"
+                @click="addPaymentMethod"
+              >
+                Agregar método de pago
+              </v-btn>
+            </div>
           </v-container>
         </Section>
       </AppDivision>
