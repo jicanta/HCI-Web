@@ -4,7 +4,8 @@ import { ref } from 'vue';
 const props = defineProps({
   label: String,
   content: String,
-  editable: Boolean
+  editable: Boolean,
+  copyable: Boolean, // Nuevo prop para indicar si el contenido es copiable
 });
 
 const emit = defineEmits(['update']);
@@ -25,6 +26,15 @@ const saveChanges = () => {
   emit('update', localContent.value);
   changeEditState();
 }
+
+const snackbar = ref(false);
+const snackbarMessage = ref('');
+
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(props.content);
+  snackbarMessage.value = 'Contenido copiado al portapapeles';
+  snackbar.value = true;
+}
 </script>
 
 <template>
@@ -41,8 +51,9 @@ const saveChanges = () => {
         <v-col>
           {{ content }}
         </v-col>
-        <v-col cols="3" v-if="editable">
-          <v-btn @click="changeEditState" class="bg-primary">Editar</v-btn>
+        <v-col cols="3" class="d-flex justify-end">
+          <v-btn v-if="copyable" @click="copyToClipboard" icon="mdi-content-copy" class="mr-2 bg-primary" size="small"></v-btn>
+          <v-btn v-if="editable" @click="changeEditState" class="bg-primary">Editar</v-btn>
         </v-col>
       </v-row>
       <v-row v-else>
@@ -55,6 +66,10 @@ const saveChanges = () => {
       </v-row>
     </v-container>
   </v-card>
+
+  <v-snackbar v-model="snackbar" :timeout="2000">
+    {{ snackbarMessage }}
+  </v-snackbar>
 </template>
 
 <style/>

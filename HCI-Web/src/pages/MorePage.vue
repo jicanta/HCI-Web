@@ -19,21 +19,25 @@ const user = ref({
     content: 'Federico Magri',
     label: 'Nombre y Apellido',
     editable: true,
+    copyable: false,
   },
   email: {
     content: 'fmagri@fi.uba.ar',
     label: 'Email',
     editable: true,
+    copyable: false,
   },
   telephone: {
     content: '11-3344-9977',
     label: 'Telefono',
     editable: true,
+    copyable: false,
   },
   username: {
     content: 'fmagri',
     label: 'Nombre de Usuario',
     editable: true,
+    copyable: false,
   }
 });
 
@@ -73,12 +77,25 @@ onMounted(() => {
 
   <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
     <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
+
+      <v-card 
+        class="bg-tertiary w-100 h-40 my-4 pa-2"
+      >
+        <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
+          <v-row class="align-center justify-space-between" no-gutters>
+            <v-col class="mr-2 text-h4 d-flex align-center justify-center">
+              Personalizar
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
       <DataComponent
         v-for="(data, key) in user"
         :key="key"
         :label="data.label"
         :content="data.content"
         :editable="data.editable"
+        :copyable="data.copyable"
         @update="updateUserData(key, $event)"
       />
       <v-card 
