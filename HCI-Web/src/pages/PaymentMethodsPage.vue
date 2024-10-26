@@ -50,24 +50,28 @@ function formattedCardNumber(cardNumber) {
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
+        <v-card 
+          class="bg-tertiary w-100 h-40 my-4 pa-2"
+            >
+          <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
+            <v-row class="align-center justify-space-between" no-gutters>
+              <v-col class="mr-2 text-h4 d-flex align-center justify-center">
+                Medios de pago
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
         <Section class="ma-3 d-flex align-start" height="auto">
           <v-container class="inside-section mb-auto fill-height d-flex flex-column">
-            <v-row>
-              <v-col cols="7">
-                <h2 class="text-h5 mb-4">Medios de Pago</h2>
-              </v-col>
-              <v-col cols="5">
-                <div class="d-flex justify-end">
-                  <v-btn 
-                    v-if="paymentMethodsStore.paymentMethods.length > 0"
-                    class="rounded-xl"
-                    @click="editState = !editState"
-                  >
-                  {{ editState ? 'Cancelar' : 'Editar' }}
-                  </v-btn>          
-                </div>
-              </v-col>            
-            </v-row>
+            <div class="d-flex justify-end">
+              <v-btn 
+                v-if="paymentMethodsStore.paymentMethods.length > 0"
+                class="rounded-xl"
+                @click="editState = !editState"
+              >
+              {{ editState ? 'Cancelar' : 'Editar' }}
+              </v-btn>          
+            </div>
             <v-list class="bg-tertiary">
               <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class="mb-2">
                 <v-card 
@@ -103,8 +107,6 @@ function formattedCardNumber(cardNumber) {
                         ></v-img>
                       </v-col>
                     </v-row>
-
-
                       <v-row v-else class="align-center justify-space-between">
                         <v-col >
                           <div class="d-flex flex-column">  
