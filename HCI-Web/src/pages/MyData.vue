@@ -8,10 +8,19 @@ import DataComponent from '@/components/DataComponent.vue';
 import { ref } from 'vue';
 
 
+const formatDNI = (dni) => {
+  if (typeof dni !== 'string') {
+    dni = dni.toString();
+  }
+  const reversed = dni.split('').reverse().join('');
+  const formatted = reversed.replace(/(\d{3})(?=\d)/g, '$1.');
+  return formatted.split('').reverse().join('');
+};
+
 const user = ref({
 
   name: {
-    content: '44759526',
+    content: formatDNI('44759526'),
     label: 'DNI',
     editable: false,
     copyable: false,

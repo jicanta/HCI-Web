@@ -1,22 +1,24 @@
 <template>
-    <v-container class="item w-100 pa-2">
-        <h3 class="font-weight-medium">{{top}}</h3>
+    <v-list-item class="item pa-2">
+        <v-list-item-title class="text-caption">{{ top }}</v-list-item-title>
         
-        <v-container class="middle-container w-100 h-100">
-            <v-container class="icon-container border-sm border-opacity-100 rounded-circle ma-0">
+        <v-list-item-content class="d-flex align-center py-2">
+            <div class="icon-container mr-4">
                 <v-icon v-if="icon" size="32" class="text-colortext2">{{ icon }}</v-icon>
-            </v-container>
+            </div>
             
-            <v-container class="info-container mx-4">
-                <h2 class="text-truncate font-weight-bold w-66">{{title}}</h2>
-                <p class="text-truncate font-weight-light">{{text}}</p>
-            </v-container>
+            <div class="flex-grow-1 mr-4">
+                <v-list-item-title class="text-truncate font-weight-bold">{{ title }}</v-list-item-title>
+                <v-list-item-subtitle class="text-truncate">{{ text }}</v-list-item-subtitle>
+            </div>
 
-            <p class="font-weight-medium">{{right}}</p>
+            <v-list-item-action>
+                <span class="font-weight-medium">{{ right }}</span>
+            </v-list-item-action>
+        </v-list-item-content>
         
-        </v-container>
         <v-divider class="mt-2"/>
-    </v-container>
+    </v-list-item>
 </template>
 
 
@@ -47,35 +49,17 @@
 </script>
 
 
-<style>
+<style scoped>
     .item {
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        height: auto;
+        min-height: 100px;
     }
+
     .icon-container {
-        min-height: 48px;
-        min-width: 48px;
-
-        max-height: 48px;
-        max-width: 48px;
-
+        width: 48px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    .middle-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0px;
-        align-items: center;
-    }
-    .info-container{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 0px;
     }
 </style>
