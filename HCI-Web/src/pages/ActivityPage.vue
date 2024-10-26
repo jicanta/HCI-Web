@@ -38,29 +38,48 @@
 </script>
 
 <template>
-  <v-main class="bg-background d-flex flex-column align-center w-100" fluid>
-    <ButtonsNavBar :sections="sections" />
-    <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
-        <Section class="list d-flex flex-column justify-start h-100 ma-3">
+  <ButtonsNavBar :sections="sections" />
+  <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
+    <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
+
+
+      <v-card 
+        class="bg-tertiary w-100 h-40 my-4 pa-2"
+      >
+        <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
+          <v-row class="align-center justify-space-between" no-gutters>
+            <v-col class="mr-2 text-h4 d-flex align-center justify-center">
+              Movimientos
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+
+      <v-card 
+        class="bg-tertiary w-100 my-4"
+      >
+        <v-card-text>
           <template v-if="transactions === null || transactions.length === 0">
             <p class="text-muted text-center">No hay movimientos.</p>
           </template>
 
           <template v-else>
-            <h2 class="text-h3 mb-4">Movimientos</h2>
-            <ListItem
-            v-for="transaction in paginatedTransactions"
-            :key="transaction.id"
-            :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
-            :top="formatTransactionDate(transaction.date)"
-            :title="transaction.description"
-            :text="transaction.category"
-            :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
-          />
+            <v-list class="pa-0">
+              <ListItem
+                v-for="transaction in paginatedTransactions"
+                :key="transaction.id"
+                :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
+                :top="formatTransactionDate(transaction.date)"
+                :title="transaction.description"
+                :text="transaction.category"
+                :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
+              />
+            </v-list>
           </template>
-          
-        </Section>
+        </v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
 
         <v-pagination
           v-model="currentPage"
@@ -69,9 +88,8 @@
           color="primary"
           class="my-4"
         />
-      </AppDivision>
-    </BodyGrid>
-  </v-main>
+
+
 </template>
 
 <style scoped>
@@ -98,4 +116,7 @@
     background-color: #aaa;
   }
 
-  </style>
+  .v-list {
+    background-color: transparent;
+  }
+</style>

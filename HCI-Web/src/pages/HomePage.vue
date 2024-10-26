@@ -3,13 +3,11 @@
 
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
-        <!-- Available balance -->
         <v-card 
           title="Dinero disponible" 
           class="bg-tertiary w-100 my-4 pa-2"
         >
           <v-container class="d-flex flex-column align-center justify-center pa-6">
-            <!-- Money info -->
             <v-container class="d-flex flex-row align-center pa-0">
 
             <h1 class="font-weight-bold text-colortext2">
@@ -46,7 +44,6 @@
           </v-container>
 
         </v-card>
-        <!-- Payment methods preview -->
         <v-card 
           title="Medios de pago" 
           class="bg-tertiary w-100 my-4 pa-2"
@@ -76,31 +73,31 @@
       </v-col>
 
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
-        <!-- Movements preview -->
         <v-card 
           title="Última actividad"
-          class="bg-tertiary w-100 my-4 pa-2"
+          class="w-100 my-4 pa-2"
         >
           <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
           
-          <v-container class="d-flex flex-column justify-center align-center pa-1 mb-4 mt-0 border rounded">
-
+          <v-card-text>
             <template v-if="transactions === null || transactions.length === 0">
               <p class="text-muted text-center">No hay movimientos.</p>
             </template>
 
             <template v-else>
-              <ListItem
-                v-for="transaction in transactions.slice(-3).reverse()"
-                :key="transaction.id"
-                :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
-                :top="formatTransactionDate(transaction.date)"
-                :title="transaction.description"
-                :text="transaction.category"
-                :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
-              />
+              <v-list class="pa-0">
+                <ListItem
+                  v-for="transaction in transactions.slice(-3).reverse()"
+                  :key="transaction.id"
+                  :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
+                  :top="formatTransactionDate(transaction.date)"
+                  :title="transaction.description"
+                  :text="transaction.category"
+                  :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
+                />
+              </v-list>
             </template>
-          </v-container>
+          </v-card-text>
           <v-card-actions>
             <v-btn class="bg-primary w-100" @click="router.push({ name:'movements' })">Ver movimientos</v-btn>
           </v-card-actions>
