@@ -1,141 +1,152 @@
-<script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+<script setup lang="js">
+import { ref } from 'vue';
 import AppDivision from '@/components/AppDivision.vue';
+import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
 import BodyGrid from '@/components/BodyGrid.vue';
 import Section from '@/components/Section.vue';
+import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
-import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 
-const router = useRouter();
-const paymentMethodsStore = usePaymentMethodsStore();
-
-const productName = ref('Product XYZ');
-const productPrice = ref(100.00);
-const availableBalance = ref(150.00);
-
-const selectedPaymentMethod = ref('balance');
-const paymentMethods = computed(() => [
-  { id: 'balance', name: 'Available Balance', amount: availableBalance.value },
-  ...paymentMethodsStore.paymentMethods
-]);
-
-const isPaymentValid = computed(() => {
-  if (selectedPaymentMethod.value === 'balance') {
-    return availableBalance.value >= productPrice.value;
-  }
-  return true; // Assume credit cards always have sufficient funds
-});
-
-const handlePayment = () => {
-  if (isPaymentValid.value) {
-    // Process payment logic here
-    alert('Payment successful!');
-    router.push('/');
-  } else {
-    alert('Insufficient funds. Please choose another payment method.');
-  }
-};
+const pesos = 25761;
+const centavos = 57;
 
 const sections = [
-  {text: "Inicio", icon: "mdi-home", selected: false, route: "/"}, 
-  {text: "Movimientos", icon: "mdi-history", selected: false, route: "/movements"}, 
-  {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "/payment-methods"}, 
-  {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "/invest"}
-];
+      {text: "Inicio", icon: "mdi-home", selected: false, route: "home"}, 
+      {text: "Movimientos", icon: "mdi-history", selected: false, route: "movements"}, 
+      {text: "Medios de pago", icon: "mdi-credit-card-outline", selected: false, route: "paymentMethods"}, 
+      {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "invest"}
+    ]
+
+const monto = ref('');
+const CBU = ref('');
+const descripcion = ref('');
+const showDialog = ref(false);
+const paymentLink = ref('');
+const copySuccess = ref(false);
+
+
+
+const copyToClipboard = async () => {
+  try {
+    await navigator.clipboard.writeText(paymentLink.value);
+    copySuccess.value = true;
+    setTimeout(() => {
+      copySuccess.value = false;
+    }, 2000);
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+};
+  
 </script>
 
 <template>
-  <main class="main-container bg-background">
-    <ButtonsNavBarWithBack :link-back="'/'"/>
-    
-    <BodyGrid>
-      <AppDivision class="ma-4" :cols="12" :sm="10" :md="8" :lg="6">
-        <Section class="ma-3">
-          <div class="inside-section">
-            <h2 class="text-h5 mb-4">Pagar {{ productName }}</h2>
-            
-            <div class="mb-4 pa-4 card">
-              <div class="card-text">
-                <p class="text-h6">Monto a pagar: ${{ productPrice.toFixed(2) }}</p>
-              </div>
-            </div>
 
-            <h3 class="text-h6 mb-2">Seleccionar método de pago</h3>
-            <div class="radio-group">
-              <div
-                v-for="method in paymentMethods"
-                :key="method.id"
-                class="radio-item"
+  <ButtonsNavBarWithBack link_back="/"/>
+
+  <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
+    <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
+
+
+      <v-card 
+        class="bg-tertiary w-100 my-4 pa-4 rounded-lg elevation-2"
+      >
+        <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
+          <v-row class="align-center justify-space-between" no-gutters>
+            <v-col class="text-h5 font-weight-bold text-center">
+              Transferir
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+
+      <v-card 
+        class="bg-tertiary w-100 my-4 pa-4 rounded-lg elevation-2"
+      >
+        <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
+          <v-row class="align-center justify-space-between" no-gutters>
+            <v-col class="d-flex flex-column align-center justify-center w-100">
+              <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
+              <p class="text-h6 font-weight-bold mb-4">${{ pesos }}.{{ centavos }}</p>
+              <v-text-field
+                v-model="monto"
+                label="Ingrese monto"
+                prefix="$"
+                type="number"
+                variant="outlined"
+                class="mb-4 w-100"
+                dense
+              ></v-text-field>
+              <v-text-field
+                v-model="CBU"
+                label="CBU o alias"
+                type="number"
+                variant="outlined"
+                class="mb-4 w-100"
+                dense
+              ></v-text-field>
+              <v-text-field
+                v-model="descripcion"
+                label="Agregar descripción"
+                variant="outlined"
+                class="mb-4 w-100"
+                dense
+              ></v-text-field>
+              <v-btn
+                color="primary"
+                block
+                x-large
+                class="mt-2"
+                style="height: 50px; text-transform: none;"
               >
-                <input
-                  type="radio"
-                  :id="method.id"
-                  :value="method.id"
-                  v-model="selectedPaymentMethod"
-                  :name="'payment-method'"
-                />
-                <label :for="method.id">
-                  {{ method.type ? `${method.type} (•••• ${method.lastFour})` : `${method.name} ($${method.amount.toFixed(2)})` }}
-                </label>
-              </div>
-            </div>
+                Continuar
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
 
-            <button
-              class="primary-btn mt-4"
-              :disabled="!isPaymentValid"
-              @click="handlePayment"
-            >
-              Pagar ${{ productPrice.toFixed(2) }}
-            </button>
-          </div>
-        </Section>
-      </AppDivision>
-    </BodyGrid>
-  </main>
+
+
+      
+    </v-col>
+  </v-row>
+
+    <!-- Payment Link Dialog -->
+    <v-dialog v-model="showDialog" max-width="400px">
+      <v-card>
+        <v-card-title class="text-h5">
+          Link de Pago Generado
+        </v-card-title>
+        <v-card-text>
+          <p>Su link de pago es:</p>
+          <v-text-field
+            :value="paymentLink"
+            readonly
+            variant="outlined"
+            class="mt-2"
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" @click="copyToClipboard">
+            {{ copySuccess ? 'Copiado!' : 'Copiar' }}
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="showDialog = false">Cerrar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.v-text-field {
   width: 100%;
 }
 
-.inside-section {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: flex-start;
-  align-items: stretch;
-}
-
-:deep(.v-btn) {
+.v-btn {
   text-transform: none;
   font-weight: bold;
   font-size: 1rem;
   letter-spacing: normal;
-}
-
-.primary-btn {
-  text-transform: none;
-  font-weight: bold;
-  font-size: 1rem;
-  letter-spacing: normal;
-}
-
-.card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.radio-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.radio-item {
-  margin-bottom: 8px;
 }
 </style>
