@@ -1,9 +1,20 @@
 <template>
-  <v-container class="fill-height">
-    <v-row align="center" justify="center">
-      <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card class="signup-card">
-          <v-card-title class="text-h5 text-center">Registrarse</v-card-title>
+  <v-container class="fill-height" fluid>
+    <v-row class="align-start justify-center" style="margin-top: 20px;">
+      <v-col cols="11" sm="11" md="5" lg="4" xl="4">
+        <v-card 
+          class="bg-tertiary w-100 mb-4 pa-2"
+        >
+          <v-container class="d-flex align-center justify-center pa-4">
+            <v-row class="align-center justify-space-between" no-gutters>
+              <v-col class="text-h4 d-flex align-center justify-center">
+                Registrarse
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+
+        <v-card class="w-100 pa-4 mb-4">
           <v-form @submit.prevent="handleSubmit" class="signup-form">
             <v-row dense>
               <v-col cols="12" sm="6">
@@ -55,11 +66,11 @@
               </v-card>
             </v-menu>
             <v-btn type="submit" color="primary" block class="mt-2">Registrarse</v-btn>
+            <div class="w-100 pa-2 text-center">
+              ¿Ya tiene una cuenta? 
+              <router-link to="/sign-in" class="text-primary">Iniciar sesión</router-link>
+            </div>
           </v-form>
-          <v-card-text class="text-center mt-2">
-            ¿Ya tiene una cuenta? 
-            <router-link to="/sign-in" class="text-primary">Iniciar sesión</router-link>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -67,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 
@@ -120,10 +131,6 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-.signup-card {
-  padding: 1.5rem;
-}
-
 .signup-form {
   display: flex;
   flex-direction: column;

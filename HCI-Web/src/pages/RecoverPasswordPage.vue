@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 
 const router = useRouter();
 const email = ref('');
@@ -34,36 +35,66 @@ const recoverPassword = async () => {
 </script>
 
 <template>
-  <v-container class="fill-height">
-    <v-row align="center" justify="center">
-      <v-col cols="12" sm="8" md="6" lg="4">
-        <v-card class="elevation-12 pa-8">
-          <v-card-title class="text-h5 mb-6 text-center">Recuperar contraseña</v-card-title>
-          <v-form @submit.prevent="recoverPassword">
+  <v-container class="fill-height" fluid>
+    <v-row class="align-start justify-center" style="margin-top: 20px;">
+      <v-col cols="11" sm="11" md="5" lg="4" xl="4">
+        <v-card 
+          class="bg-tertiary w-100 mb-4 pa-2"
+        >
+          <v-container class="d-flex align-center justify-center pa-4">
+            <v-row class="align-center justify-space-between" no-gutters>
+              <v-col class="text-h4 d-flex align-center justify-center">
+                Recuperar contraseña
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+
+        <v-card class="w-100 pa-4 mb-4">
+          <v-form @submit.prevent="recoverPassword" class="recover-form">
             <v-text-field
               v-model="email"
               label="Correo electrónico"
               prepend-inner-icon="mdi-email"
-              variant="outlined"
-              class="mb-4"
+              density="compact"
               :rules="[rules.required, rules.email]"
             ></v-text-field>
             <v-btn
               type="submit"
               color="primary"
               block
-              size="large"
-              class="mb-4"
               :loading="isLoading"
             >
               Enviar correo de recuperación
             </v-btn>
+            <div class="w-100 pa-2 text-center">
+              ¿Recordaste tu contraseña? 
+              <router-link to="/sign-in" class="text-primary">Iniciar sesión</router-link>
+            </div>
           </v-form>
-          <v-card-text class="text-center">
-            <router-link to="/sign-in" class="text-primary">Volver al inicio de sesión</router-link>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+.recover-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.v-text-field .v-input__details {
+  display: none;
+}
+
+.v-text-field {
+  margin-bottom: 0.5rem;
+}
+
+.v-btn {
+  text-transform: none;
+  font-weight: 500;
+}
+</style>
