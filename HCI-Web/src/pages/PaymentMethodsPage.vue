@@ -7,10 +7,7 @@ import Section from '@/components/Section.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
-import visaLogo from '@/assets/visa-logo.png';
-import mastercardLogo from '@/assets/mastercard-logo.png';
-import amexLogo from '@/assets/amex-logo.png';
-import SimpleCard from '@/components/SimpleCard.vue'
+import { computed } from 'vue';
 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
@@ -36,20 +33,13 @@ const sections = [
 ]
 const editState = ref(false);
 
-function cardLogo(type){
-    switch (type) {
-        case 'Visa':
-          return visaLogo;
-        case 'Mastercard':
-          return mastercardLogo;
-        case 'American Express':
-          return amexLogo;
-        default:
-          return null;
-      }
-};
-
-const name = ref('Federico Magri');   //TODO: CAMBIAR PARA QUE CONSIGA EL NOMBRE
+function formattedCardNumber(cardNumber) {
+  if (!cardNumber || typeof cardNumber !== 'string') {
+    return '';
+  }
+  const groups = cardNumber.match(/\d{1,4}/g) || [];
+  return groups.join(' ');
+}
 
 </script>
 
@@ -60,11 +50,11 @@ const name = ref('Federico Magri');   //TODO: CAMBIAR PARA QUE CONSIGA EL NOMBRE
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
-        <Section class="ma-3 d-flex align-start" height="500px">
+        <Section class="ma-3 d-flex align-start" height="550px">
           <v-container class="inside-section mb-auto">
             <v-row>
               <v-col cols="7">
-                <h2 class="text-h5 mb-4">Tus Medios de Pago</h2>
+                <h2 class="text-h5 mb-4">Medios de Pago</h2>
               </v-col>
               <v-col cols="5">
                 <div class="d-flex justify-end">
@@ -90,42 +80,18 @@ const name = ref('Federico Magri');   //TODO: CAMBIAR PARA QUE CONSIGA EL NOMBRE
                 @mouseleave = "isHovered = null">
                   <v-card-text class="d-flex justify-space-between align-center pa-0">
                     <v-container>
-
-                      <!--
-                      <v-row v-if="isHovered === card.id" class="d-flex flex-row align-center justify-space between">
-                        <v-col >
-                          <div class="d-flex flex-column">  
-                            <div>
-                              <v-img
-                                src="../assets/smart-chip.png"
-                                max-width="60"
-                                ></v-img>
-                            </div>
-                            <div class="pt-2">{{ card.number }}</div>
-                            <div class="pt-2">{{ name }}</div>
-                          </div>
-                        </v-col>
-                        <v-col class="">
-                          <v-img 
-                            :src="paymentMethodsStore.cardLogo(card.type)"
-                            max-width="50"
-                            contain
-                            class="card-logo"
-                          ></v-img>
-                        </v-col>
-                      </v-row>
-                    -->
                     <v-row v-if="isHovered === card.id" class="d-flex flex-row justify-space-between">
                       <v-col>
                         <div class="d-flex flex-column">  
                           <div>
                             <v-img
                               src="../assets/smart-chip.png"
-                              max-width="60"
+                              max-width="40"
+                              class="mb-4 mt-2"
                             ></v-img>
                           </div>
-                          <div class="pt-2">{{ card.number }}</div>
-                          <div class="pt-2">{{ name }}</div>
+                          <div class="pt-2">{{ formattedCardNumber(card.number) }}</div>
+                          <div class="pt-2">{{ card.name }}</div>
                         </div>
                       </v-col>
                       <v-col class="d-flex justify-end align-end">
@@ -143,7 +109,7 @@ const name = ref('Federico Magri');   //TODO: CAMBIAR PARA QUE CONSIGA EL NOMBRE
                         <v-col >
                           <div class="d-flex flex-column">  
                             <div class="text-subtitle-1">{{ card.type }}</div>
-                            <div>{{ card.number }}</div>
+                            <div>{{ formattedCardNumber(card.number) }}</div>
                           </div>
                         </v-col>
                         <v-col class="d-flex justify-end">

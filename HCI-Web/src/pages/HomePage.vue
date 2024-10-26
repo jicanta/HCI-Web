@@ -34,7 +34,7 @@
               <v-row class="d-flex flex-row align-center justify-center w-100">
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4">Ingresar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-pencil" color="primary"  elevation="4" @click="goToRoute({ name: 'account' })">Tus datos</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-account" color="primary"  elevation="4" @click="goToRoute({ name: 'account' })">Tus datos</v-btn>
                 </v-col>
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4">Transferir</v-btn>
@@ -51,17 +51,21 @@
           title="Medios de pago" 
           class="bg-tertiary w-100 my-4 pa-2"
         >
-          <v-container class="d-flex flex-column align-center justify-center pa-6">
-            <v-container class="bg-lime-darken-4 my-1 rounded">
-              <p> •••• •••• •••• 4444 </p>
-            </v-container>
-            <v-container class="bg-shades-black my-1 rounded">
-              <p> •••• •••• •••• 4444 </p>
-            </v-container>
-            <v-container class="bg-blue-grey-lighten-3 my-1 rounded">
-              <p> •••• •••• •••• 4444 </p>
-            </v-container>
-          
+          <v-container class="d-flex flex-column align-center justify-center pa-6 height-60">
+            <v-container v-for="card in paymentMethodsStore.paymentMethods.slice(0, 3)" 
+                         :key="card.id"
+                         class="rounded mb-2 d-flex align-center"
+                         :class="`bg-${card.color}`"
+                         style="height: 50px;">
+              <v-row class="d-flex justify-space-between align-center">
+                <v-col>
+                  {{ maskCardNumber(card.number) }}
+                </v-col>
+                <v-col cols="3">
+                  <v-img :src="paymentMethodsStore.cardLogo(card.type)" width="50"/>
+                </v-col>
+              </v-row>
+            </v-container> 
           </v-container>
           <v-card-actions>
             <v-btn class="bg-primary w-100" @click="router.push({name: 'paymentMethods'})">Ver medios de pago</v-btn>
@@ -109,8 +113,15 @@
 <script setup>
 import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 import ListItem from '@/components/ListItem.vue';
-  import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
+
+const paymentMethodsStore = usePaymentMethodsStore();
+
+const maskCardNumber = (number) => {
+  return '•••• '.repeat(3) + number.slice(-4);
+};  
 
   /*
   const toggleDarkMode = () => {
@@ -203,6 +214,3 @@ import { useRouter } from 'vue-router';
 
 </script>
 
-<style>
-
-</style>

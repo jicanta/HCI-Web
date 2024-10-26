@@ -6,9 +6,9 @@ import amexLogo from '@/assets/amex-logo.png';
 export const usePaymentMethodsStore = defineStore('paymentMethods', {
   state: () => ({
     paymentMethods: [
-      { id: 1, type: 'Visa', number: '4444444444444', color: 'black darken-3' },
-      { id: 2, type: 'Mastercard', number: '555566666666666', color: 'blue darken-1' },
-      { id: 3, type: 'American Express', number: '3444444444444444', color: 'orange darken-3' },
+      { id: 1, name: 'Federico Magri', type: 'Visa', number: '4424378944004324', color: 'black darken-3' },
+      { id: 2, name: 'Federico Magri', type: 'Mastercard', number: '5335006634516261', color: 'blue darken-1' },
+      { id: 3, name: 'Federico Magri', type: 'American Express', number: '3459764334254342', color: 'orange-darken-3' },
     ]
   }),
   actions: {

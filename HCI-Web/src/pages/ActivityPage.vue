@@ -48,6 +48,7 @@
           </template>
 
           <template v-else>
+            <h2 class="text-h3 mb-4">Movimientos</h2>
             <ListItem
             v-for="transaction in paginatedTransactions"
             :key="transaction.id"

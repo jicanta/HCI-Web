@@ -71,9 +71,9 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
   ]
 
   const chartData = ref({
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'Mar', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     datasets: [{
-      label: 'Profit',
+      label: 'Ganancia',
       data: [1000, 1500, 2000, 1800, 2200, 2600, 2400, 2800, 3000, 3200, 3500, 3800],
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1
@@ -88,13 +88,13 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Profit ($)'
+          text: 'Ganancia ($)'
         }
       },
       x: {
         title: {
           display: true,
-          text: 'Month'
+          text: 'Mes'
         }
       }
     }
@@ -109,7 +109,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h1 class="text-h4 mb-6 text-center">Invest</h1>
+            <h1 class="text-h4 mb-6 text-center">Invertir</h1>
             
             
             
@@ -187,7 +187,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
             
             <!-- Chart added at the bottom -->
             <v-card class="pa-4 mt-6">
-              <v-card-title class="text-h5 mb-2">Profit by Month</v-card-title>
+              <v-card-title class="text-h5 mb-2">Ganancia por mes</v-card-title>
               <v-card-text>
                 <div class="chart-container">
                   <LineChart v-if="chartData" :data="chartData" :options="chartOptions" />

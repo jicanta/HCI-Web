@@ -44,8 +44,8 @@
   import ProfileSectionNav from './ProfileSectionNav.vue';
 
   const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-pencil", selected: false, route: "account"},
-    {text: "Más", icon: "mdi-dots-horizontal-circle-outline", selected: false, route: "more"},
+    {text: "Tus Datos", icon: "mdi-account", selected: false, route: "account"},
+    {text: "Personalizar", icon: "mdi-pencil", selected: false, route: "more"},
     {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
   ]
   

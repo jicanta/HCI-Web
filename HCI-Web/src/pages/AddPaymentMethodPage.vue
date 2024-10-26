@@ -55,7 +55,7 @@
           showBack.value = true;
         }
       } else {
-        // Handle form submission
+        handleSubmit();
         console.log('Form submitted');
       }
     };
@@ -63,11 +63,12 @@
     const handleSubmit = () => {
         const newPaymentMethod = {
             type: getCardType(cardNumber.value),
-            lastFour: cardNumber.value.slice(-4),
+            number: cardNumber.value,
+            name: cardholderName.value,
             color: getCardColor(getCardType(cardNumber.value))
         };
         paymentMethodsStore.addPaymentMethod(newPaymentMethod);
-        router.replace('/payment-methods');
+        router.push({ name: 'paymentMethods'});
     };
 
     function getCardType(cardNumber) {
@@ -83,20 +84,18 @@
 
     function getCardColor(cardType) {
         switch (cardType) {
-            case 'Visa': return 'green darken-3';
-            case 'Mastercard': return 'orange darken-3';
-            case 'American Express': return 'blue-grey darken-3';
+            case 'Visa': return 'black darken-3';
+            case 'Mastercard': return 'blue darken-1';
+            case 'American Express': return 'orange-darken-3';
             default: return 'grey darken-3';
         }
     }
 
-    // Update this computed property
     const formattedCardNumber = computed(() => {
       const groups = cardNumber.value.match(/\d{1,4}/g) || [];
-      return groups.join('-');
+      return groups.join(' ');
     });
 
-    // Add this method to handle keypress events
     const onlyNumbers = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -104,16 +103,13 @@
       }
     };
 
-    // Add this computed property for cardholderName
     const formattedCardholderName = computed({
       get: () => cardholderName.value,
       set: (value) => {
-        // Remove any digits and limit to 50 characters
         cardholderName.value = value.replace(/\d/g, '').slice(0, 50);
       }
     });
 
-    // Add this method to handle keypress events for text only
     const onlyText = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if ((charCode >= 48 && charCode <= 57) || charCode === 46) {
@@ -121,7 +117,6 @@
       }
     };
 
-    // Add this computed property for CVV
     const formattedCVV = computed({
       get: () => cvv.value,
       set: (value) => {
@@ -131,7 +126,6 @@
       }
     });
 
-    // Add this method to handle keypress events for CVV
     const onlyNumbersCVV = (event) => {
       const charCode = event.which ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -139,10 +133,8 @@
       }
     };
 
-    // Add this computed property for card type
     const cardType = computed(() => getCardType(cardNumber.value));
 
-    // Update this computed property for card logo
     const cardLogo = computed(() => {
       if (cardNumber.value.length === 0) return null;
       
@@ -163,9 +155,7 @@
     };
 
     const updateCardNumber = (event) => {
-      // Remove any non-digit characters
       const cleaned = event.target.value.replace(/\D/g, '');
-      // Limit to 16 digits
       cardNumber.value = cleaned.slice(0, 16);
     };
 </script>
@@ -178,19 +168,18 @@
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h1 class="text-h4 mb-6 text-center">Añadir metodo de pago</h1>
-            
+            <h1 class="text-h4 mb-6 text-center">Agregar metodo de pago</h1>
             <div class="card-container mb-6">
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
                 <v-card color="black" rounded="lg" class="card-face card-front">
                   <v-form ref="form" class="card-content">
                     <div class="justify-start">
                     <v-img
-                      width="130"
+                      width="60"
                       :src="smartChip"
                     ></v-img>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-2 mt-8">
                     <v-text-field
                       placeholder="Numero de la tajeta"
                       v-model="formattedCardNumber"
@@ -233,8 +222,8 @@
                         ></v-select>
                       </div>
                     </div>
-                  <v-row class="mb-2">
-                    <v-col cols="6">
+                  <v-row class="mb-2 d-flex justify-space-between align-center">
+                    <v-col >
                     <div class="input-container mb-2">
                       <v-text-field
                         placeholder="Nombre y Apellido"
@@ -250,11 +239,11 @@
                       ></v-text-field>
                     </div>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col >
                       <div v-if="cardNumber.length > 0" class="card-logo-container mb-2">
                         <v-img
                           :src="cardLogo"
-                          contain
+                          width="40"
                           class="card-logo"
                         ></v-img>
                       </div>
