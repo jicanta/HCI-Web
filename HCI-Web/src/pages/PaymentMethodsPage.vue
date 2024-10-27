@@ -9,14 +9,14 @@ import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/stores/store';
-
+ 
 const appStore = useAppStore();
-
+ 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
 const showRemoveVerification = ref(false);
 const toRemoveId = ref(-1);
-
+ 
 const removePaymentMethod = (id) => {
   console.log(id);
   if(id >= 0){
@@ -26,26 +26,26 @@ const removePaymentMethod = (id) => {
     editState.value = false;
   }
 };
-
+ 
 const setToRemoveId = (id) => {
-
+ 
   toRemoveId.value = id;
-
+ 
 }
-
+ 
 const removeAndClose = () => {
   removePaymentMethod(toRemoveId.value);
   showRemoveVerification.value = false;
 }
-
-
+ 
+ 
 const addPaymentMethod = () => {
   router.push({ name: 'addPaymentMethod' });
 };
 // const removePaymentMethod = (id) => {
 //   router.push({ name: 'removePaymentMethod' });
 // };
-
+ 
 const sections = [
   {text: "Inicio", icon: "mdi-home", selected: false, route: "home"}, 
   {text: "Movimientos", icon: "mdi-history", selected: false, route: "movements"}, 
@@ -53,7 +53,7 @@ const sections = [
   {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "invest"}
 ]
 const editState = ref(false);
-
+ 
 function formattedCardNumber(cardNumber) {
   if (!cardNumber || typeof cardNumber !== 'string') {
     return '';
@@ -61,16 +61,16 @@ function formattedCardNumber(cardNumber) {
   const groups = cardNumber.match(/\d{1,4}/g) || [];
   return groups.join(' ');
 }
-
+ 
 </script>
-
-
+ 
+ 
 <template>
-  <v-main class="main-container bg-background">
-    <ButtonsNavBar :sections="sections"/>
-    
+  <v-main class="main-container bg-background" role="main" aria-label="Medios de pago">
+    <ButtonsNavBar :sections="sections" role="navigation" aria-label="Navegación principal"/>
+ 
     <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
+      <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="5">
         <v-card 
           class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
@@ -81,8 +81,9 @@ function formattedCardNumber(cardNumber) {
             <v-divider class="primary" width="32" thickness="2"></v-divider>
           </div>
         </v-card>
-        <Section class="ma-3 d-flex align-start" height="auto">
-          <v-container class="inside-section mb-auto fill-height d-flex flex-column">
+ 
+        <Section class="ma-3 d-flex align-start justify-center" height="auto">
+          <v-container class="inside-section mb-auto fill-height d-flex flex-column" style="max-width: 800px">
             <div class="d-flex justify-end">
               <v-btn 
                 v-if="appStore.getCreditCards().length > 0"
@@ -93,13 +94,18 @@ function formattedCardNumber(cardNumber) {
               </v-btn>          
             </div>
             <div>
-            <v-list class="bg-tertiary">
-              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class=" mt-2 mb-2">
+            <v-list class="bg-tertiary" style="width: 100%">
+              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" 
+                          :key="card.id" 
+                          class="mt-2 mb-2"
+                          style="width: 100%"
+              >
                 <v-card 
-                :key="card.id"
-                class="rounded-card elevation-7 pa-0"  
-                width="100%" 
-                :color="card.color">
+                  :key="card.id"
+                  class="rounded-card elevation-7 pa-0"  
+                  style="width: 100%; min-width: 350px" 
+                  :color="card.color"
+                >
                   <v-card-text class="d-flex justify-space-between align-center ">
                     <v-container class="card-container">
                       <v-row class="card-content">
@@ -176,7 +182,7 @@ function formattedCardNumber(cardNumber) {
       </v-card>
     </v-dialog>
 </template>
-
+ 
 <style scoped>
 .main-container {
   display: flex;
@@ -184,7 +190,7 @@ function formattedCardNumber(cardNumber) {
   align-items: center;
   width: 100%;
 }
-
+ 
 .inside-section {
   display: flex;
   flex-direction: column;
@@ -192,32 +198,31 @@ function formattedCardNumber(cardNumber) {
   justify-content: flex-start;
   align-items: stretch;
 }
-
+ 
 .v-list-item {
   padding: 0;
 }
-
+ 
 .remove-btn {
   background-color: rgba(255, 255, 255, 0.2);
 }
-
+ 
 .card-logo {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
-
+ 
 .rounded-card {
-  border-radius: 15px;
-  height: 75px;
-  transition: 0.4s;
+  border-radius: 12px;
+  width: 100%;
 }
-
+ 
 .card-content {
   position: relative;
   height: 100%;
 }
-
+ 
 .normal-view, .hovered-view {
   position: absolute;
   top: 0;
@@ -225,23 +230,24 @@ function formattedCardNumber(cardNumber) {
   width: 100%;
   transition: opacity 0.4s, transform 0.4s;
 }
-
+ 
 .hovered-view {
   opacity: 0;
   transform: translateY(20px);
 }
-
+ 
 .rounded-card:hover {
   height: 150px;
 }
-
+ 
 .rounded-card:hover .normal-view {
   opacity: 0;
   transform: translateY(-20px);
 }
-
+ 
 .rounded-card:hover .hovered-view {
   opacity: 1;
   transform: translateY(0);
 }
 </style>
+
