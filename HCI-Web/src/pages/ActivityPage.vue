@@ -1,8 +1,5 @@
 <script setup>
-  import AppDivision from '@/components/AppDivision.vue';
   import { ref, computed, onMounted } from 'vue';
-  import BodyGrid from '@/components/BodyGrid.vue';
-  import Section from '@/components/Section.vue';
   import ListItem from '@/components/ListItem.vue';
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
   import { useAppStore } from '@/stores/store';
@@ -20,7 +17,7 @@
 
   onMounted(
     () => {
-      transactions.value = JSON.parse(localStorage.getItem("transactions")).reverse();
+      transactions.value = appStore.getCurrentUser().payments
     }
   );
 
@@ -34,7 +31,7 @@
   const paginatedTransactions = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    return appStore.getCurrentUser().transactions.slice(start, end);
+    return transactions.value.slice(start, end);
   });
 
   import { formatTransactionDate } from '@/back-libs/date';
@@ -69,7 +66,7 @@
           <template v-else>
             <v-list class="pa-0">  <!--TODO: hay que arreglar la pagina esta, ya me encargo yo.-->
               <ListItem
-                v-for="transaction in appStore.getCurrentUser().payments"
+                v-for="transaction in paginatedTransactions"
                 :key="transaction.id"
                 :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                 :top="formatTransactionDate(transaction.date)"
