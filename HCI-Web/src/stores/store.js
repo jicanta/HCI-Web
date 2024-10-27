@@ -2,6 +2,9 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { User, CreditCard, Payment } from './classes';
 import { initializeApp as initAppFunction } from './initializeApp';
+import visaLogo from '@/assets/visa-logo.png';
+import mastercardLogo from '@/assets/mastercard-logo.png';
+import amexLogo from '@/assets/amex-logo.png';
 
 
  export const useAppStore = defineStore("app", () => {
@@ -80,6 +83,12 @@ import { initializeApp as initAppFunction } from './initializeApp';
     function getBalance() {
         if (currentUser.value >= 0){
             return users.value[currentUser.value].balance;
+        }
+    }
+
+    function addBalance(amount) {
+        if (currentUser.value >= 0){
+            users.value[currentUser.value].balance += amount;
         }
     }
 
@@ -179,6 +188,15 @@ import { initializeApp as initAppFunction } from './initializeApp';
         return "Unknown";
     }
 
+    function getCardLogo(type){
+        switch(type){
+            case 'Visa': return visaLogo;
+            case 'Mastercard': return mastercardLogo;
+            case 'American Express': return amexLogo;
+            default: return null;
+        }
+    }
+
     function initialize() {
         initAppFunction({
             addUser,
@@ -219,6 +237,10 @@ import { initializeApp as initAppFunction } from './initializeApp';
 
     function log() {
         currentUser.value = -1;
+    }
+
+    function removeCard(number) {
+        users.value[currentUser.value].creditCards = users.value[currentUser.value].creditCards.filter(card => card.number !== number);
     }
 
     function formatTransactionDate(date) {
@@ -268,6 +290,9 @@ import { initializeApp as initAppFunction } from './initializeApp';
         getId,
         getDni,
         getCvu,
-        getAlias
+        getAlias,
+        removeCard,
+        addBalance,
+        getCardLogo
     };
  });

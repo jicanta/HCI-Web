@@ -19,26 +19,22 @@ const appStore = useAppStore();
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
 const showRemoveVerification = ref(false);
-const toRemoveId = ref(-1);
+const toRemoveNumber = ref(-1);
  
-const removePaymentMethod = (id) => {
-  console.log(id);
-  if(id >= 0){
-    paymentMethodsStore.removePaymentMethod(id);
-  }
-  if (paymentMethodsStore.paymentMethods.length === 0) {
+const removePaymentMethod = (number) => {
+  console.log(number);
+  appStore.removeCard(number);
+  if (appStore.getCreditCards().length === 0) {
     editState.value = false;
   }
 };
  
-const setToRemoveId = (id) => {
- 
-  toRemoveId.value = id;
- 
+const setToRemoveNumber = (number) => {
+  toRemoveNumber.value = number;
 }
  
 const removeAndClose = () => {
-  removePaymentMethod(toRemoveId.value);
+  removePaymentMethod(toRemoveNumber.value);
   showRemoveVerification.value = false;
 }
  
@@ -46,9 +42,6 @@ const removeAndClose = () => {
 const addPaymentMethod = () => {
   router.push({ name: 'addPaymentMethod' });
 };
-// const removePaymentMethod = (id) => {
-//   router.push({ name: 'removePaymentMethod' });
-// };
  
 const sections = [
   {text: "Inicio", icon: "mdi-home", selected: false, route: "home"}, 
@@ -137,7 +130,7 @@ function formattedCardNumber(cardNumber) {
                       <v-row class="card-logo-row">
                         <v-col cols="12" class="d-flex justify-end align-end">
                           <v-img 
-                            :src="paymentMethodsStore.cardLogo(card.type)"
+                            :src="appStore.getCardLogo(card.type)"
                             max-width="50"
                             contain
                             class="card-logo"
@@ -150,7 +143,7 @@ function formattedCardNumber(cardNumber) {
                       v-if="editState"
                       icon
                       small
-                      @click="setToRemoveId(card.id); showRemoveVerification = true;"
+                      @click="setToRemoveNumber(card.number); showRemoveVerification = true;"
                       class="remove-btn"
                       >
                         <v-icon>mdi-delete</v-icon>
@@ -177,7 +170,7 @@ function formattedCardNumber(cardNumber) {
   <v-dialog v-model="showRemoveVerification" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          Esta seguro que desea eliminar el metodo de pago:
+          ¿Seguro de que quiere eliminarlo?
         </v-card-title>
         <v-card-actions>
           <v-btn color="colortext" text @click="showRemoveVerification = false">Cancelar</v-btn>
@@ -257,4 +250,3 @@ function formattedCardNumber(cardNumber) {
   transform: translateY(0);
 }
 </style>
-

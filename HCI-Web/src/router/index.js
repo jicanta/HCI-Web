@@ -1,18 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
-import MorePage from '@/pages/MorePage.vue';
-import DepositPage from '@/pages/PaymentLinkPage.vue';
-import ActivityPage from '@/pages/ActivityPage.vue';
-import NotFoundPage from '@/pages/NotFoundPage.vue';
-import SignInPage from '@/pages/SignInPage.vue';
-import SignUpPage from '@/pages/SignUpPage.vue';
-import AddPaymentMethodPage from '@/pages/AddPaymentMethodPage.vue';
-import RecoverPasswordPage from '@/pages/RecoverPasswordPage.vue';
-import InvestPage from '@/pages/InvestPage.vue';
-import PaymentMethodsPage from '@/pages/PaymentMethodsPage.vue';
-import MyData from '@/pages/MyData.vue';
-import PaymentPage from '@/pages/PaymentPage.vue';
-
 
 const routes = [
   { path: '/', name: 'home', component: HomePage },
@@ -27,7 +14,8 @@ const routes = [
   { path: '/recover-password', name: 'recoverPassword', component: () => import('../pages/RecoverPasswordPage.vue')},
   { path: '/invest', name: 'invest', component: () => import('../pages/InvestPage.vue') },
   { path: '/account', name: 'account', component: () => import('../pages/MyData.vue') },
-  { path: '/pay', name: 'pay', component: () => import('../pages/PaymentPage.vue') }
+  { path: '/pay', name: 'pay', component: () => import('../pages/PaymentPage.vue') },
+  { path: '/deposit', name: 'deposit', component: () => import('../pages/DepositPage.vue') }
 ];
 
 const router = createRouter({
