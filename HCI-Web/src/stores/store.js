@@ -110,6 +110,13 @@ import { initializeApp as initAppFunction } from './initializeApp';
         }
         return users.value[currentUser.value];
     }
+
+    function getId() {
+        if(currentUser.value == -1) {
+            return -1;
+        }
+        return users.value[currentUser.value].id;
+    }
     
     function getCardColor(type){
         switch(type){
@@ -231,6 +238,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
         existsAlias,
         existsCVU,
         log,
-        formatTransactionDate
+        formatTransactionDate,
+        getId
     };
  });

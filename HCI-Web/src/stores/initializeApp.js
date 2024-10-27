@@ -12,7 +12,7 @@ const users = ref([
     { email: "miguel.fernandez@test.com", password: "miFer1234", firstName: "Miguel", lastName: "Fernández", phoneNumber: "1112345678" , dni: "41234567", id: 6 },
     { email: "sofia.torres@test.com", password: "sofi9876", firstName: "Sofía", lastName: "Torres", phoneNumber: "1134567890" , dni: "43456789", id: 7 },
     { email: "javier.ruiz@test.com", password: "javi4567", firstName: "Javier", lastName: "Ruiz", phoneNumber: "1167890123" , dni: "46789012", id: 8 },
-    { email: "carmen.diaz@test.com", password: "carmenD22", firstName: "Carmen", lastName: "Díaz", phoneNumber: "1189012345" , dni: "44901234", id: 9}
+    { email: "1", password: "1", firstName: "Carmen", lastName: "Díaz", phoneNumber: "1189012345" , dni: "44901234", id: 9}
 ]);
 
 function initializeApp(appStore) {
@@ -21,7 +21,9 @@ function initializeApp(appStore) {
     });
     generateAndAddCreditCards(appStore);
     generateAndAddContacts(appStore);
-    appStore.setCurrentUser(0); // Establecer el usuario actual al final de la inicialización
+    appStore.setCurrentUser(-1); // Establecer el usuario actual al final de la inicialización
+
+    console.log("Initialized.");
 }
 
 function generateAndAddCreditCards(appStore) {
