@@ -119,9 +119,9 @@ const copyToClipboard = async () => {
           Esta seguro que desea transferir a:
         </v-card-title>
         <v-card-actions>
-          <v-btn color="primary" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
+          <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="verify = true">Transferir</v-btn>
+          <v-btn color="colortext" @click="verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

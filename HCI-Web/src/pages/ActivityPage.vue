@@ -84,7 +84,7 @@
           v-model="currentPage"
           :length="totalPages"
           :total-visible="6"
-          color="colortext2"
+          color="colortext"
           class="my-4"
         />
 

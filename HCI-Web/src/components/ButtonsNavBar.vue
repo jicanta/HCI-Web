@@ -99,7 +99,7 @@
   }
   .left-container {
     height: 100%;
-    width: 25%;
+    width: 12.5%;
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -136,7 +136,6 @@
   .right-container{
     height: 100%;
     width: 12.5%;
-
     align-items: center;
     justify-content: center;
     display: flex;
