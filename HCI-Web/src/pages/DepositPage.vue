@@ -11,14 +11,26 @@ const goToRoute = (route) => {
 const appStore = useAppStore();
 
 const monto = ref('');
-const CBU = ref('');
-const descripcion = ref('');
+const selectedCard = ref('');
 const showVerifyTransactionDialog = ref(false);
+
+const maskCardNumber = (cardNumber) => {
+  if (!cardNumber) return '';
+  const cleanNumber = cardNumber.toString().replace(/\D/g, '');
+  if (cleanNumber.length !== 16) return cleanNumber;
+  return '•••• '.repeat(3) + cleanNumber.slice(-4);
+};
+
+const handleDeposit = () => {
+    appStore.addBalance(monto.value);
+    monto.value = '';
+    selectedCard.value = '';
+}
 
 </script>
 
 <template>
-  <template v-if="appStore.getId() <= 0">
+  <template v-if="appStore.getId() >= 0">
     <ButtonsNavBarWithBack link_back="/"/>
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
@@ -29,7 +41,7 @@ const showVerifyTransactionDialog = ref(false);
             elevation="0"
           >
             <div class="d-flex flex-column align-center">
-                <h1 class="text-h5 font-weight-medium mb-1">Transferir</h1>
+                <h1 class="text-h5 font-weight-medium mb-1">Ingresar</h1>
                 <v-divider class="primary" width="32" thickness="2"></v-divider>
             </div>
         </v-card>
@@ -51,28 +63,22 @@ const showVerifyTransactionDialog = ref(false);
                   class="mb-4 w-100"
                   dense
                 ></v-text-field>
-                <v-text-field
-                  v-model="CBU"
-                  label="CBU o alias"
-                  type="number text"
-                  variant="outlined"
-                  class="mb-4 w-100"
-                  dense
-                ></v-text-field>
-                <v-text-field
-                  v-model="descripcion"
-                  label="Agregar descripción"
-                  variant="outlined"
-                  class="mb-4 w-100"
-                  dense
-                ></v-text-field>
+                <v-select
+                    v-model="selectedCard"
+                    :items="appStore.getCreditCards()"
+                    :item-title="item => item ? `${maskCardNumber(item.number)} - ${item.type}` : ''"
+                    :item-value="item => item ? `${item.number} ${item.type}` : ''"
+                    label="Seleccione una tarjeta"
+                    class="mb-4 w-100"
+                    dense
+                />
                 <v-btn
                   color="primary"
                   block
                   x-large
                   class="mt-2"
                   style="height: 50px; text-transform: none;"
-                  @click="showVerifyTransactionDialog = true"
+                  @click="handleDeposit()"
                 >
                   Continuar
                 </v-btn>
@@ -81,25 +87,8 @@ const showVerifyTransactionDialog = ref(false);
           </v-container>
         </v-card>
 
-
-
-        
       </v-col>
     </v-row>
-
-    <!-- Payment Link Dialog -->
-    <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
-      <v-card class="elevation-7">
-        <v-card-title class="text-h5">
-          Esta seguro que desea transferir a:
-        </v-card-title>
-        <v-card-actions>
-          <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="colortext" @click="verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </template>
   <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
