@@ -40,5 +40,16 @@ export default createVuetify({
       }
     }
   },
+  defaults: {
+    VApp: {
+      style: [
+        { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }
+      ]
+    },
+    VBtn: { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' },
+    VCard: { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' },
+    VTextField: { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' },
+    VList: { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' },
+    VToolbar: { fontFamily: 'Poppins, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }
+  }
 })
-

@@ -1,9 +1,16 @@
 <template>
-    <v-container class="buttons-nav-bar bg-primary px-4 py-1" fluid>
+    <v-container class="buttons-nav-bar bg-primary px-4" fluid>
 
       <v-container class="left-container">
-        <a href="/">
-          <h1 class="font-weight-bold text-colortext"> Logo </h1>
+        <a href="/" class="d-flex align-center text-decoration-none logo-link">
+          <div class="logo-container">
+            <v-img
+              src="@/assets/PayGoIcon.png"
+              width="110"
+              height="110"
+              class="logo-image"
+            />
+          </div>
         </a>
       </v-container>
 
@@ -78,25 +85,46 @@
     display: flex;
     flex-direction: row;
     position: fixed;
+    top: 0;
     z-index: 100;
+    height: 90px;
+    overflow: visible;
   }
-  .left-container{
+  .left-container {
     height: 100%;
-    width: 12.5%;
-
-    align-items: center;
-    justify-content: left;
+    width: 25%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+  }
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .logo-image {
+    margin-top: 25px;
+    margin-left: 2rem;
+  }
+  .logo-text {
+    color: white;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-left: 2rem;
+    font-weight: bold;
   }
   .center-container{
-    height: 100%;
-    width: 75%;
-
-    align-items: center;
-    justify-content: space-around;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 65%;
   }
   .right-container{
     height: 100%;
@@ -108,4 +136,3 @@
     flex-direction: row;
   }
 </style>
-  

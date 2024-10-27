@@ -1,3 +1,7 @@
+// Add these imports at the top
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@mdi/font/css/materialdesignicons.css'
+
 // Plugins
 import { registerPlugins } from '@/plugins';
 
