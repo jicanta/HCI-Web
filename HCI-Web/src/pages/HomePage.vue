@@ -51,7 +51,7 @@ const maskCardNumber = (number) => {
   const currentUser = computed(() => appStore.getCurrentUser());
 
   // Usar computed para las transacciones
-  const transactions = computed(() => currentUser.value ? currentUser.value.payments : []);
+  const transactions = computed(() => currentUser.value ? appStore.getPayments() : []);
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 

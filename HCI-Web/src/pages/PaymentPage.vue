@@ -79,7 +79,7 @@ const copyToClipboard = async () => {
               <v-text-field
                 v-model="CBU"
                 label="CBU o alias"
-                type="number"
+                type="number text"
                 variant="outlined"
                 class="mb-4 w-100"
                 dense

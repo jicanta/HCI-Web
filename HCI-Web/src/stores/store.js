@@ -89,6 +89,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
         if (currentUser.value >= 0){
             return users.value[currentUser.value].payments;
         }
+        return [];
     }
 
     function getContacts() {
