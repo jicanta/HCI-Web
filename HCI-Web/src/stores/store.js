@@ -103,6 +103,25 @@ import { initializeApp as initAppFunction } from './initializeApp';
         }
     }
 
+    function getUserByEmail(email){
+        return users.value.find(obj => obj.email === email);
+    }
+
+    function authUser(email, password){
+        var user = getUserByEmail(email);
+
+        if (user != undefined){
+
+            if (user.password === password){
+                setCurrentUser(user.id);
+            }
+
+            return 1;
+        }
+
+        return 0;
+    }
+
     function getCardType(number){
         if(number.startsWith("4")) return "Visa";
         if(number.startsWith("34") || number.startsWith("37")) return "American Express";
@@ -185,6 +204,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
         getCurrentUser, 
         getCardColor, 
         getCardType,
+        authUser,
         initializeApp,
         updateUserAlias,
         updateUserName,

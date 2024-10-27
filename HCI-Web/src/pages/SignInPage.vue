@@ -54,30 +54,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+  import { useAppStore } from '@/stores/store';
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
-const router = useRouter();
-const authStore = useAuthStore();
+  const appStore = useAppStore();
 
-const email = ref('');
-const password = ref('');
-const showPassword = ref(false);
+  const router = useRouter();
 
-const handleSubmit = async () => {
-  const result = await authStore.signIn({
-    email: email.value,
-    password: password.value
-  });
-  
-  if (result.success) {
-    router.push('/');
-  } else {
-    console.error(result.error);
-    // You might want to show an error message to the user here
-  }
-};
+  const email = ref('');
+  const password = ref('');
+  const showPassword = ref(false);
+
+  const handleSubmit = async () => {
+    const result = await appStore.authUser(email.value, password.value);
+    
+    if (result == 1) {
+      router.push('/');
+    } else {
+      console.error("Contraseña o email incorrecto");
+    }
+  };
 </script>
 
 <style scoped>
