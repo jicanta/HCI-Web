@@ -47,12 +47,22 @@ const copyToClipboard = async () => {
     console.error('Failed to copy: ', err);
   }
 };
-const availableCards = ref([
-  { text: 'Visa - 1234', value: 'visa1234' },
-  { text: 'MasterCard - 5678', value: 'master5678' },
-  { text: 'Amex - 9012', value: 'amex9012' }
-]);
   
+const maskCardNumber = (cardNumber) => {
+  if (!cardNumber) return '';
+  const cleanNumber = cardNumber.toString().replace(/\D/g, '');
+  if (cleanNumber.length !== 16) return cleanNumber;
+  return '•••• '.repeat(3) + cleanNumber.slice(-4);
+};
+
+const formatNumber = (number) => {
+  if (number === null || number === undefined) return '';
+  
+  const numStr = number.toString();
+  if (numStr.length <= 3) return numStr;
+  
+  return numStr.slice(0, -3) + '.' + numStr.slice(-3);
+};
 </script>
 
 <template>
@@ -80,7 +90,7 @@ const availableCards = ref([
             <v-row class="align-center justify-space-between" no-gutters>
               <v-col class="d-flex flex-column align-center justify-center w-100">
                 <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
-                <p class="text-h6 font-weight-bold mb-4">${{ pesos }}.{{ centavos }}</p>
+                <p class="text-h6 font-weight-bold mb-4">${{ formatNumber(appStore.getBalance()) }}</p>
                 <v-text-field
                   v-model="monto"
                   label="Ingrese monto"
@@ -112,7 +122,9 @@ const availableCards = ref([
                 <v-container v-if="selectedPaymentOption === 'tarjeta'" class="bg-tertiary w-100 ">
                   <v-select
                     v-model="selectedCard"
-                    :items="cards"
+                    :items="appStore.getCreditCards()"
+                    :item-title="item => item ? `${maskCardNumber(item.number)} - ${item.type}` : ''"
+                    :item-value="item => item ? `${item.number} ${item.type}` : ''"
                     label="Seleccione una tarjeta"
                     class="mb-4 w-100"
                     dense
@@ -169,3 +181,4 @@ const availableCards = ref([
   letter-spacing: normal;
 }
 </style>
+

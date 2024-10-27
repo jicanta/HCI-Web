@@ -243,6 +243,15 @@ import amexLogo from '@/assets/amex-logo.png';
         users.value[currentUser.value].creditCards = users.value[currentUser.value].creditCards.filter(card => card.number !== number);
     }
 
+    function checkUserExists(email, password){
+        for(let i = 0; i < users.value.length; i++){
+            if(users.value[i].email == email && users.value[i].password == password){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function formatTransactionDate(date) {
         if (!(date instanceof Date)) {
           date = new Date(date);
@@ -293,6 +302,7 @@ import amexLogo from '@/assets/amex-logo.png';
         getAlias,
         removeCard,
         addBalance,
-        getCardLogo
+        getCardLogo,
+        checkUserExists
     };
  });
