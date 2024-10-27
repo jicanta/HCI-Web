@@ -23,4 +23,12 @@
   width: 100%;
   text-align: center;
 }
+
+/* Add these new styles */
+.text-body-2,
+.text-subtitle-2,
+.text-caption {
+  width: 100%;
+  text-align: center;
+}
 </style>
