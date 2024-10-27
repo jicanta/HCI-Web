@@ -95,7 +95,7 @@ function formattedCardNumber(cardNumber) {
             </div>
             <div>
             <v-list class="bg-tertiary" style="width: 100%">
-              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" 
+              <v-list-item v-for="card in appStore.getCreditCards()" 
                           :key="card.id" 
                           class="mt-2 mb-2"
                           style="width: 100%"
