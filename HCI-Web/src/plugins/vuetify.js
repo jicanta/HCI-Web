@@ -23,7 +23,7 @@ export default createVuetify({
           primary: colors.deepPurple.darken4,
           secondary: colors.deepPurple.darken1,
           tertiary: colors.blueGrey.lighten5,
-          primary: colors.deepPurple.darken4,
+          colortext: colors.deepPurple.darken4,
           colortext2: colors.shades.black,
         }
       },
