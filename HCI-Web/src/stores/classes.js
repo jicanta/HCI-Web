@@ -42,6 +42,7 @@ class Payment {
             var categoryIndex = getRandomIntegerBetween(0, earningCategories.length-1);
             this.category = earningCategories[categoryIndex];
         }
+        console.log(categoryIndex);
     }
 }
 

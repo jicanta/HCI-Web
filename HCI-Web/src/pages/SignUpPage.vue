@@ -29,6 +29,7 @@
                 <v-text-field v-model="telefono" label="Número de teléfono" prepend-inner-icon="mdi-phone" density="compact"></v-text-field>
               </v-col>
             </v-row>
+            <v-text-field v-model="username" label="Nombre de usuario" prepend-inner-icon="mdi-account" density="compact"></v-text-field>
             <v-text-field v-model="email" label="Email" prepend-inner-icon="mdi-email" density="compact"></v-text-field>
             <v-text-field
               v-model="password"

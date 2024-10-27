@@ -37,10 +37,6 @@ const copyToClipboard = async () => {
     console.error('Failed to copy: ', err);
   }
 };
-
-// const validateAmount () => {
-
-// }
   
 </script>
 
@@ -75,8 +71,7 @@ const copyToClipboard = async () => {
                 v-model="monto"
                 label="Ingrese monto"
                 prefix="$"
-                type="text"
-                :rules="[validateAmount]"
+                type="number"
                 variant="outlined"
                 class="mb-4 w-100"
                 dense
@@ -84,7 +79,7 @@ const copyToClipboard = async () => {
               <v-text-field
                 v-model="CBU"
                 label="CBU o alias"
-                type="number text"
+                type="number"
                 variant="outlined"
                 class="mb-4 w-100"
                 dense
@@ -117,6 +112,7 @@ const copyToClipboard = async () => {
     </v-col>
   </v-row>
 
+    <!-- Payment Link Dialog -->
     <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
