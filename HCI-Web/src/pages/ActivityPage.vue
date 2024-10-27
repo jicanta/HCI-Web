@@ -17,7 +17,7 @@
 
   onMounted(
     () => {
-      transactions.value = appStore.getCurrentUser().payments
+      transactions.value = appStore.getPayments();
     }
   );
 
