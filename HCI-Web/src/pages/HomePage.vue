@@ -187,7 +187,7 @@ const maskCardNumber = (number) => {
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
         <v-card 
           title="Última actividad"
-          class="w-100 my-4 pa-2"
+          class="bg-tertiary w-100 my-4 pa-2"
         >
           <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
           
@@ -200,6 +200,7 @@ const maskCardNumber = (number) => {
               <v-list class="pa-0">
                 <ListItem
                   v-for="transaction in transactions.slice(-3).reverse()"
+                  class="bg-tertiary"
                   :key="transaction.id"
                   :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                   :top="appStore.formatTransactionDate(transaction.date)"
