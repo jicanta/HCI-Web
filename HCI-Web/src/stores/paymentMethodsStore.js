@@ -19,7 +19,6 @@ export const usePaymentMethodsStore = defineStore('paymentMethods', {
       this.paymentMethods.push({ ...paymentMethod, id: newId })
     },
     removePaymentMethod(id) {
-      console.log("Removing...");
       const index = this.paymentMethods.findIndex(method => method.id === id)
       if (index !== -1) {
         this.paymentMethods.splice(index, 1)
