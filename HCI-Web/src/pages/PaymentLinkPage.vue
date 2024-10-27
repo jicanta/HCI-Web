@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup>
 import { ref } from 'vue';
 import AppDivision from '@/components/AppDivision.vue';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
