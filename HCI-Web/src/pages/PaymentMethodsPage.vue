@@ -14,9 +14,14 @@ const appStore = useAppStore();
 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
+const showRemoveVerification = ref(false);
+const verify = ref(false);
 
 const removePaymentMethod = (id) => {
-  paymentMethodsStore.removePaymentMethod(id);
+  showRemoveVerification.value = true;
+  if(verify == true){
+    paymentMethodsStore.removePaymentMethod(id);
+  }
   if (paymentMethodsStore.paymentMethods.length === 0) {
     editState.value = false;
   }
@@ -146,6 +151,18 @@ function formattedCardNumber(cardNumber) {
       </AppDivision>
     </BodyGrid>
   </v-main>
+  <v-dialog v-model="showRemoveVerification" max-width="400px">
+      <v-card class="elevation-7">
+        <v-card-title class="text-h5">
+          Esta seguro que desea eliminar el metodo de pago:
+        </v-card-title>
+        <v-card-actions>
+          <v-btn color="primary" text @click="showRemoveVerification = false">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="verify = true">Eliminar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
