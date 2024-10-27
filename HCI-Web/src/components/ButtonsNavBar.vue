@@ -8,7 +8,6 @@
               src="@/assets/PayGoIcon.png"
               width="110"
               height="110"
-              class="logo-image"
             />
           </div>
         </a>
@@ -102,7 +101,6 @@
     width: 12.5%;
     display: flex;
     align-items: center;
-    padding-left: 20px;
   }
   .logo-link {
     display: flex;
@@ -113,18 +111,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-  }
-  .logo-image {
-    margin-top: 25px;
-    margin-left: 2rem;
-  }
-  .logo-text {
-    color: white;
-    font-size: 14px;
-    margin-top: -10px;
-    margin-left: 2rem;
-    font-weight: bold;
   }
   .center-container{
     display: flex;
