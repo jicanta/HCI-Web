@@ -21,7 +21,9 @@ function initializeApp(appStore) {
     });
     generateAndAddCreditCards(appStore);
     generateAndAddContacts(appStore);
-    appStore.setCurrentUser(0); // Establecer el usuario actual al final de la inicialización
+    appStore.setCurrentUser(-1); // Establecer el usuario actual al final de la inicialización
+
+    console.log("initialized")
 }
 
 function generateAndAddCreditCards(appStore) {
