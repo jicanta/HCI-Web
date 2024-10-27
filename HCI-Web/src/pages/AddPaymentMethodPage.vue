@@ -163,7 +163,16 @@
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h1 class="text-h4 mb-6 text-center">Agregar metodo de pago</h1>
+            <v-card 
+          class="bg-tertiary w-100 mb-2 pa-2"
+          flat
+          elevation="0"
+        >
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-medium mb-1">Agregar método de pago</h1>
+            <v-divider class="primary" width="32" thickness="2"></v-divider>
+          </div>
+        </v-card>
             <div class="card-container mb-6">
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
                 <v-card color="black" rounded="lg" class="card-face card-front">

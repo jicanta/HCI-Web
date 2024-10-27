@@ -89,16 +89,15 @@ theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
     <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
 
       <v-card 
-        class="bg-tertiary w-100 h-40 my-4 pa-2"
-      >
-        <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
-          <v-row class="align-center justify-space-between" no-gutters>
-            <v-col class="mr-2 text-h4 d-flex align-center justify-center">
-              Personalizar
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
+          class="bg-tertiary w-100 mb-2 pa-2"
+          flat
+          elevation="0"
+        >
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-medium mb-1">Personalizar</h1>
+            <v-divider class="primary" width="32" thickness="2"></v-divider>
+          </div>
+        </v-card>
       <DataComponent
         v-for="(data, key) in user"
         :key="key"

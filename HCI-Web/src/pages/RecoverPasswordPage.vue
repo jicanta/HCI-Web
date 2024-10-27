@@ -19,10 +19,7 @@ const recoverPassword = async () => {
   if (email.value){
     isLoading.value = true;
     try {
-      // Implement password recovery logic here
-      // For example, call an API to send a recovery email
       console.log('Sending recovery email to:', email.value);
-      // Simulating API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       alert('Se ha enviado un correo de recuperación. Por favor, revise su bandeja de entrada.');
       router.push('/sign-in');
@@ -42,17 +39,15 @@ const recoverPassword = async () => {
     <v-row class="align-start justify-center" style="margin-top: 20px;">
       <v-col cols="11" sm="11" md="5" lg="4" xl="4">
         <v-card 
-          class="bg-tertiary w-100 mb-4 pa-2"
+          class="bg-tertiary w-100 mb-2 pa-2"
+          flat
+          elevation="0"
         >
-          <v-container class="d-flex align-center justify-center pa-4">
-            <v-row class="align-center justify-space-between" no-gutters>
-              <v-col class="text-h4 d-flex align-center justify-center">
-                Recuperar contraseña
-              </v-col>
-            </v-row>
-          </v-container>
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-medium mb-1">Recuperar contraseña</h1>
+            <v-divider class="primary" width="32" thickness="2"></v-divider>
+          </div>
         </v-card>
-
         <v-card class="w-100 pa-4 mb-4">
           <v-form @submit.prevent="recoverPassword" class="recover-form">
             <v-text-field
