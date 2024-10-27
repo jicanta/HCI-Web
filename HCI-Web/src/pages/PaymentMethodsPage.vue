@@ -169,9 +169,9 @@ function formattedCardNumber(cardNumber) {
           Esta seguro que desea eliminar el metodo de pago:
         </v-card-title>
         <v-card-actions>
-          <v-btn color="primary" text @click="showRemoveVerification = false">Cancelar</v-btn>
+          <v-btn color="textcolor" text @click="showRemoveVerification = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="removeAndClose()">Eliminar</v-btn>
+          <v-btn color="textcolor" @click="removeAndClose()">Eliminar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
