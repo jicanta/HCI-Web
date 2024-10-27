@@ -151,7 +151,7 @@ const maskCardNumber = (number) => {
                 </v-col>
                 <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
                   <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4"  @click="goToRoute({ name: 'pay' })">Pagar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-history" color="primary" elevation="4" @click="goToRoute({ name: 'paymentLink' })">Link de pago</v-btn>
+                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-link" color="primary" elevation="4" @click="goToRoute({ name: 'paymentLink' })">Link de pago</v-btn>
                 </v-col>
               </v-row>
             </v-col>
