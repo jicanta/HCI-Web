@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup>
 import { ref, onMounted } from 'vue';
 import { useAppStore } from '@/stores/store.js';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
@@ -89,4 +89,3 @@ const updateUserData = (key, newValue) => {
 </template>
 
 
-<style/>
