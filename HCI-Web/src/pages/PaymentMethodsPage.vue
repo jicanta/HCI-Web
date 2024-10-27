@@ -9,6 +9,7 @@ import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/stores/store';
+
 const appStore = useAppStore();
 
 const router = useRouter();
@@ -16,7 +17,7 @@ const paymentMethodsStore = usePaymentMethodsStore();
 
 const removePaymentMethod = (id) => {
   paymentMethodsStore.removePaymentMethod(id);
-  if(paymentMethodsStore.paymentMethods.length == 0){
+  if (paymentMethodsStore.paymentMethods.length === 0) {
     editState.value = false;
   }
 };
@@ -77,7 +78,7 @@ function formattedCardNumber(cardNumber) {
             </div>
             <div>
             <v-list class="bg-tertiary">
-              <v-list-item v-for="card in appStore.getCreditCards()" :key="card.id" class=" mt-2 mb-2">
+              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class=" mt-2 mb-2">
                 <v-card 
                 :key="card.id"
                 class="rounded-card pa-0"  
