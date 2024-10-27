@@ -5,6 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { formatTransactionDate } from '@/back-libs/date';
+import AppFooter from '@/components/AppFooter.vue';
 
 const paymentMethodsStore = usePaymentMethodsStore();
 
@@ -114,6 +115,7 @@ const maskCardNumber = (number) => {
 </script>
 
 <template>
+  <v-container class="d-flex flex-column min-vh-100 pa-0" fluid>
     <ButtonsNavBar :sections="sections"/>
 
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
@@ -221,4 +223,7 @@ const maskCardNumber = (number) => {
       </v-col>
     </v-row>
 
+    <v-spacer></v-spacer>
+    <AppFooter />
+  </v-container>
 </template>
