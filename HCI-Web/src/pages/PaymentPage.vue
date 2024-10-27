@@ -31,6 +31,8 @@ const descripcion = ref('');
 const showVerifyTransactionDialog = ref(false);
 const paymentLink = ref('');
 const copySuccess = ref(false);
+const selectedCard = ref('');
+const selectedPaymentOption = ref('cuenta');
 
 
 
@@ -45,6 +47,11 @@ const copyToClipboard = async () => {
     console.error('Failed to copy: ', err);
   }
 };
+const availableCards = ref([
+  { text: 'Visa - 1234', value: 'visa1234' },
+  { text: 'MasterCard - 5678', value: 'master5678' },
+  { text: 'Amex - 9012', value: 'amex9012' }
+]);
   
 </script>
 
@@ -98,6 +105,19 @@ const copyToClipboard = async () => {
                   class="mb-4 w-100"
                   dense
                 ></v-text-field>
+                <v-btn-toggle v-model="selectedPaymentOption" class="mb-4" mandatory>
+                  <v-btn :value="'cuenta'" color="primary" outlined>Dinero en cuenta</v-btn>
+                  <v-btn :value="'tarjeta'" color="primary" outlined>Pagar con Tarjeta</v-btn>
+                </v-btn-toggle>
+                <v-container v-if="selectedPaymentOption === 'tarjeta'" class="bg-tertiary w-100 ">
+                  <v-select
+                    v-model="selectedCard"
+                    :items="cards"
+                    label="Seleccione una tarjeta"
+                    class="mb-4 w-100"
+                    dense
+                  ></v-select>
+                </v-container>
                 <v-btn
                   color="primary"
                   block
