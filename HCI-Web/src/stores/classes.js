@@ -2,10 +2,9 @@ const spendingCategories = ["Comida", "Transporte", "Compras"];
 const earningCategories = ["Cobro", "Venta de producto"];
 
 class User {
-    constructor(id, email, username, password, name, surname, dni, telephone) {
+    constructor(id, email, password, name, surname, dni, telephone) {
         this.id = id;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;

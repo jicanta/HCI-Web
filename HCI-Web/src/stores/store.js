@@ -11,9 +11,9 @@ import { initializeApp as initAppFunction } from './initializeApp';
     const lastId = ref(0);
     const isInitialized = ref(false);
 
-    function addUser(email, username, password, name, surname, dni, telephone) {
+    function addUser(email, password, name, surname, dni, telephone) {
         if(!existsDNI(dni)){
-            users.value.push(new User(lastId.value, email, username, password, name, surname, dni, telephone));
+            users.value.push(new User(lastId.value, email, password, name, surname, dni, telephone));
             lastId.value++;
             return;
         }
@@ -148,10 +148,6 @@ import { initializeApp as initAppFunction } from './initializeApp';
         users.value[currentUser.value].telephone = newValue;
     }
 
-    function updateUserUsername(newValue) {
-        users.value[currentUser.value].username = newValue;
-    }
-
     function log() {
         currentUser.value = -1;
     }
@@ -195,7 +191,6 @@ import { initializeApp as initAppFunction } from './initializeApp';
         updateUserSurname,
         updateUserEmail,
         updateUserTelephone,
-        updateUserUsername,
         existsAlias,
         existsCVU,
         log,

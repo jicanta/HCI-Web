@@ -32,7 +32,6 @@ export const useAuthStore = defineStore('auth', {
         // For now, we'll simulate a successful signin
         const user = {
           id: Date.now().toString(), // Simulated user ID
-          username: credentials.username,
           email: `${credentials.username}@example.com`, // Simulated email
         }
         this.user = user

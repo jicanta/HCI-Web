@@ -88,7 +88,6 @@ const nombre = ref('');
 const apellido = ref('');
 const dni = ref('');
 const telefono = ref('');
-const username = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
@@ -115,7 +114,6 @@ const handleSubmit = async () => {
     apellido: apellido.value,
     dni: dni.value,
     telefono: telefono.value,
-    username: username.value,
     email: email.value,
     password: password.value
   });

@@ -39,12 +39,6 @@ const user = computed(() => ({
     label: 'Teléfono',
     editable: true,
     copyable: false,
-  },
-  username: {
-    content: currentUser.value.username,
-    label: 'Nombre de Usuario',
-    editable: true,
-    copyable: false,
   }
 }));
 
@@ -62,9 +56,6 @@ const updateUserData = (key, newValue) => {
       break;
     case 'telephone':
       appStore.updateUserTelephone(newValue);
-      break;
-    case 'username':
-      appStore.updateUserUsername(newValue);
       break;
   }
 };
