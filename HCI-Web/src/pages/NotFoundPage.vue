@@ -5,7 +5,7 @@
         <v-card class="text-center pa-6">
           <v-card-item>
             <v-card-title class="text-h4 mb-2">404</v-card-title>
-            <v-card-subtitle class="text-h6">Page Not Found</v-card-subtitle>
+            <v-card-subtitle class="text-h6">Página no encontrada</v-card-subtitle>
           </v-card-item>
           <v-card-text>
             <p class="mb-4">Oops! No encontramos la página que estaba buscando</p>

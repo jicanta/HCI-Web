@@ -1,5 +1,5 @@
-const spendingCategories = ["Food", "Transport", "Shopping"];
-const earningCategories = ["Salary deposit", "Product sale"];
+const spendingCategories = ["Comida", "Transporte", "Compras"];
+const earningCategories = ["Cobro", "Venta de producto"];
 
 class User {
     constructor(id, email, username, password, name, surname, dni, telephone) {
