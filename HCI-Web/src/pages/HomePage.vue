@@ -4,7 +4,6 @@ import ListItem from '@/components/ListItem.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
-import { formatTransactionDate } from '@/back-libs/date';
 import AppFooter from '@/components/AppFooter.vue';
 
 const paymentMethodsStore = usePaymentMethodsStore();
@@ -12,25 +11,6 @@ const paymentMethodsStore = usePaymentMethodsStore();
 const maskCardNumber = (number) => {
   return '•••• '.repeat(3) + number.slice(-4);
 };  
-
-  /*
-  const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
-  localStorage.setItem('isDarkMode', isDarkMode.value.toString()); // Guardar el estado en localStorage
-  };
-  */
-
-  var availableBalance = ref(0);
-  //var transactions = ref([]);
-
-  onMounted(
-    () => {
-      availableBalance.value = localStorage.getItem("availableBalance");
-      transactions.value = JSON.parse(localStorage.getItem("transactions"));
-    }
-    
-  );
   
   const getCents = (balance) => {
     return ( Math.abs(balance) - Math.floor(Math.abs(balance)) ).toFixed(2) * 100;
@@ -132,7 +112,7 @@ const maskCardNumber = (number) => {
             </h1>
 
             <v-container class="d-flex flex-columns pa-0 ma-0 h-100">
-              <p class="text-colortext2">{{ showMoney ? getCents(availableBalance) : '**' }}</p>
+              <p class="text-colortext2">{{ showMoney ? getCents(appStore.getBalance()) : '**' }}</p>
             </v-container>
 
             <v-icon size="32" class="text-colortext2 mr-2" @click="toggleMoneyVisibility">

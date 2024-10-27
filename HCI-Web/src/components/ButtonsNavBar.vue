@@ -60,9 +60,8 @@
   };
 
   const handleSignOut = () => {
-    //appStore.setCurrentUser(-1);
+    appStore.setCurrentUser(-1);
     goToRoute("signIn");
-    console.log("Signing out...");
   }
 
   const profileOptions = [

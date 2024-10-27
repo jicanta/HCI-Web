@@ -66,20 +66,14 @@ function generateAndAddContacts(appStore) {
                 appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
             }
         }
-        sortPaymentsByDate(appStore);
     }
 }
 
-function sortPaymentsByDate(appStore) {  //TODO: no funciona bien, arreglar.
-    for(let i = 0; i < appStore.users.length; i++){
-        const currentUserPayments = appStore.getPayments();
-        currentUserPayments.sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
-}
+var contFecha = 0;
 
 function generarFechaAleatoria(diasAtras) {
     const hoy = new Date();
-    const diasAleatorios = Math.floor(Math.random() * (diasAtras + 1));
+    const diasAleatorios = Math.floor(diasAtras + (contFecha += 0.1));
     hoy.setDate(hoy.getDate() - diasAleatorios);
     return hoy;
 }

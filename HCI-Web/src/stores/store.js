@@ -48,43 +48,59 @@ import { initializeApp as initAppFunction } from './initializeApp';
     }
 
     function addCreditCard(number, name, cvv) {
-        const type = getCardType(number);
-        users.value[currentUser.value].creditCards.push(new CreditCard(number, name, cvv, type, getCardColor(type)));
+        if (currentUser.value >= 0){
+            const type = getCardType(number);
+            users.value[currentUser.value].creditCards.push(new CreditCard(number, name, cvv, type, getCardColor(type)));
+        }
     }
 
     function setCurrentUser(id) {
-        currentUser.value = id;
+        if (currentUser.value >= 0){
+            currentUser.value = id;
+        }
     }
 
     function addContact(user) {
-        users.value[currentUser.value].contacts.push(user);
+        if (currentUser.value >= 0){
+            users.value[currentUser.value].contacts.push(user);
+        }
     }
  
     function addPayment(amount, date, name, alias, cvu, isUsingCreditCard) {    //dni es el dni hacia quien le mando la plata, el tema es que 
-        const user = users.value[currentUser.value];
+        if (currentUser.value >= 0){
+            const user = users.value[currentUser.value];
 
-        if( ( alias === null || existsAlias(alias) ) && (user.balance >= amount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
-            user.payments.push(new Payment(amount, date, name));
-            user.balance -= amount;
-            return true;
+            if( ( alias === null || existsAlias(alias) ) && (user.balance >= amount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
+                user.payments.push(new Payment(amount, date, name));
+                user.balance -= amount;
+                return true;
+            }
+            return false; //significa que no se pudo realizar el pago
         }
-        return false; //significa que no se pudo realizar el pago
     }
 
     function getBalance() {
-        return users.value[currentUser.value].balance;
+        if (currentUser.value >= 0){
+            return users.value[currentUser.value].balance;
+        }
     }
 
     function getPayments() {
-        return users.value[currentUser.value].payments;
+        if (currentUser.value >= 0){
+            return users.value[currentUser.value].payments;
+        }
     }
 
     function getContacts() {
-        return users.value[currentUser.value].contacts;
+        if (currentUser.value >= 0){
+            return users.value[currentUser.value].contacts;
+        }
     }
 
     function getCreditCards() {
-        return users.value[currentUser.value].creditCards;
+        if (currentUser.value >= 0){
+            return users.value[currentUser.value].creditCards;
+        }
     }
 
     function getCurrentUser() {
