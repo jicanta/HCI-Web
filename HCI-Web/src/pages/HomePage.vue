@@ -95,7 +95,7 @@ const maskCardNumber = (number) => {
 </script>
 
 <template>
-  <v-container class="d-flex flex-column min-vh-100 pa-0" fluid>
+  <v-container v-if=" appStore.getId() >= 0 " class="d-flex flex-column min-vh-100 pa-0" fluid>
     <ButtonsNavBar :sections="sections"/>
 
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>

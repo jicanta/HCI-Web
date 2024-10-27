@@ -55,9 +55,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
     }
 
     function setCurrentUser(id) {
-        if (currentUser.value >= 0){
-            currentUser.value = id;
-        }
+        currentUser.value = id;
     }
 
     function addContact(user) {
@@ -137,8 +135,14 @@ import { initializeApp as initAppFunction } from './initializeApp';
 
         if (user != undefined){
 
+            console.log("Log in info:");
+            console.log(email);
+            console.log(user.id);
+
             if (user.password === password){
                 setCurrentUser(user.id);
+                console.log("Signed in as id:");
+                console.log(getId());
             }
 
             return 1;
