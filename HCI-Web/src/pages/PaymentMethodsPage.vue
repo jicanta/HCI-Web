@@ -9,7 +9,11 @@ import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/stores/store';
- 
+
+const goToRoute = (route) => {
+  router.push(route);
+};
+
 const appStore = useAppStore();
  
 const router = useRouter();
@@ -66,7 +70,8 @@ function formattedCardNumber(cardNumber) {
  
  
 <template>
-  <v-main class="main-container bg-background" role="main" aria-label="Medios de pago">
+  <template v-if="appStore.getId() >= 0">
+    <v-main class="main-container bg-background" role="main" aria-label="Medios de pago">
     <ButtonsNavBar :sections="sections" role="navigation" aria-label="Navegación principal"/>
  
     <BodyGrid>
@@ -180,7 +185,9 @@ function formattedCardNumber(cardNumber) {
           <v-btn color="colortext" @click="removeAndClose()">Eliminar</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+  </v-dialog>
+  </template>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
  
 <style scoped>

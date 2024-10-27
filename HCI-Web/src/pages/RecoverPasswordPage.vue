@@ -1,7 +1,13 @@
 <script setup>
+import { useAppStore } from '@/stores/store';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+
+const goToRoute = (route) => {
+  router.push(route);
+};
+
+const appStore = useAppStore();
 
 const router = useRouter();
 const email = ref('');
@@ -35,7 +41,7 @@ const recoverPassword = async () => {
 </script>
 
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container v-if="appStore.getId() >= 0" class="fill-height" fluid>
     <v-row class="align-start justify-center" style="margin-top: 20px;">
       <v-col cols="11" sm="11" md="5" lg="4" xl="4">
         <v-card 
@@ -74,6 +80,7 @@ const recoverPassword = async () => {
       </v-col>
     </v-row>
   </v-container>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
 
 <style scoped>

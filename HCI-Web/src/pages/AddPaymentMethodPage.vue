@@ -22,6 +22,10 @@
     const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     const years = ["24","25","26","27","28","29"];
 
+    const goToRoute = (route) => {
+      router.push(route);
+    };
+
     const rules = {
         required: (value) => !!value || 'Campo requerido',
         cardNumber: (value) => {
@@ -156,7 +160,7 @@
 </script>
 
 <template>
-  <v-main class="main-container" fluid>
+  <v-main v-if="appStore.getId() >= 0" class="main-container" fluid>
     <ButtonsNavBarWithBack link_back="/payment-methods"/>
     
     <BodyGrid>
@@ -294,6 +298,7 @@
       </AppDivision>
     </BodyGrid>
   </v-main>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
   
   

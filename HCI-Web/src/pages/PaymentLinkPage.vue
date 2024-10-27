@@ -6,6 +6,14 @@ import BodyGrid from '@/components/BodyGrid.vue';
 import Section from '@/components/Section.vue';
 import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+import router from '@/router';
+import { useAppStore } from '@/stores/store';
+
+const appStore = useAppStore();
+
+const goToRoute = (route) => {
+  router.push(route);
+};
 
 const pesos = 25761;
 const centavos = 57;
@@ -47,67 +55,67 @@ const copyToClipboard = async () => {
 
 <template>
 
-  <ButtonsNavBarWithBack link_back="/"/>
-
-  <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
-    <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
-
-
-      <v-card 
-          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
-          flat
-          elevation="0"
+  <template v-if="appStore.getId() >= 0">
+    <ButtonsNavBarWithBack link_back="/"/>
+    <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
+      <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
+  
+  
+        <v-card 
+            class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
+            flat
+            elevation="0"
+          >
+            <div class="d-flex flex-column align-center">
+              <h1 class="text-h5 font-weight-medium mb-1">Generar un link de pago</h1>
+              <v-divider class="primary" width="32" thickness="2"></v-divider>
+            </div>
+          </v-card>
+  
+        <v-card 
+          class="bg-tertiary elevation-7 w-100 my-4 pa-4 rounded-lg elevation-2"
         >
-          <div class="d-flex flex-column align-center">
-            <h1 class="text-h5 font-weight-medium mb-1">Generar un link de pago</h1>
-            <v-divider class="primary" width="32" thickness="2"></v-divider>
-          </div>
+          <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
+            <v-row class="align-center justify-space-between" no-gutters>
+              <v-col class="d-flex flex-column align-center justify-center w-100">
+                <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
+                <p class="text-h6 mb-4">${{ pesos }}.{{ centavos }}</p>
+                <v-text-field 
+                  v-model="saldo"
+                  label="Agregar saldo"
+                  prefix="$"
+                  type="number"
+                  variant="outlined"
+                  class="mb-4 w-100"
+                  dense
+                ></v-text-field>
+                <v-text-field
+                  v-model="descripcion"
+                  label="Agregar descripción"
+                  variant="outlined"
+                  class="mb-4 w-100"
+                  dense
+                ></v-text-field>
+                <v-btn
+                  color="primary"
+                  block
+                  x-large
+                  class="mt-2"
+                  style="height: 50px; text-transform: none;"
+                  @click="generatePaymentLink"
+                >
+                  GENERAR
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card>
-
-      <v-card 
-        class="bg-tertiary elevation-7 w-100 my-4 pa-4 rounded-lg elevation-2"
-      >
-        <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
-          <v-row class="align-center justify-space-between" no-gutters>
-            <v-col class="d-flex flex-column align-center justify-center w-100">
-              <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
-              <p class="text-h6 mb-4">${{ pesos }}.{{ centavos }}</p>
-              <v-text-field 
-                v-model="saldo"
-                label="Agregar saldo"
-                prefix="$"
-                type="number"
-                variant="outlined"
-                class="mb-4 w-100"
-                dense
-              ></v-text-field>
-              <v-text-field
-                v-model="descripcion"
-                label="Agregar descripción"
-                variant="outlined"
-                class="mb-4 w-100"
-                dense
-              ></v-text-field>
-              <v-btn
-                color="primary"
-                block
-                x-large
-                class="mt-2"
-                style="height: 50px; text-transform: none;"
-                @click="generatePaymentLink"
-              >
-                GENERAR
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-
-
-
-      
-    </v-col>
-  </v-row>
+  
+  
+  
+        
+      </v-col>
+    </v-row>
 
     <!-- Payment Link Dialog -->
     <v-dialog v-model="showDialog" max-width="400px">
@@ -133,6 +141,8 @@ const copyToClipboard = async () => {
         </v-card-actions>
       </v-card>
     </v-dialog>
+  </template>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
 
 <style scoped>

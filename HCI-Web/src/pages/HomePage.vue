@@ -206,4 +206,5 @@ const maskCardNumber = (number) => {
     <v-spacer></v-spacer>
     <AppFooter />
   </v-container>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>

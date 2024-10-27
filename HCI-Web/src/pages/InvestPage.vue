@@ -7,8 +7,12 @@
   import AppDivision from '@/components/AppDivision.vue';
   import Section from '@/components/Section.vue';
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
-import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+  import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
+  import router from '@/router';
+  import { useAppStore } from '@/stores/store';
   
+  const appStore = useAppStore();
+
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
   const availableBalance = ref(10000);
@@ -99,10 +103,15 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
       }
     }
   };
+
+  const goToRoute = (route) => {
+    router.push(route);
+  };
+
 </script>
 
 <template>
-  <v-main class="main-container" fluid>
+  <v-main v-if="appStore.getId() >= 0" class="main-container" fluid>
     
     <ButtonsNavBar :sections="sections" />
     <BodyGrid>
@@ -206,6 +215,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
       </AppDivision>
     </BodyGrid>
   </v-main>
+  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
 
 <style scoped>
