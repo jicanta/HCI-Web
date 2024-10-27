@@ -15,17 +15,29 @@ const appStore = useAppStore();
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
 const showRemoveVerification = ref(false);
-const verify = ref(false);
+const toRemoveId = ref(-1);
 
 const removePaymentMethod = (id) => {
-  showRemoveVerification.value = true;
-  if(verify == true){
+  console.log(id);
+  if(id >= 0){
     paymentMethodsStore.removePaymentMethod(id);
   }
   if (paymentMethodsStore.paymentMethods.length === 0) {
     editState.value = false;
   }
 };
+
+const setToRemoveId = (id) => {
+
+  toRemoveId.value = id;
+
+}
+
+const removeAndClose = () => {
+  removePaymentMethod(toRemoveId.value);
+  showRemoveVerification.value = false;
+}
+
 
 const addPaymentMethod = () => {
   router.push({ name: 'addPaymentMethod' });
@@ -127,7 +139,7 @@ function formattedCardNumber(cardNumber) {
                       v-if="editState"
                       icon
                       small
-                      @click="removePaymentMethod(card.id)"
+                      @click="setToRemoveId(card.id); showRemoveVerification = true;"
                       class="remove-btn"
                       >
                         <v-icon>mdi-delete</v-icon>
@@ -159,7 +171,7 @@ function formattedCardNumber(cardNumber) {
         <v-card-actions>
           <v-btn color="primary" text @click="showRemoveVerification = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="verify = true">Eliminar</v-btn>
+          <v-btn color="primary" @click="removeAndClose()">Eliminar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
