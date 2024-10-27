@@ -61,8 +61,10 @@ const maskCardNumber = (number) => {
   import { PieChart } from 'echarts/charts';
   import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
   import { useAppStore } from '@/stores/store';
+  import { useTheme } from 'vuetify';
 
   const appStore = useAppStore();
+  const theme = useTheme();
 
   // Usar computed para acceder al usuario actual de manera reactiva
   const currentUser = computed(() => appStore.getCurrentUser());
@@ -89,7 +91,8 @@ const maskCardNumber = (number) => {
     },
     legend: {
       orient: 'vertical',
-      left: 'left'
+      left: 'left',
+      textStyle: { color: theme.current.value.colors.colortext2 } // Cambia 'blue' por el color deseado
     },
     series: [
       {
@@ -189,7 +192,7 @@ const maskCardNumber = (number) => {
           title="Última actividad"
           class="bg-tertiary w-100 my-4 pa-2"
         >
-          <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
+          <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 text-colorText2 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
           
           <v-card-text>
             <template v-if="transactions.length === 0">
