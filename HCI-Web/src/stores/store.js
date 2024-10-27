@@ -15,9 +15,9 @@ import { initializeApp as initAppFunction } from './initializeApp';
         if(!existsDNI(dni)){
             users.value.push(new User(lastId.value, email, password, name, surname, dni, telephone));
             lastId.value++;
-            return;
+            return 1;
         }
-        return error("DNI already exists");
+        return 0;
     }
 
     function existsDNI(dni) {  //es una funcion auxiliar, no se va a exportar

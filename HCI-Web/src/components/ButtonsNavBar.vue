@@ -37,7 +37,7 @@
           :selected="option.selected"
           :icon="option.icon"
           :text="option.text"
-          @click="goToRoute(option.route)"
+          @click="option.action"
           class="my-1"
           />
         </v-menu>
@@ -53,10 +53,22 @@
 
   const appStore = useAppStore();
 
+  const router = useRouter();
+  
+  const goToRoute = (route) => {
+    router.push({name: route});
+  };
+
+  const handleSignOut = () => {
+    //appStore.setCurrentUser(-1);
+    goToRoute("signIn");
+    console.log("Signing out...");
+  }
+
   const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-account", selected: false, route: "account"},
-    {text: "Personalizar", icon: "mdi-pencil", selected: false, route: "more"},
-    {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, route: ""}
+    {text: "Tus Datos", icon: "mdi-account", selected: false, action: () => {goToRoute("account")} },
+    {text: "Personalizar", icon: "mdi-pencil", selected: false, action: () => {goToRoute("more")} },
+    {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, action: handleSignOut }
   ]
   
   const props = defineProps({
@@ -71,11 +83,7 @@
     if (!currentUser || !currentUser.name || !currentUser.surname) return "";
     return `${currentUser.name.charAt(0)}${currentUser.surname.charAt(0)}`;
   };
-  const router = useRouter();
   
-  const goToRoute = (route) => {
-    router.push({name: route});
-  };
 </script>
   
 <style scoped>

@@ -79,10 +79,10 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+import { useAppStore } from '@/stores/store';
 
 const router = useRouter();
-const authStore = useAuthStore();
+const appStore = useAppStore();
 
 const nombre = ref('');
 const apellido = ref('');
@@ -104,25 +104,20 @@ watch(showPasswordMismatch, (newValue) => {
 });
 
 const handleSubmit = async () => {
+  console.log("Submitting...");
   if (password.value !== confirmPassword.value) {
     showMenu.value = true;
     return;
   }
 
-  const result = await authStore.signUp({
-    nombre: nombre.value,
-    apellido: apellido.value,
-    dni: dni.value,
-    telefono: telefono.value,
-    email: email.value,
-    password: password.value
-  });
+  const result = await appStore.addUser(
+    email.value, password.value, nombre.value, apellido.value, dni.value, telefono.value
+  );
   
-  if (result.success) {
+  if (result == 1) {
     router.push('/');
   } else {
-    console.error(result.error);
-    // You might want to show an error message to the user here
+    console.error("Usuario existente");
   }
 };
 </script>

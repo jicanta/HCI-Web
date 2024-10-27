@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 
 const users = ref([
-    {id: 1, email: "fmagri@gmail.com", password: "123456", firstName: "Federico", lastName: "Magri", phoneNumber: "1145678901" , dni: "43567890", id: 0 },
+    { email: "fmagri@gmail.com", password: "123456", firstName: "Federico", lastName: "Magri", phoneNumber: "1145678901" , dni: "43567890", id: 0 },
     { email: "jcantarella@gmail.com", password: "123456", firstName: "Juan", lastName: "Cantarella", phoneNumber: "1123456789" , dni: "42345678", id: 1 },
     { email: "lbarrios@gmail.com", password: "123456", firstName: "Lucas", lastName: "Barrios", phoneNumber: "1187654321" , dni: "48765432", id: 2},
     { email: "ana.lopez@test.com", password: "clave4321", firstName: "Ana", lastName: "López", phoneNumber: "1156789012" , dni: "45678901", id: 3 },
