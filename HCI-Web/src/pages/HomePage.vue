@@ -95,78 +95,86 @@ const maskCardNumber = (number) => {
 </script>
 
 <template>
-  <v-container class="d-flex flex-column min-vh-100 pa-0" fluid>
-    <ButtonsNavBar :sections="sections"/>
+  <v-main class="main-container" role="main" aria-label="Inicio">
+    <nav role="navigation" aria-label="Navegación principal">
+      <ButtonsNavBar :sections="sections"/>
+    </nav>
 
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
-        <v-card 
-          title="Dinero disponible" 
-          class="bg-tertiary elevation-7 w-100 my-4 pa-2"
-        >
-          <v-container class="d-flex flex-column align-center justify-center pa-6">
-            <v-container class="d-flex flex-row align-center pa-0">
+        <header role="banner">
+          <h1 class="visually-hidden">PayGo - Inicio</h1>
+        </header>
 
-            <h1 class="font-weight-bold text-colortext2">
-              {{ showMoney ? '$' + Math.trunc(appStore.getBalance()).toLocaleString('es-ES') : '*******' }}
-            </h1>
+        <main>
+          <v-card 
+            title="Dinero disponible" 
+            class="bg-tertiary elevation-7 w-100 my-4 pa-2"
+          >
+            <v-container class="d-flex flex-column align-center justify-center pa-6">
+              <v-container class="d-flex flex-row align-center pa-0">
 
-            <v-container class="d-flex flex-columns pa-0 ma-0 h-100">
-              <p class="text-colortext2">{{ showMoney ? getCents(appStore.getBalance()) : '**' }}</p>
+              <h1 class="font-weight-bold text-colortext2">
+                {{ showMoney ? '$' + Math.trunc(appStore.getBalance()).toLocaleString('es-ES') : '*******' }}
+              </h1>
+
+              <v-container class="d-flex flex-columns pa-0 ma-0 h-100">
+                <p class="text-colortext2">{{ showMoney ? getCents(appStore.getBalance()) : '**' }}</p>
+              </v-container>
+
+              <v-icon size="32" class="text-colortext2 mr-2" @click="toggleMoneyVisibility">
+                {{ showMoney ? 'mdi-eye' : 'mdi-eye-off' }}
+              </v-icon>
+
+              </v-container>
+
+              <v-divider class="my-2 w-100"/>
+
+              <!-- Actions -->
+
+              <v-col class="w-100 d-flex">
+                <v-row class="d-flex flex-row align-center justify-center w-100">
+                  <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
+                    <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4">Ingresar</v-btn>
+                    <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-account" color="primary"  elevation="4" @click="goToRoute({ name: 'account' })">Tus datos</v-btn>
+                  </v-col>
+                  <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
+                    <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4"  @click="goToRoute({ name: 'pay' })">Pagar</v-btn>
+                    <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-link" color="primary" elevation="4" @click="goToRoute({ name: 'paymentLink' })">Link de pago</v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+              
             </v-container>
 
-            <v-icon size="32" class="text-colortext2 mr-2" @click="toggleMoneyVisibility">
-              {{ showMoney ? 'mdi-eye' : 'mdi-eye-off' }}
-            </v-icon>
-
+          </v-card>
+          <v-card 
+            title="Medios de pago" 
+            class="bg-tertiary elevation-7 w-100 my-4 pa-2"
+          >
+            <v-container class="d-flex flex-column align-center justify-center pa-6 height-60">
+              <v-container v-for="card in appStore.getCreditCards().slice(0, 3)" 
+                           :key="card.id"
+                           class="rounded mb-2 d-flex align-center"
+                           :class="`bg-${card.color}`"
+                           style="height: 50px;">
+                <v-row class="d-flex justify-space-between align-center">
+                  <v-col>
+                    {{ maskCardNumber(card.number) }}
+                  </v-col>
+                  <v-col cols="3">
+                    <v-img :src="paymentMethodsStore.cardLogo(card.type)" width="50"/>
+                  </v-col>
+                </v-row>
+              </v-container> 
             </v-container>
+            <v-card-actions>
+              <v-btn class="bg-primary w-100" @click="router.push({name: 'paymentMethods'})">Ver medios de pago</v-btn>
+            </v-card-actions>
 
-            <v-divider class="my-2 w-100"/>
+          </v-card>
 
-            <!-- Actions -->
-
-            <v-col class="w-100 d-flex">
-              <v-row class="d-flex flex-row align-center justify-center w-100">
-                <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-arrow-down" color="primary" elevation="4">Ingresar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-account" color="primary"  elevation="4" @click="goToRoute({ name: 'account' })">Tus datos</v-btn>
-                </v-col>
-                <v-col cols="6" class="d-flex flex-column justify-center align-center w-100">
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-cash-fast" color="primary" elevation="4"  @click="goToRoute({ name: 'pay' })">Pagar</v-btn>
-                  <v-btn class="text-capitalize ma-2 w-100" rounded="lg" size="x-large" width="200px" append-icon="mdi-link" color="primary" elevation="4" @click="goToRoute({ name: 'paymentLink' })">Link de pago</v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-            
-          </v-container>
-
-        </v-card>
-        <v-card 
-          title="Medios de pago" 
-          class="bg-tertiary elevation-7 w-100 my-4 pa-2"
-        >
-          <v-container class="d-flex flex-column align-center justify-center pa-6 height-60">
-            <v-container v-for="card in appStore.getCreditCards().slice(0, 3)" 
-                         :key="card.id"
-                         class="rounded mb-2 d-flex align-center"
-                         :class="`bg-${card.color}`"
-                         style="height: 50px;">
-              <v-row class="d-flex justify-space-between align-center">
-                <v-col>
-                  {{ maskCardNumber(card.number) }}
-                </v-col>
-                <v-col cols="3">
-                  <v-img :src="paymentMethodsStore.cardLogo(card.type)" width="50"/>
-                </v-col>
-              </v-row>
-            </v-container> 
-          </v-container>
-          <v-card-actions>
-            <v-btn class="bg-primary w-100" @click="router.push({name: 'paymentMethods'})">Ver medios de pago</v-btn>
-          </v-card-actions>
-
-        </v-card>
-
+        </main>
       </v-col>
 
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
@@ -202,8 +210,23 @@ const maskCardNumber = (number) => {
         </v-card>
       </v-col>
     </v-row>
-
-    <v-spacer></v-spacer>
-    <AppFooter />
-  </v-container>
+    
+    <footer role="contentinfo">
+      <AppFooter />
+    </footer>
+  </v-main>
 </template>
+
+<style scoped>
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>

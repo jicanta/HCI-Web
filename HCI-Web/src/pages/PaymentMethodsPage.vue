@@ -66,11 +66,11 @@ function formattedCardNumber(cardNumber) {
 
 
 <template>
-  <v-main class="main-container bg-background">
-    <ButtonsNavBar :sections="sections"/>
+  <v-main class="main-container bg-background" role="main" aria-label="Medios de pago">
+    <ButtonsNavBar :sections="sections" role="navigation" aria-label="Navegación principal"/>
     
     <BodyGrid>
-      <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
+      <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="5">
         <v-card 
           class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
@@ -81,8 +81,9 @@ function formattedCardNumber(cardNumber) {
             <v-divider class="primary" width="32" thickness="2"></v-divider>
           </div>
         </v-card>
-        <Section class="ma-3 d-flex align-start" height="auto">
-          <v-container class="inside-section mb-auto fill-height d-flex flex-column">
+        
+        <Section class="ma-3 d-flex align-start justify-center" height="auto">
+          <v-container class="inside-section mb-auto fill-height d-flex flex-column" style="max-width: 800px">
             <div class="d-flex justify-end">
               <v-btn 
                 v-if="appStore.getCreditCards().length > 0"
@@ -93,13 +94,18 @@ function formattedCardNumber(cardNumber) {
               </v-btn>          
             </div>
             <div>
-            <v-list class="bg-tertiary">
-              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class=" mt-2 mb-2">
+            <v-list class="bg-tertiary" style="width: 100%">
+              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" 
+                          :key="card.id" 
+                          class="mt-2 mb-2"
+                          style="width: 100%"
+              >
                 <v-card 
-                :key="card.id"
-                class="rounded-card elevation-7 pa-0"  
-                width="100%" 
-                :color="card.color">
+                  :key="card.id"
+                  class="rounded-card elevation-7 pa-0"  
+                  style="width: 100%; min-width: 350px" 
+                  :color="card.color"
+                >
                   <v-card-text class="d-flex justify-space-between align-center ">
                     <v-container class="card-container">
                       <v-row class="card-content">
@@ -208,9 +214,8 @@ function formattedCardNumber(cardNumber) {
 }
 
 .rounded-card {
-  border-radius: 15px;
-  height: 75px;
-  transition: 0.4s;
+  border-radius: 12px;
+  width: 100%;
 }
 
 .card-content {
@@ -245,3 +250,4 @@ function formattedCardNumber(cardNumber) {
   transform: translateY(0);
 }
 </style>
+
