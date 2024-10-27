@@ -108,7 +108,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">
         <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -120,7 +120,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
         <Section class="ma-3">
           <v-container class="inside-section">
             <h2 class="text-h5 mb-4">Inversión Actual</h2>
-            <v-card class="mb-4 pa-4">
+            <v-card class="elevation-7 mb-4 pa-4">
               <v-row>
                 <v-col cols="6">
                   <p class="text-subtitle-1">Monto invertido:</p>
@@ -192,7 +192,7 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
             </v-form>
             
             <!-- Chart added at the bottom -->
-            <v-card class="pa-4 mt-6">
+            <v-card class="elevation-7 pa-4 mt-6">
               <v-card-title class="text-h5 mb-2">Ganancia por mes</v-card-title>
               <v-card-text>
                 <div class="chart-container">

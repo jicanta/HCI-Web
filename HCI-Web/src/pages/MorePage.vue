@@ -89,7 +89,7 @@ theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
     <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
 
       <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -108,7 +108,7 @@ theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
         @update="updateUserData(key, $event)"
       />
       <v-card 
-        class="bg-tertiary w-100 h-40 my-4 pa-2"
+        class="bg-tertiary elevation-7 w-100 h-40 my-4 pa-2"
       >
         <v-container class="d-flex align-center justify-center pa-6" style="height: 100%;">
           <v-row class="align-center justify-space-between" no-gutters>

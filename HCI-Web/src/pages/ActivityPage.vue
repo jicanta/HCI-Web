@@ -44,7 +44,7 @@
 
 
       <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -55,7 +55,7 @@
         </v-card>
 
       <v-card 
-        class="bg-tertiary w-100 my-4"
+        class="bg-tertiary elevation-7 w-100 my-4"
       >
         <v-card-text>
           <template v-if="transactions === null || transactions.length === 0">

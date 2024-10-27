@@ -164,7 +164,7 @@
         <Section class="ma-3">
           <v-container class="inside-section">
             <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -175,7 +175,7 @@
         </v-card>
             <div class="card-container mb-6">
               <div class="card-wrapper" :class="{ 'is-flipped': showBack }">
-                <v-card color="black" rounded="lg" class="card-face card-front">
+                <v-card color="black" rounded="lg" class="card-face card-front elevation-7">
                   <v-form ref="form" class="card-content">
                     <div class="justify-start">
                     <v-img
@@ -255,7 +255,7 @@
                   </v-row>
                   </v-form>
                 </v-card>
-                <v-card color="error" rounded="lg" class="card-face card-back">
+                <v-card color="error" rounded="lg" class="card-face card-back elevation-7">
                   <div class="card-content">
                     <div class="cvv-strip"></div>
                     <div class="cvv-container">
