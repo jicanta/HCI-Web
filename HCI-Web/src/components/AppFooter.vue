@@ -10,7 +10,7 @@
       <span class="text-colortext2 text-body-2 text-center">PayGo</span>
     </div>
     <div class="text-subtitle-2 text-colortext2 mb-2 font-weight-medium text-center px-4">
-      Tu dinero, rápido y al alcance de tu mano.
+      Paygo: Dinero rápido y siempre al alcance.
     </div>
     <div class="text-caption text-colortext2 text-center">
       © {{ new Date().getFullYear() }} PayGo. Todos los derechos reservados.
