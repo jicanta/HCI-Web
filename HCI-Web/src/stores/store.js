@@ -88,9 +88,12 @@ import { initializeApp as initAppFunction } from './initializeApp';
     }
 
     function getCurrentUser() {
+        if(currentUser.value == -1) {
+            return null;
+        }
         return users.value[currentUser.value];
     }
-
+    
     function getCardColor(type){
         switch(type){
             case 'Visa': return 'black darken-3';

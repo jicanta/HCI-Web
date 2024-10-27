@@ -17,7 +17,7 @@ const users = ref([
 
 function initializeApp(appStore) {
     users.value.forEach(user => {
-        appStore.addUser(user.email, user.username, user.password, user.firstName, user.lastName, user.dni, user.phoneNumber);
+        appStore.addUser(user.email, user.password, user.firstName, user.lastName, user.dni, user.phoneNumber);
     });
     generateAndAddCreditCards(appStore);
     generateAndAddContacts(appStore);
@@ -56,14 +56,14 @@ function generateAndAddContacts(appStore) {
         for(let j = 0; j < users.value.length; j++){
             if(i != j){
                 appStore.setCurrentUser(i);
-                appStore.addContact(users.value[j]);
+                appStore.addContact(users.value[j]);  //TODO: arreglar el constructor de contacto, y vamos a tener que arreglar esto.
 
                 // Generar fecha aleatoria entre hoy y 5 días atrás
                 const fechaPago1 = generarFechaAleatoria(5);
                 const fechaPago2 = generarFechaAleatoria(5);
 
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].firstName + " " + users.value[j].lastName, null, null, true);
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, true);
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
             }
         }
         sortPaymentsByDate(appStore);
