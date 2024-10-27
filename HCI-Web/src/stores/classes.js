@@ -28,10 +28,11 @@ class CreditCard {
 }
 
 class Payment {
-    constructor(amount, date, user) {
+    constructor(amount, date, name) {
         this.amount = amount;
         this.date = date;
-        this.user = user;
+        this.name = name;
+        this.category = "Food";  //TODO: fijarse que esta hardcodeado
     }
 }
 

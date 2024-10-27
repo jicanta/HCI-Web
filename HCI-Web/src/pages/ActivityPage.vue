@@ -67,17 +67,17 @@
           </template>
 
           <template v-else>
-            <v-list class="pa-0">
+            <v-list class="pa-0">  <!--TODO: hay que arreglar la pagina esta, ya me encargo yo.-->
               <ListItem
                 v-for="transaction in appStore.getCurrentUser().payments"
                 :key="transaction.id"
                 :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                 :top="formatTransactionDate(transaction.date)"
-                title="aa"
+                :title="transaction.name"
                 text="Food"
                 :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
               />
-            </v-list>
+            </v-list> 
           </template>
         </v-card-text>
       </v-card>

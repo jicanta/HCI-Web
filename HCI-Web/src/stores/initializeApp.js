@@ -1,6 +1,7 @@
 import { User, CreditCard, Payment } from "./classes";
 import { ref } from 'vue';
 
+
 const users = ref([
     { email: "fmagri@gmail.com", password: "123456", firstName: "Federico", lastName: "Magri", phoneNumber: "1145678901" , dni: "43567890", username: "fmagri" },
     { email: "jcantarella@gmail.com", password: "123456", firstName: "Juan", lastName: "Cantarella", phoneNumber: "1123456789" , dni: "42345678", username: "jcantarella" },
@@ -15,12 +16,12 @@ const users = ref([
 ]);
 
 function initializeApp(appStore) {
-
     users.value.forEach(user => {
         appStore.addUser(user.email, user.username, user.password, user.firstName, user.lastName, user.dni, user.phoneNumber);
     });
     generateAndAddCreditCards(appStore);
     generateAndAddContacts(appStore);
+    appStore.setCurrentUser(0); // Establecer el usuario actual al final de la inicialización
 }
 
 function generateAndAddCreditCards(appStore) {
@@ -34,7 +35,6 @@ function generateAndAddCreditCards(appStore) {
             );
         }
     }
-    appStore.setCurrentUser(0); // para que no quede seleccionado ningún usuario
 }
 
 function generarNumeroTarjeta() {
@@ -58,11 +58,30 @@ function generateAndAddContacts(appStore) {
                 appStore.setCurrentUser(i);
                 appStore.addContact(users.value[j]);
 
-                appStore.addPayment(generateRandomNumber(1000,100000), new Date(), users.value[j], true);
-                appStore.addPayment(generateRandomNumber(1000,100000), new Date(), users.value[j], true);
+                // Generar fecha aleatoria entre hoy y 5 días atrás
+                const fechaPago1 = generarFechaAleatoria(5);
+                const fechaPago2 = generarFechaAleatoria(5);
+
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].firstName + " " + users.value[j].lastName, null, null, true);
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, true);
             }
         }
+        sortPaymentsByDate(appStore);
     }
+}
+
+function sortPaymentsByDate(appStore) {  //TODO: no funciona bien, arreglar.
+    for(let i = 0; i < appStore.users.length; i++){
+        const currentUserPayments = appStore.getPayments();
+        currentUserPayments.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+}
+
+function generarFechaAleatoria(diasAtras) {
+    const hoy = new Date();
+    const diasAleatorios = Math.floor(Math.random() * (diasAtras + 1));
+    hoy.setDate(hoy.getDate() - diasAleatorios);
+    return hoy;
 }
 
 function generateRandomNumber(min, max) {

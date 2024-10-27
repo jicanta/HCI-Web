@@ -4,6 +4,7 @@ import ListItem from '@/components/ListItem.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
+import { formatTransactionDate } from '@/back-libs/date';
 
 const paymentMethodsStore = usePaymentMethodsStore();
 
@@ -20,7 +21,7 @@ const maskCardNumber = (number) => {
   */
 
   var availableBalance = ref(0);
-  var transactions = ref([]);
+  //var transactions = ref([]);
 
   onMounted(
     () => {
@@ -54,8 +55,6 @@ const maskCardNumber = (number) => {
     {text: "Invertir", icon: "mdi-cash-plus", selected: false, route: "invest"}
   ]
 
-  import { formatTransactionDate } from '@/back-libs/date';
-
   import VChart from 'vue-echarts';
   import { use } from 'echarts/core';
   import { CanvasRenderer } from 'echarts/renderers';
@@ -64,6 +63,12 @@ const maskCardNumber = (number) => {
   import { useAppStore } from '@/stores/store';
 
   const appStore = useAppStore();
+
+  // Usar computed para acceder al usuario actual de manera reactiva
+  const currentUser = computed(() => appStore.getCurrentUser());
+
+  // Usar computed para las transacciones
+  const transactions = computed(() => currentUser.value ? currentUser.value.payments : []);
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
@@ -187,7 +192,7 @@ const maskCardNumber = (number) => {
           <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
           
           <v-card-text>
-            <template v-if="transactions === null || transactions.length === 0">
+            <template v-if="transactions.length === 0">
               <p class="text-muted text-center">No hay movimientos.</p>
             </template>
 
@@ -197,8 +202,8 @@ const maskCardNumber = (number) => {
                   v-for="transaction in transactions.slice(-3).reverse()"
                   :key="transaction.id"
                   :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
-                  :top="formatTransactionDate(transaction.date)"
-                  :title="transaction.description"
+                  :top="appStore.formatTransactionDate(transaction.date)"
+                  :title="transaction.name"
                   :text="transaction.category"
                   :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
                 />

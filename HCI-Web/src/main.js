@@ -27,6 +27,6 @@ app.use(pinia);
 
 // Asegúrate de que esto se ejecute después de app.use(pinia)
 const appStore = useAppStore();
-appStore.initialize();
+appStore.initializeApp();
 
 app.mount('#app');

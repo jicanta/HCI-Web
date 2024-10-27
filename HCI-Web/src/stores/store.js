@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { User, CreditCard, Payment } from './classes';
-import { initializeApp } from './initializeApp';
+import { initializeApp as initAppFunction } from './initializeApp';
 
 
  export const useAppStore = defineStore("app", () => {
@@ -9,9 +9,10 @@ import { initializeApp } from './initializeApp';
     const users = ref([]);
     const currentUser = ref(-1);
     const lastId = ref(0);
+    const isInitialized = ref(false);
 
     function addUser(email, username, password, name, surname, dni, telephone) {
-        if(!exists(dni)){
+        if(!existsDNI(dni)){
             users.value.push(new User(lastId.value, email, username, password, name, surname, dni, telephone));
             lastId.value++;
             return;
@@ -19,9 +20,27 @@ import { initializeApp } from './initializeApp';
         return error("DNI already exists");
     }
 
-    function exists(dni) {  //es una funcion auxiliar, no se va a exportar
+    function existsDNI(dni) {  //es una funcion auxiliar, no se va a exportar
         for(let i = 0 ; i < users.value.length ; i++) {
             if(users.value[i].dni == dni) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function existsCVU(cvu) {  //es una funcion auxiliar, no se va a exportar
+        for(let i = 0 ; i < users.value.length ; i++) {
+            if(users.value[i].cvu == cvu) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function existsAlias(alias) {  //es una funcion auxiliar, no se va a exportar
+        for(let i = 0 ; i < users.value.length ; i++) {
+            if(users.value[i].alias == alias) {
                 return true;
             }
         }
@@ -40,11 +59,12 @@ import { initializeApp } from './initializeApp';
     function addContact(user) {
         users.value[currentUser.value].contacts.push(user);
     }
-
-    function addPayment(amount, date, contact, isUsingCreditCard) {
+ 
+    function addPayment(amount, date, name, alias, cvu, isUsingCreditCard) {    //dni es el dni hacia quien le mando la plata, el tema es que 
         const user = users.value[currentUser.value];
-        if(exists(user.dni) && (user.balance >= amount || isUsingCreditCard ) ) {
-            user.payments.push(new Payment(amount, date, contact));
+
+        if( ( alias === null || existsAlias(alias) ) && (user.balance >= amount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
+            user.payments.push(new Payment(amount, date, name));
             user.balance -= amount;
             return true;
         }
@@ -88,13 +108,21 @@ import { initializeApp } from './initializeApp';
     }
 
     function initialize() {
-        initializeApp({
+        initAppFunction({
             addUser,
             setCurrentUser,
             addCreditCard,
             addContact,
-            addPayment
+            addPayment,
+            getPayments,
+            users
         });
+    }
+
+    function initializeApp() {
+        if (users.value.length === 0) {
+            initialize();
+        }
     }
 
     function updateUserAlias(newValue) {
@@ -125,6 +153,22 @@ import { initializeApp } from './initializeApp';
         currentUser.value = -1;
     }
 
+    function formatTransactionDate(date) {
+        if (!(date instanceof Date)) {
+          date = new Date(date);
+        }
+        
+        const options = { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit', 
+          minute: '2-digit'
+        };
+        
+        return date.toLocaleDateString('es-AR', options);
+      };
+
 
     return { 
         users, 
@@ -142,12 +186,16 @@ import { initializeApp } from './initializeApp';
         getCurrentUser, 
         getCardColor, 
         getCardType,
-        initialize,
+        initializeApp,
         updateUserAlias,
         updateUserName,
         updateUserSurname,
         updateUserEmail,
         updateUserTelephone,
-        updateUserUsername
+        updateUserUsername,
+        existsAlias,
+        existsCVU,
+        log,
+        formatTransactionDate
     };
  });
