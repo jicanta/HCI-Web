@@ -22,7 +22,7 @@
       <v-container class="right-container">
         <v-menu transition="slide-y-transition">
           <template v-slot:activator="{ props }">
-            <ProfileSectionNav v-bind="props"
+            <ProfileSectionNav v-bind="props" :name="getInitials()"
             class="align-center justify-center display-flex flex-row" style="height: 50px; width: 50px;"/>
           </template>
           <SectionNav 
@@ -42,6 +42,9 @@
   import { useRouter } from 'vue-router';
   import SectionNav from './SectionNav.vue';
   import ProfileSectionNav from './ProfileSectionNav.vue';
+  import { useAppStore } from '@/stores/store';
+
+  const appStore = useAppStore();
 
   const profileOptions = [
     {text: "Tus Datos", icon: "mdi-account", selected: false, route: "account"},
@@ -55,8 +58,12 @@
         required: false,
     }
   });
-  
 
+  const getInitials = () => {
+    const currentUser = appStore.getCurrentUser();
+    if (!currentUser || !currentUser.name || !currentUser.surname) return "";
+    return `${currentUser.name.charAt(0)}${currentUser.surname.charAt(0)}`;
+  };
   const router = useRouter();
   
   const goToRoute = (route) => {
