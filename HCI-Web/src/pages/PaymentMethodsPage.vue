@@ -170,7 +170,7 @@ function formattedCardNumber(cardNumber) {
   <v-dialog v-model="showRemoveVerification" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          Esta seguro que desea eliminar el metodo de pago:
+          ¿Seguro de que quiere eliminarlo?
         </v-card-title>
         <v-card-actions>
           <v-btn color="colortext" text @click="showRemoveVerification = false">Cancelar</v-btn>
