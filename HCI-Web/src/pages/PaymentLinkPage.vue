@@ -125,11 +125,11 @@ const copyToClipboard = async () => {
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="copyToClipboard">
+          <v-btn color="colortext" @click="copyToClipboard">
             {{ copySuccess ? 'Copiado!' : 'Copiar' }}
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="showDialog = false">Cerrar</v-btn>
+          <v-btn color="colortext" text @click="showDialog = false">Cerrar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
