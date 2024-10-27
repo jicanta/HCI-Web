@@ -58,7 +58,7 @@ const copyToClipboard = async () => {
       >
         <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
           <v-row class="align-center justify-space-between" no-gutters>
-            <v-col class="text-h5 font-weight-bold text-center">
+            <v-col class="text-h4 text-center">
               Generar un Link de Pago
             </v-col>
           </v-row>
@@ -72,8 +72,8 @@ const copyToClipboard = async () => {
           <v-row class="align-center justify-space-between" no-gutters>
             <v-col class="d-flex flex-column align-center justify-center w-100">
               <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
-              <p class="text-h6 font-weight-bold mb-4">${{ pesos }}.{{ centavos }}</p>
-              <v-text-field
+              <p class="text-h6 mb-4">${{ pesos }}.{{ centavos }}</p>
+              <v-text-field 
                 v-model="saldo"
                 label="Agregar saldo"
                 prefix="$"

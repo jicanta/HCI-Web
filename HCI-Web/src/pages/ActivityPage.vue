@@ -5,6 +5,9 @@
   import Section from '@/components/Section.vue';
   import ListItem from '@/components/ListItem.vue';
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
+  import { useAppStore } from '@/stores/store';
+
+  const appStore = useAppStore();
 
   const sections = [
     { text: "Inicio", icon: "mdi-home", selected: false, route: "home" },
@@ -31,7 +34,7 @@
   const paginatedTransactions = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    return transactions.value.slice(start, end);
+    return appStore.getCurrentUser().transactions.slice(start, end);
   });
 
   import { formatTransactionDate } from '@/back-libs/date';
@@ -66,12 +69,12 @@
           <template v-else>
             <v-list class="pa-0">
               <ListItem
-                v-for="transaction in paginatedTransactions"
+                v-for="transaction in appStore.getCurrentUser().payments"
                 :key="transaction.id"
                 :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                 :top="formatTransactionDate(transaction.date)"
-                :title="transaction.description"
-                :text="transaction.category"
+                title="aa"
+                text="Food"
                 :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
               />
             </v-list>

@@ -53,7 +53,7 @@ const copyToClipboard = async () => {
       >
         <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
           <v-row class="align-center justify-space-between" no-gutters>
-            <v-col class="text-h5 font-weight-bold text-center">
+            <v-col class="text-h4 text-center">
               Transferir
             </v-col>
           </v-row>

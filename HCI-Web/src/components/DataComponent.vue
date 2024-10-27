@@ -5,26 +5,24 @@ const props = defineProps({
   label: String,
   content: String,
   editable: Boolean,
-  copyable: Boolean, // Nuevo prop para indicar si el contenido es copiable
+  copyable: Boolean,
 });
 
 const emit = defineEmits(['update']);
 
 const editing = ref(false);
-const localContent = ref(props.content);
+const localContent = ref('');
 
 const changeEditState = () => {
   if (props.editable) {
     editing.value = !editing.value;
-    if (!editing.value) {
-      localContent.value = props.content;
-    }
+    localContent.value = props.content;
   }
 }
 
 const saveChanges = () => {
   emit('update', localContent.value);
-  changeEditState();
+  editing.value = false;
 }
 
 const snackbar = ref(false);
@@ -38,7 +36,6 @@ const copyToClipboard = () => {
 </script>
 
 <template>
-
   <v-card class="bg-tertiary w-100 h-40 my-4 pa-2">
     <v-container class="d-flex flex-column pa-6">
       <v-row>

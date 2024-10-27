@@ -2,6 +2,7 @@
     import { ref, computed } from 'vue';
     import { useRouter } from 'vue-router';
     import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
+    import { useAppStore } from '@/stores/store';
 
     // Import the logo images
     import visaLogo from '@/assets/visa-logo.png';
@@ -11,7 +12,7 @@
 
     const router = useRouter();
     const paymentMethodsStore = usePaymentMethodsStore();
-
+    const appStore = useAppStore();
     const cardNumber = ref('');
     const expirationYear = ref('');
     const expirationMonth = ref('');
@@ -61,13 +62,7 @@
     };
 
     const handleSubmit = () => {
-        const newPaymentMethod = {
-            type: getCardType(cardNumber.value),
-            number: cardNumber.value,
-            name: cardholderName.value,
-            color: getCardColor(getCardType(cardNumber.value))
-        };
-        paymentMethodsStore.addPaymentMethod(newPaymentMethod);
+        appStore.addCreditCard(cardNumber.value, cardholderName.value, cvv.value);
         router.push({ name: 'paymentMethods'});
     };
 

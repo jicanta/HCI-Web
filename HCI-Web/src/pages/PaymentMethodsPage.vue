@@ -8,6 +8,8 @@ import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
 import { computed } from 'vue';
+import { useAppStore } from '@/stores/store';
+const appStore = useAppStore();
 
 const router = useRouter();
 const paymentMethodsStore = usePaymentMethodsStore();
@@ -18,8 +20,6 @@ const removePaymentMethod = (id) => {
     editState.value = false;
   }
 };
-
-const isHovered = ref('false');
 
 const addPaymentMethod = () => {
   router.push({ name: 'addPaymentMethod' });
@@ -65,7 +65,7 @@ function formattedCardNumber(cardNumber) {
           <v-container class="inside-section mb-auto fill-height d-flex flex-column">
             <div class="d-flex justify-end">
               <v-btn 
-                v-if="paymentMethodsStore.paymentMethods.length > 0"
+                v-if="appStore.getCreditCards().length > 0"
                 class="rounded-xl"
                 @click="editState = !editState"
               >
@@ -73,54 +73,43 @@ function formattedCardNumber(cardNumber) {
               </v-btn>          
             </div>
             <v-list class="bg-tertiary">
-              <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class="mb-2">
+              <v-list-item v-for="card in appStore.getCreditCards()" :key="card.id" class=" mt-2 mb-2">
                 <v-card 
                 :key="card.id"
                 class="rounded-card pa-0"  
-                :class="{ 'hovered-card' : isHovered === card.id }"
                 width="100%" 
-                :color="card.color"
-                @mouseover = "isHovered = card.id"
-                @mouseleave = "isHovered = null">
-                  <v-card-text class="d-flex justify-space-between align-center pa-0">
-                    <v-container>
-                    <v-row v-if="isHovered === card.id" class="d-flex flex-row justify-space-between">
-                      <v-col>
-                        <div class="d-flex flex-column">  
-                          <div>
-                            <v-img
-                              src="../assets/smart-chip.png"
-                              max-width="40"
-                              class="mb-4 mt-2"
-                            ></v-img>
-                          </div>
-                          <div class="pt-2">{{ formattedCardNumber(card.number) }}</div>
-                          <div class="pt-2">{{ card.name }}</div>
-                        </div>
-                      </v-col>
-                      <v-col class="d-flex justify-end align-end">
-                        <v-img 
-                          :src="paymentMethodsStore.cardLogo(card.type)"
-                          max-width="50"
-                          contain
-                          class="card-logo"
-                        ></v-img>
-                      </v-col>
-                    </v-row>
-                      <v-row v-else class="align-center justify-space-between">
-                        <v-col >
+                :color="card.color">
+                  <v-card-text class="d-flex justify-space-between align-center ">
+                    <v-container class="card-container">
+                      <v-row class="card-content">
+                        <v-col cols="12">
                           <div class="d-flex flex-column">  
-                            <div class="text-subtitle-1">{{ card.type }}</div>
-                            <div>{{ formattedCardNumber(card.number) }}</div>
+                            <div class="normal-view">
+                              <div class="text-subtitle-1">{{ card.type }}</div>
+                              <div>{{ formattedCardNumber(card.number) }}</div>
+                            </div>
+                            <div class="hovered-view">
+                              <div>
+                                <v-img
+                                  src="../assets/smart-chip.png"
+                                  max-width="40"
+                                  class="mb-4 mt-2"
+                                ></v-img>
+                              </div>
+                              <div class="pt-2">{{ formattedCardNumber(card.number) }}</div>
+                              <div class="pt-2">{{ card.name }}</div>
+                            </div>
                           </div>
                         </v-col>
-                        <v-col class="d-flex justify-end">
-                        <v-img
-                          :src="paymentMethodsStore.cardLogo(card.type)"
-                          max-width="50"
-                          contain
-                          class="card-logo "
-                        ></v-img>
+                      </v-row>
+                      <v-row class="card-logo-row">
+                        <v-col cols="12" class="d-flex justify-end align-end">
+                          <v-img 
+                            :src="paymentMethodsStore.cardLogo(card.type)"
+                            max-width="50"
+                            contain
+                            class="card-logo"
+                          ></v-img>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -186,18 +175,41 @@ function formattedCardNumber(cardNumber) {
   object-fit: contain;
 }
 
-.rounded-card{
+.rounded-card {
   border-radius: 15px;
   height: 75px;
   transition: 0.4s;
 }
 
-/*.rounded-card:hover{
-  height: 150px;
-}*/
+.card-content {
+  position: relative;
+  height: 100%;
+}
 
-.hovered-card{
+.normal-view, .hovered-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.hovered-view {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.rounded-card:hover {
   height: 150px;
 }
 
+.rounded-card:hover .normal-view {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.rounded-card:hover .hovered-view {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>

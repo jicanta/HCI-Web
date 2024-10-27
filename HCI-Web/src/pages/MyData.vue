@@ -1,12 +1,11 @@
 <script setup lang="js">
-
+import { ref, onMounted } from 'vue';
+import { useAppStore } from '@/stores/store.js';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
-import Section from '@/components/Section.vue';
-import AppDivision from '@/components/AppDivision.vue';
-import BodyGrid from '@/components/BodyGrid.vue';
 import DataComponent from '@/components/DataComponent.vue';
-import { ref } from 'vue';
 
+const appStore = useAppStore();
+const user = ref({});
 
 const formatDNI = (dni) => {
   if (typeof dni !== 'string') {
@@ -17,30 +16,36 @@ const formatDNI = (dni) => {
   return formatted.split('').reverse().join('');
 };
 
-const user = ref({
+onMounted(() => {
+  const currentUser = appStore.getCurrentUser();
 
-  name: {
-    content: formatDNI('44759526'),
-    label: 'DNI',
-    editable: false,
-    copyable: false,
-  },
-  email: {
-    content: '33333333333333333',
-    label: 'CVU',
-    editable: false,
-    copyable: true,
-  },
-  telephone: {
-    content: 'fmagri.logo',
-    label: 'Alias',
-    editable: true,
-    copyable: true,
-  }
+  user.value = {
+    dni: {
+      content: formatDNI(currentUser.dni),
+      label: 'DNI',
+      editable: false,
+      copyable: false,
+    },
+    cvu: {
+      content: currentUser.cvu,
+      label: 'CVU',
+      editable: false,
+      copyable: true,
+    },
+    alias: {
+      content: currentUser.alias,
+      label: 'Alias',
+      editable: true,
+      copyable: true,
+    }
+  };
 });
 
 const updateUserData = (key, newValue) => {
   user.value[key].content = newValue;
+  if (key === 'alias') {
+    appStore.updateUserAlias(newValue);
+  }
 };
 </script>
 

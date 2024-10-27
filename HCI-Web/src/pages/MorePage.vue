@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useTheme } from 'vuetify'; // Usamos useTheme para controlar el tema
 import AppDivision from '@/components/AppDivision.vue';
 import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
@@ -8,68 +8,78 @@ import Section from '@/components/Section.vue';
 import TopMenu from '@/components/TopMenu.vue';
 import VChart from 'vue-echarts';
 import DataComponent from '@/components/DataComponent.vue';
+import { useAppStore } from '@/stores/store';
+import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 
-const goToLink = () => {
-  window.open('https://github.com/jicanta/HCI-Web', '_blank'); // Enlace externo
-};
+const appStore = useAppStore();
 
-const user = ref({
+const currentUser = computed(() => appStore.getCurrentUser());
 
+const user = computed(() => ({
   name: {
-    content: 'Federico Magri',
-    label: 'Nombre y Apellido',
+    content: currentUser.value.name,
+    label: 'Nombre',
+    editable: true,
+    copyable: false,
+  },
+  surname: {
+    content: currentUser.value.surname,
+    label: 'Apellido',
     editable: true,
     copyable: false,
   },
   email: {
-    content: 'fmagri@fi.uba.ar',
+    content: currentUser.value.email,
     label: 'Email',
     editable: true,
     copyable: false,
   },
   telephone: {
-    content: '11-3344-9977',
-    label: 'Telefono',
+    content: currentUser.value.telephone,
+    label: 'Teléfono',
     editable: true,
     copyable: false,
   },
   username: {
-    content: 'fmagri',
+    content: currentUser.value.username,
     label: 'Nombre de Usuario',
     editable: true,
     copyable: false,
   }
-});
+}));
 
-const editing = ref(false);
-
-const changeEditState = (data) => {
-  if(data.editable) {
-    editing.value = !editing.value;
+const updateUserData = (key, newValue) => {
+  user.value[key].content = newValue;
+  switch(key){
+    case 'name':
+      appStore.updateUserName(newValue);
+      break;
+    case 'surname':
+      appStore.updateUserSurname(newValue);
+      break;
+    case 'email':
+      appStore.updateUserEmail(newValue);
+      break;
+    case 'telephone':
+      appStore.updateUserTelephone(newValue);
+      break;
+    case 'username':
+      appStore.updateUserUsername(newValue);
+      break;
   }
-}
+};
 
-const isDarkMode = ref(false);
+const isDarkMode = ref(localStorage.getItem('isDarkMode') === 'true');
 const theme = useTheme();
 
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
   theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
-  localStorage.setItem('isDarkMode', isDarkMode.value.toString()); // Guardar el estado en localStorage
+  localStorage.setItem('isDarkMode', isDarkMode.value.toString());
 };
 
-const updateUserData = (key, newValue) => {
-  user.value[key].content = newValue;
-};
-
-onMounted(() => {
-  const storedTheme = localStorage.getItem('isDarkMode');
-  if (storedTheme !== null) {
-    isDarkMode.value = storedTheme === 'true';
-    theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
-  }
-});
-
+// Inicializar el tema
+theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
 </script>
 
 <template>
