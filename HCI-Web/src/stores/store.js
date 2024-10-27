@@ -7,7 +7,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
  export const useAppStore = defineStore("app", () => {
 
     const users = ref([]);
-    const currentUser = ref(0);
+    const currentUser = ref(-1);
     const lastId = ref(0);
     const isInitialized = ref(false);
 
@@ -55,9 +55,13 @@ import { initializeApp as initAppFunction } from './initializeApp';
     }
 
     function setCurrentUser(id) {
-        if (currentUser.value >= 0){
-            currentUser.value = id;
-        }
+        console.log("id:");
+        console.log(id);
+
+        currentUser.value = id;
+    
+        console.log("currentUser.value:");
+        console.log(currentUser.value);
     }
 
     function addContact(user) {
@@ -108,6 +112,13 @@ import { initializeApp as initAppFunction } from './initializeApp';
             return null;
         }
         return users.value[currentUser.value];
+    }
+
+    function getCurrentUserId() {
+        if(currentUser.value == -1) {
+            return -1;
+        }
+        return users.value[currentUser.value].id;
     }
     
     function getCardColor(type){
@@ -230,6 +241,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
         existsAlias,
         existsCVU,
         log,
-        formatTransactionDate
+        formatTransactionDate,
+        getCurrentUserId
     };
  });
