@@ -35,11 +35,11 @@ class Payment {
         this.date = date;
         this.name = name;
         if (amount < 0){
-            var categoryIndex = getRandomIntegerBetween(0, spendingCategories.length-1);
+            var categoryIndex = getRandomIntegerBetween(0, spendingCategories.length);
             this.category = spendingCategories[categoryIndex];
         }
         else {
-            var categoryIndex = getRandomIntegerBetween(0, earningCategories.length-1);
+            var categoryIndex = getRandomIntegerBetween(0, earningCategories.length);
             this.category = earningCategories[categoryIndex];
         }
         console.log(categoryIndex);
