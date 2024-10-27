@@ -1,3 +1,6 @@
+const spendingCategories = ["Food", "Transport", "Shopping"];
+const earningCategories = ["Salary deposit", "Product sale"];
+
 class User {
     constructor(id, email, username, password, name, surname, dni, telephone) {
         this.id = id;
@@ -32,8 +35,20 @@ class Payment {
         this.amount = amount;
         this.date = date;
         this.name = name;
-        this.category = "Food";  //TODO: fijarse que esta hardcodeado
+        if (amount < 0){
+            var categoryIndex = getRandomIntegerBetween(0, spendingCategories.length-1);
+            this.category = spendingCategories[categoryIndex];
+        }
+        else {
+            var categoryIndex = getRandomIntegerBetween(0, earningCategories.length-1);
+            this.category = earningCategories[categoryIndex];
+        }
+        console.log(categoryIndex);
     }
+}
+
+function getRandomIntegerBetween(a, b) {
+    return Math.floor(Math.random() * (b - a + 1)) + a;
 }
 
 export { User, CreditCard, Payment};

@@ -74,7 +74,7 @@
                 :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
                 :top="formatTransactionDate(transaction.date)"
                 :title="transaction.name"
-                text="Food"
+                :text="transaction.category"
                 :right="transaction.amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })"
               />
             </v-list> 
