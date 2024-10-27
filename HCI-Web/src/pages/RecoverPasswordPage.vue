@@ -16,21 +16,24 @@ const rules = {
 };
 
 const recoverPassword = async () => {
-  isLoading.value = true;
-  try {
-    // Implement password recovery logic here
-    // For example, call an API to send a recovery email
-    console.log('Sending recovery email to:', email.value);
-    // Simulating API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    alert('Se ha enviado un correo de recuperación. Por favor, revise su bandeja de entrada.');
-    router.push('/sign-in');
-  } catch (error) {
-    console.error('Error al enviar el correo de recuperación:', error);
-    alert('Hubo un error al enviar el correo de recuperación. Por favor, intente nuevamente.');
-  } finally {
-    isLoading.value = false;
+  if (email.value){
+    isLoading.value = true;
+    try {
+      // Implement password recovery logic here
+      // For example, call an API to send a recovery email
+      console.log('Sending recovery email to:', email.value);
+      // Simulating API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      alert('Se ha enviado un correo de recuperación. Por favor, revise su bandeja de entrada.');
+      router.push('/sign-in');
+    } catch (error) {
+      console.error('Error al enviar el correo de recuperación:', error);
+      alert('Hubo un error al enviar el correo de recuperación. Por favor, intente nuevamente.');
+    } finally {
+      isLoading.value = false;
+    }
   }
+  
 };
 </script>
 
