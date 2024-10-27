@@ -120,7 +120,7 @@ const maskCardNumber = (number) => {
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
         <v-card 
           title="Dinero disponible" 
-          class="bg-tertiary elevation-8 w-100 my-4 pa-2"
+          class="bg-tertiary elevation-7 w-100 my-4 pa-2"
         >
           <v-container class="d-flex flex-column align-center justify-center pa-6">
             <v-container class="d-flex flex-row align-center pa-0">
@@ -161,7 +161,7 @@ const maskCardNumber = (number) => {
         </v-card>
         <v-card 
           title="Medios de pago" 
-          class="bg-tertiary elevation-8 w-100 my-4 pa-2"
+          class="bg-tertiary elevation-7 w-100 my-4 pa-2"
         >
           <v-container class="d-flex flex-column align-center justify-center pa-6 height-60">
             <v-container v-for="card in appStore.getCreditCards().slice(0, 3)" 
@@ -190,7 +190,7 @@ const maskCardNumber = (number) => {
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
         <v-card 
           title="Última actividad"
-          class="bg-tertiary elevation-8 w-100 my-4 pa-2"
+          class="bg-tertiary elevation-7 w-100 my-4 pa-2"
         >
           <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 text-colorText2 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
           

@@ -58,6 +58,6 @@ onMounted(() => {
 
 <style>
   * {
-    transition: background-color 0.8s ease, color 0.8s ease;
+    transition: background-color 0.8s ease;
   }
 </style>
