@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, computed } from 'vue';
 import { useTheme } from 'vuetify'; // Usamos useTheme para controlar el tema
 import DataComponent from '@/components/DataComponent.vue';

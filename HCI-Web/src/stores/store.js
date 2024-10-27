@@ -87,8 +87,8 @@ import amexLogo from '@/assets/amex-logo.png';
     }
 
     function addBalance(amount) {
-        if (currentUser.value >= 0){
-            users.value[currentUser.value].balance += amount;
+        if (currentUser.value >= 0 && amount != null ){
+            users.value[currentUser.value].balance += Number(amount);
         }
     }
 
