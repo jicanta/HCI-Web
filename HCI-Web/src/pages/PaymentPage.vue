@@ -20,7 +20,7 @@ const sections = [
 const monto = ref('');
 const CBU = ref('');
 const descripcion = ref('');
-const showDialog = ref(false);
+const showVerifyTransactionDialog = ref(false);
 const paymentLink = ref('');
 const copySuccess = ref(false);
 
@@ -97,6 +97,7 @@ const copyToClipboard = async () => {
                 x-large
                 class="mt-2"
                 style="height: 50px; text-transform: none;"
+                @click="showVerifyTransactionDialog = true"
               >
                 Continuar
               </v-btn>
@@ -112,26 +113,15 @@ const copyToClipboard = async () => {
   </v-row>
 
     <!-- Payment Link Dialog -->
-    <v-dialog v-model="showDialog" max-width="400px">
+    <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          Link de Pago Generado
+          Esta seguro que desea transferir a:
         </v-card-title>
-        <v-card-text>
-          <p>Su link de pago es:</p>
-          <v-text-field
-            :value="paymentLink"
-            readonly
-            variant="outlined"
-            class="mt-2"
-          ></v-text-field>
-        </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="copyToClipboard">
-            {{ copySuccess ? 'Copiado!' : 'Copiar' }}
-          </v-btn>
+          <v-btn color="primary" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="showDialog = false">Cerrar</v-btn>
+          <v-btn color="primary" @click="verify = true">Transferir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
