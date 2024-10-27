@@ -104,7 +104,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
     }
 
     function getUserByEmail(email){
-        return users.find(obj => obj.email === email);
+        return users.value.find(obj => obj.email === email);
     }
 
     function authUser(email, password){
