@@ -55,7 +55,7 @@ function formattedCardNumber(cardNumber) {
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="10" lg="4">
         <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -80,7 +80,7 @@ function formattedCardNumber(cardNumber) {
               <v-list-item v-for="card in paymentMethodsStore.paymentMethods" :key="card.id" class=" mt-2 mb-2">
                 <v-card 
                 :key="card.id"
-                class="rounded-card pa-0"  
+                class="rounded-card elevation-7 pa-0"  
                 width="100%" 
                 :color="card.color">
                   <v-card-text class="d-flex justify-space-between align-center ">

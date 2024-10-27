@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <v-card class="text-center pa-6">
+        <v-card class="text-center elevation-7 pa-6">
           <v-card-item>
             <v-card-title class="text-h4 mb-2">404</v-card-title>
             <v-card-subtitle class="text-h6">Página no encontrada</v-card-subtitle>

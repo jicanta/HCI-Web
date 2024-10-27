@@ -3,7 +3,7 @@
     <v-row class="align-start justify-center" style="margin-top: 20px;">
       <v-col cols="11" sm="11" md="5" lg="4" xl="4">
        <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -13,7 +13,7 @@
           </div>
         </v-card>
 
-        <v-card class="w-100 pa-4 mb-4">
+        <v-card class="elevation-7 w-100 pa-4 mb-4">
           <v-form @submit.prevent="handleSubmit" class="signup-form">
             <v-row dense>
               <v-col cols="12" sm="6">

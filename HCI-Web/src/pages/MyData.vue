@@ -57,7 +57,7 @@ const updateUserData = (key, newValue) => {
 
 
         <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >

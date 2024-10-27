@@ -49,7 +49,7 @@ const copyToClipboard = async () => {
 
 
       <v-card 
-          class="bg-tertiary w-100 mb-2 pa-2"
+          class="bg-tertiary elevation-7 w-100 mb-2 pa-2"
           flat
           elevation="0"
         >
@@ -60,7 +60,7 @@ const copyToClipboard = async () => {
         </v-card>
 
       <v-card 
-        class="bg-tertiary w-100 my-4 pa-4 rounded-lg elevation-2"
+        class="bg-tertiary elevation-7 w-100 my-4 pa-4 rounded-lg elevation-2"
       >
         <v-container class="d-flex align-center justify-center pa-4" style="height: 100%;">
           <v-row class="align-center justify-space-between" no-gutters>
@@ -113,7 +113,7 @@ const copyToClipboard = async () => {
 
     <!-- Payment Link Dialog -->
     <v-dialog v-model="showDialog" max-width="400px">
-      <v-card>
+      <v-card class="elevation-7">
         <v-card-title class="text-h5">
           Link de Pago Generado
         </v-card-title>

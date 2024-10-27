@@ -7,7 +7,7 @@ import { initializeApp as initAppFunction } from './initializeApp';
  export const useAppStore = defineStore("app", () => {
 
     const users = ref([]);
-    const currentUser = ref(-1);
+    const currentUser = ref(0);
     const lastId = ref(0);
     const isInitialized = ref(false);
 
