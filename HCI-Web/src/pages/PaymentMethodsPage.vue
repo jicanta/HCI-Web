@@ -24,6 +24,9 @@ const removePaymentMethod = (id) => {
 const addPaymentMethod = () => {
   router.push({ name: 'addPaymentMethod' });
 };
+// const removePaymentMethod = (id) => {
+//   router.push({ name: 'removePaymentMethod' });
+// };
 
 const sections = [
   {text: "Inicio", icon: "mdi-home", selected: false, route: "home"}, 
@@ -66,12 +69,13 @@ function formattedCardNumber(cardNumber) {
             <div class="d-flex justify-end">
               <v-btn 
                 v-if="appStore.getCreditCards().length > 0"
-                class="rounded-xl"
+                class="rounded-xl mb-1"
                 @click="editState = !editState"
               >
               {{ editState ? 'Cancelar' : 'Editar' }}
               </v-btn>          
             </div>
+            <div>
             <v-list class="bg-tertiary">
               <v-list-item v-for="card in appStore.getCreditCards()" :key="card.id" class=" mt-2 mb-2">
                 <v-card 
@@ -128,7 +132,6 @@ function formattedCardNumber(cardNumber) {
                 </v-card>
               </v-list-item>
             </v-list>
-            <div>
               <v-btn 
                 color="primary"
                 block

@@ -26,7 +26,7 @@ function initializeApp(appStore) {
 
 function generateAndAddCreditCards(appStore) {
     for(let i = 0; i < users.value.length; i++){
-        for(let j = 0; j < 2; j++){
+        for(let j = 0; j < 3; j++){
             appStore.setCurrentUser(i);
             appStore.addCreditCard(
                 generarNumeroTarjeta(),
