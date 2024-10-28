@@ -41,7 +41,7 @@ const recoverPassword = async () => {
 </script>
 
 <template>
-  <v-container v-if="appStore.getId() >= 0" class="fill-height" fluid>
+  <v-container class="fill-height" fluid>
     <v-row class="align-start justify-center" style="margin-top: 20px;">
       <v-col cols="11" sm="11" md="5" lg="4" xl="4">
         <v-card 
@@ -80,7 +80,6 @@ const recoverPassword = async () => {
       </v-col>
     </v-row>
   </v-container>
-  <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>
 
 <style scoped>
