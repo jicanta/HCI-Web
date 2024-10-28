@@ -166,7 +166,7 @@
 
 <template>
   <v-main v-if="appStore.getId() >= 0" class="main-container" fluid>
-    <ButtonsNavBarWithBack link_back="/payment-methods"/>
+    <ButtonsNavBarWithBack/>
     
     <BodyGrid>
       <AppDivision class="ma-4" cols="12" sm="10" md="8" lg="6">

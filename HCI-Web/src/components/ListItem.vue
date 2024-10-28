@@ -2,7 +2,7 @@
     <v-list-item class="item pa-2">
         <v-list-item-title class="text-caption">{{ top }}</v-list-item-title>
         
-        <v-list-item-content class="d-flex align-center py-2">
+        <div class="d-flex align-center py-2">
             <div class="icon-container mr-4">
                 <v-icon v-if="icon" size="32" class="text-colortext2">{{ icon }}</v-icon>
             </div>
@@ -15,7 +15,7 @@
             <v-list-item-action>
                 <span class="font-weight-medium">{{ right }}</span>
             </v-list-item-action>
-        </v-list-item-content>
+        </div>
         
         <v-divider class="mt-2"/>
     </v-list-item>

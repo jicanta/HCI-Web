@@ -87,7 +87,7 @@ const validateFields = () => {
 
 <template>
   <template v-if="appStore.getId() >= 0">
-    <ButtonsNavBarWithBack link_back="/"/>
+    <ButtonsNavBarWithBack />
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
 
@@ -191,20 +191,20 @@ const validateFields = () => {
         <v-card-title class="text-h5">
             ¿Está seguro de que desea pagar?
           </v-card-title>
-        <component v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)" >
+        <template v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)">
           <v-card-text>
             <p class="text-body-1">Nombre y Apellido: {{ appStore.getNameByAliasOrCVU(selectedCBUOption === 'cbu' ? null : cvuOrAlias, selectedCBUOption === 'cbu' ? cvuOrAlias : null) }}</p>
             <p class="text-body-1" v-if="selectedCBUOption === 'alias'">Alias: {{ cvuOrAlias }}</p>
             <p class="text-body-1" v-if="selectedCBUOption === 'cbu'">CBU: {{ cvuOrAlias }}</p> 
             <p class="text-body-1" v-if="selectedPaymentOption === 'tarjeta'">Tarjeta: {{ maskCardNumber(selectedCard) }}</p>
           </v-card-text>
-        </component>
-        <component v-else>
+        </template>
+        <template v-else>
           <v-card-title class="text-body-1">
             <p class="text-body-1">Usuario desconocido.</p>
             <p class="text-body-1" v-if="selectedPaymentOption === 'tarjeta'">Tarjeta: {{ maskCardNumber(selectedCard) }}</p>
           </v-card-title>
-        </component>
+        </template>
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-btn color="colortext" @click="appStore.addPayment(

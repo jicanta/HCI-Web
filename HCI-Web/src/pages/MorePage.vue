@@ -74,7 +74,7 @@ theme.global.name.value = isDarkMode.value ? 'dark' : 'light';
 
 <template>
   <template v-if="appStore.getId() >= 0">
-    <ButtonsNavBarWithBack link_back="/"/>
+    <ButtonsNavBarWithBack/>
     <v-row class="w-100 h-100 d-flex justify-center" style="margin-top: 106px;" fluid>
       <v-col cols="11" sm="11" md="5" lg="4" xl="4" class="d-flex flex-column align-center justify-start">
 
