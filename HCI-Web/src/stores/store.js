@@ -73,7 +73,7 @@ import amexLogo from '@/assets/amex-logo.png';
 
             if( ( alias === null || existsAlias(alias) ) && (user.balance >= ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
                 user.payments.push(new Payment(formatCurrency(ammount), date, name));
-                user.balance -= ammount;
+                user.balance += ammount;
                 return true;
            }
             return false; //significa que no se pudo realizar el pago
