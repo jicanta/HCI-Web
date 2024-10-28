@@ -13,6 +13,9 @@ const appStore = useAppStore();
 const monto = ref('');
 const selectedCard = ref('');
 const showVerifyTransactionDialog = ref(false);
+const showErrorDialog = ref(false);
+const errorMessages = ref([]);
+const selectedCategory = ref('');
 
 const maskCardNumber = (cardNumber) => {
   if (!cardNumber) return '';
@@ -21,13 +24,35 @@ const maskCardNumber = (cardNumber) => {
   return '•••• '.repeat(3) + cleanNumber.slice(-4);
 };
 
+const validateFields = () => {
+  errorMessages.value = [];
+  
+  if (!monto.value || monto.value <= 0) {
+    errorMessages.value.push("Debe ingresar un monto válido");
+  }
+  
+  if (!selectedCard.value) {
+    errorMessages.value.push("Debe seleccionar una tarjeta");
+  }
+
+  if (!selectedCategory.value) {
+    errorMessages.value.push("Debe seleccionar una categoría");
+  }
+
+  if (errorMessages.value.length > 0) {
+    showErrorDialog.value = true;
+    return false;
+  }
+  return true;
+};
+
 const handleDeposit = () => {
     showVerifyTransactionDialog.value = false;
-    appStore.addDeposit(monto.value, new Date(), "Tarjeta");
+    appStore.addDeposit(monto.value, new Date(), selectedCategory.value);
     monto.value = '';
     selectedCard.value = '';
+    selectedCategory.value = '';
 }
-
 </script>
 
 <template>
@@ -65,6 +90,13 @@ const handleDeposit = () => {
                   dense
                 ></v-text-field>
                 <v-select
+                    v-model="selectedCategory"
+                    :items="appStore.getEarningCategories()"
+                    label="Seleccione una categoría"
+                    class="mb-4 w-100"
+                    dense
+                />
+                <v-select
                     v-model="selectedCard"
                     :items="appStore.getCreditCards()"
                     :item-title="item => item ? `${maskCardNumber(item.number)} - ${item.type}` : ''"
@@ -79,7 +111,7 @@ const handleDeposit = () => {
                   x-large
                   class="mt-2"
                   style="height: 50px; text-transform: none;"
-                  @click="showVerifyTransactionDialog = true"
+                  @click="validateFields() && (showVerifyTransactionDialog = true)"
                 >
                   Continuar
                 </v-btn>
@@ -90,14 +122,38 @@ const handleDeposit = () => {
       </v-col>
     </v-row>
 
-    <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
+    <v-dialog v-model="showVerifyTransactionDialog" max-width="600px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          ¿Está seguro que desea depositar ${{ monto }}?
+          ¿Está seguro que desea depositar?
         </v-card-title>
+        <v-card-text>
+          <p class="text-body-1">Monto: ${{ monto }}</p>
+          <p class="text-body-1">Tarjeta: {{ maskCardNumber(selectedCard) }}</p>
+        </v-card-text>
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-btn color="colortext" @click="handleDeposit">Depositar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showErrorDialog" max-width="400px">
+      <v-card class="elevation-7">
+        <v-card-title class="text-h5 text-center">
+          Error en el depósito
+        </v-card-title>
+        <v-card-text>
+          <v-list>
+            <v-list-item v-for="(error, index) in errorMessages" :key="index" class="text-error">
+              • {{ error }}
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+        <v-card-actions class="justify-center">
+          <v-btn color="primary" @click="showErrorDialog = false">
+            Entendido
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

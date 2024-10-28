@@ -1,5 +1,7 @@
-const spendingCategories = ["Comida", "Transporte", "Compras", "Salud", "Servicios"];
-const earningCategories = ["Cobro", "Venta de producto"];
+import { ref } from 'vue';
+
+//const spendingCategories = ref(["Comida", "Transporte", "Compras", "Salud", "Servicios"]);
+//const earningCategories = ref(["Cobro", "Venta de producto", "Ingreso desde otra cuenta"]);
 
 class User {
     constructor(id, email, password, name, surname, dni, telephone) {
@@ -30,18 +32,19 @@ class CreditCard {
 }
 
 class Payment {
-    constructor(amount, date, name) {
+    constructor(amount, date, name, category) {
         this.amount = amount;
         this.date = date;
         this.name = name;
-        if (amount < 0){
-            var categoryIndex = getRandomIntegerBetween(0, spendingCategories.length-1);
-            this.category = spendingCategories[categoryIndex];
+        this.category = category;
+        /*if (amount < 0){
+            var categoryIndex = getRandomIntegerBetween(0, spendingCategories.value.length-1);
+            this.category = spendingCategories.value[categoryIndex];
         }
         else {
-            var categoryIndex = getRandomIntegerBetween(0, earningCategories.length-1);
-            this.category = earningCategories[categoryIndex];
-        }
+            var categoryIndex = getRandomIntegerBetween(0, earningCategories.value.length-1);
+            this.category = earningCategories.value[categoryIndex];
+        }*/
     }
 }
 

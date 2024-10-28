@@ -63,9 +63,11 @@ function generateAndAddContacts(appStore) {
                 const fechaPago1 = generarFechaAleatoria();
                 const fechaPago2 = generarFechaAleatoria();
 
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].alias, users.value[j].cvu, false);
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].alias, users.value[j].cvu, false);
-                console.log(users.value[j].alias);
+                const randomNumber1 = generateRandomNumber(1000,100000);
+                const randomNumber2 = generateRandomNumber(1000,100000);
+
+                appStore.addPayment(randomNumber1, fechaPago1, appStore.getAliasById(j), null, false, randomNumber1 < 0 ? generateRandomSpendingCategory(appStore) : generateRandomEarningCategory(appStore));
+                appStore.addPayment(randomNumber2, fechaPago2, appStore.getAliasById(j), null, false, randomNumber2 < 0 ? generateRandomSpendingCategory(appStore) : generateRandomEarningCategory(appStore));
             }
         }
     }
@@ -83,6 +85,19 @@ function generarFechaAleatoria() {
 function generateRandomNumber(min, max) {
     let payment = Math.floor(Math.random() * (max - min + 1) + min);
     return payment * (Math.random() < 0.5 ? -1 : 1);
+}
+
+function getRandomIntegerBetween(a, b) {
+    return Math.floor(Math.random() * (b - a + 1)) + a;
+}
+
+function generateRandomSpendingCategory(appStore){
+    var categoryIndex = getRandomIntegerBetween(0, appStore.getSpendingCategories().length-1);
+    return appStore.getSpendingCategories()[categoryIndex];
+}
+function generateRandomEarningCategory(appStore){
+    var categoryIndex = getRandomIntegerBetween(0, appStore.getEarningCategories().length-1);
+    return appStore.getEarningCategories()[categoryIndex];
 }
 
 export { initializeApp, generarNumeroTarjeta, generateAndAddCreditCards, generateAndAddContacts };

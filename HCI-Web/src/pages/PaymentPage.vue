@@ -30,8 +30,9 @@ const selectedCard = ref('');
 const selectedPaymentOption = ref('cuenta');
 const selectedCBUOption = ref('alias'); // Inicializar con 'alias'
 const cvuOrAlias = ref('');
-
-
+const selectedCategory = ref('');
+const showErrorDialog = ref(false); // Nuevo ref para el diálogo de error
+const errorMessages = ref([]); // Array para almacenar mensajes de error
 
 const copyToClipboard = async () => {
   try {
@@ -50,6 +51,36 @@ const maskCardNumber = (cardNumber) => {
   const cleanNumber = cardNumber.toString().replace(/\D/g, '');
   if (cleanNumber.length !== 16) return cleanNumber;
   return '•••• '.repeat(3) + cleanNumber.slice(-4);
+};
+
+const validateFields = () => {
+  errorMessages.value = [];
+  
+  if (!monto.value || monto.value <= 0) {
+    errorMessages.value.push("Debe ingresar un monto válido");
+  }
+  
+  if (!cvuOrAlias.value) {
+    errorMessages.value.push(`Debe ingresar un ${selectedCBUOption.value === 'cbu' ? 'CBU' : 'Alias'}`);
+  }
+  
+  if (!selectedCategory.value) {
+    errorMessages.value.push("Debe seleccionar una categoría");
+  }
+  
+  if (selectedPaymentOption.value === 'tarjeta' && !selectedCard.value) {
+    errorMessages.value.push("Debe seleccionar una tarjeta");
+  }
+
+  if (monto.value > appStore.getBalance() && selectedPaymentOption.value === 'cuenta') {
+    errorMessages.value.push("Saldo insuficiente");
+  }
+
+  if (errorMessages.value.length > 0) {
+    showErrorDialog.value = true;
+    return false;
+  }
+  return true;
 };
 
 </script>
@@ -111,29 +142,36 @@ const maskCardNumber = (cardNumber) => {
                   class="mb-4 w-100"
                   dense
                 ></v-text-field>
+                <v-select
+                  v-model="selectedCategory"
+                  :items="appStore.getSpendingCategories()"
+                  label="Seleccione una categoria"
+                  class="mb-4 w-100"
+                  variant="outlined"
+                  dense
+                ></v-select>
                 <v-btn-toggle v-model="selectedPaymentOption" class="mb-4" mandatory>
                   <v-btn :value="'cuenta'" color="primary" outlined>Dinero en cuenta</v-btn>
                   <v-btn :value="'tarjeta'" color="primary" outlined>Pagar con Tarjeta</v-btn>
                 </v-btn-toggle>
-                <v-container v-if="selectedPaymentOption === 'tarjeta'" class="bg-tertiary w-100 ">
-                  <v-select
-                    v-model="selectedCard"
-                    :items="appStore.getCreditCards()"
-                    :item-title="item => item ? `${maskCardNumber(item.number)} - ${item.type}` : ''"
-                    :item-value="item => item ? `${item.number} ${item.type}` : ''"
-                    label="Seleccione una tarjeta"
-                    class="mb-4 w-100"
-                    variant="outlined"
-                    dense
-                  ></v-select>
-                </v-container>
+                <v-select
+                  v-if="selectedPaymentOption === 'tarjeta'"
+                  v-model="selectedCard"
+                  :items="appStore.getCreditCards()"
+                  :item-title="item => item ? `${maskCardNumber(item.number)} - ${item.type}` : ''"
+                  :item-value="item => item ? `${item.number} ${item.type}` : ''"
+                  label="Seleccione una tarjeta"
+                  class="mb-4 w-100"
+                  variant="outlined"
+                  dense
+                ></v-select>
                 <v-btn
                   color="primary"
                   block
                   x-large
                   class="mt-2"
                   style="height: 50px; text-transform: none;"
-                  @click="showVerifyTransactionDialog = true"
+                  @click="validateFields() && (showVerifyTransactionDialog = true)"
                 >
                   Continuar
                 </v-btn>
@@ -150,19 +188,21 @@ const maskCardNumber = (cardNumber) => {
 
     <v-dialog v-model="showVerifyTransactionDialog" max-width="600px">
       <v-card class="elevation-7">
-        <component v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)" >
-          <v-card-title class="text-h5">
-            Esta seguro que desea transferir a:
+        <v-card-title class="text-h5">
+            ¿Está seguro de que desea transferir?
           </v-card-title>
+        <component v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)" >
           <v-card-text>
             <p class="text-body-1">Nombre y Apellido: {{ appStore.getNameByAliasOrCVU(selectedCBUOption === 'cbu' ? null : cvuOrAlias, selectedCBUOption === 'cbu' ? cvuOrAlias : null) }}</p>
             <p class="text-body-1" v-if="selectedCBUOption === 'alias'">Alias: {{ cvuOrAlias }}</p>
-            <p class="text-body-1" v-if="selectedCBUOption === 'cbu'">CBU: {{ cvuOrAlias }}</p>
+            <p class="text-body-1" v-if="selectedCBUOption === 'cbu'">CBU: {{ cvuOrAlias }}</p> 
+            <p class="text-body-1" v-if="selectedPaymentOption === 'tarjeta'">Tarjeta: {{ maskCardNumber(selectedCard) }}</p>
           </v-card-text>
         </component>
         <component v-else>
-          <v-card-title class="text-h5">
-            Le va a transferir a un usuario desconocido.
+          <v-card-title class="text-body-1">
+            <p class="text-body-1">Usuario desconocido.</p>
+            <p class="text-body-1" v-if="selectedPaymentOption === 'tarjeta'">Tarjeta: {{ maskCardNumber(selectedCard) }}</p>
           </v-card-title>
         </component>
         <v-card-actions>
@@ -172,7 +212,29 @@ const maskCardNumber = (cardNumber) => {
             new Date(),  
             selectedCBUOption === 'cbu' ? null : cvuOrAlias, 
             selectedCBUOption === 'cbu' ? cvuOrAlias : null, 
-            selectedPaymentOption === 'tarjeta'); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
+            selectedPaymentOption === 'tarjeta',
+            selectedCategory
+          ); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showErrorDialog" max-width="400px">
+      <v-card class="elevation-7">
+        <v-card-title class="text-h5 text-center">
+          Error en la transferencia
+        </v-card-title>
+        <v-card-text>
+          <v-list>
+            <v-list-item v-for="(error, index) in errorMessages" :key="index" class="text-error">
+              • {{ error }}
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+        <v-card-actions class="justify-center">
+          <v-btn color="primary" @click="showErrorDialog = false">
+            Entendido
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

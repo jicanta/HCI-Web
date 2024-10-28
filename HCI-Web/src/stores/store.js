@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { User, CreditCard, Payment } from './classes';
+import { User, CreditCard, Payment} from './classes';
 import { initializeApp as initAppFunction } from './initializeApp';
 import visaLogo from '@/assets/visa-logo.png';
 import mastercardLogo from '@/assets/mastercard-logo.png';
@@ -13,6 +13,9 @@ import amexLogo from '@/assets/amex-logo.png';
     const currentUser = ref(-1);
     const lastId = ref(0);
     const isInitialized = ref(false);
+
+    const spendingCategories = ref(["Comida", "Transporte", "Compras", "Salud", "Servicios"]);
+    const earningCategories = ref(["Cobro", "Venta de producto", "Ingreso desde otra cuenta"]);
 
     function addUser(email, password, name, surname, dni, telephone) {
         if(!existsDNI(dni)){
@@ -62,7 +65,7 @@ import amexLogo from '@/assets/amex-logo.png';
     }
 
  
-    function addPayment(ammount, date, alias, cvu, isUsingCreditCard) {
+    function addPayment(ammount, date, alias, cvu, isUsingCreditCard, category) {
         if (currentUser.value >= 0){
             const user = users.value[currentUser.value];
             let name = "";
@@ -76,7 +79,7 @@ import amexLogo from '@/assets/amex-logo.png';
                     userToPay = getUserByCVU(cvu);
                     name = userToPay ? userToPay.name + " " + userToPay.surname : "Desconocido";
                 }
-                user.payments.push(new Payment(ammount, date, name));
+                user.payments.push(new Payment(ammount, date, name, category));
                 if(!isUsingCreditCard){
                     user.balance += Number(ammount);
                 }
@@ -248,7 +251,10 @@ import amexLogo from '@/assets/amex-logo.png';
             addCreditCard,
             addPayment,
             getPayments,
-            users
+            users,
+            getAliasById,
+            getSpendingCategories,
+            getEarningCategories
         });
     }
 
@@ -339,6 +345,18 @@ import amexLogo from '@/assets/amex-logo.png';
         return null;
     }
 
+    function getAliasById(id){
+        return users.value[id].alias;
+    }
+
+    function getSpendingCategories(){
+        return spendingCategories.value;
+    }
+
+    function getEarningCategories(){
+        return earningCategories.value;
+    }
+
     return { 
         users, 
         currentUser, 
@@ -378,6 +396,9 @@ import amexLogo from '@/assets/amex-logo.png';
         addInvested,
         addDeposit,
         getUserByAlias,
-        getUserByCVU
+        getUserByCVU,
+        getAliasById,
+        getSpendingCategories,
+        getEarningCategories
     };
  });
