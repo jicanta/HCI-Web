@@ -127,7 +127,7 @@ const handleDeposit = () => {
     <v-dialog v-model="showVerifyTransactionDialog" max-width="600px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          ¿Está seguro que desea depositar?
+          ¿Está seguro que desea ingresar dinero?
         </v-card-title>
         <v-card-text>
           <p class="text-body-1">Monto: ${{ monto }}</p>
@@ -135,7 +135,7 @@ const handleDeposit = () => {
         </v-card-text>
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
-          <v-btn color="colortext" @click="handleDeposit">Depositar</v-btn>
+          <v-btn color="colortext" @click="handleDeposit">Ingresar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -143,7 +143,7 @@ const handleDeposit = () => {
     <v-dialog v-model="showErrorDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5 text-center">
-          Error en el depósito
+          Error en el ingreso.
         </v-card-title>
         <v-card-text>
           <v-list>

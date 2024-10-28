@@ -89,11 +89,11 @@ import amexLogo from '@/assets/amex-logo.png';
         }
     }
 
-    function addDeposit(ammount, date, name) {
+    function addDeposit(ammount, date, category) {
         if (currentUser.value >= 0){
             const user = users.value[currentUser.value];
             user.balance += Number(ammount);
-            user.payments.push(new Payment(formatCurrency(ammount), date, name));
+            user.payments.push(new Payment(formatCurrency(ammount), date, "Tarjeta", category));
         }
     }
 
