@@ -78,10 +78,10 @@
   const handleSubmit = async () => {
     const result = await appStore.authUser(email.value, password.value);
     validateEmail(email.value);
-    if (result == 1) {
+    if (appStore.checkUserExists(email.value, password.value)) {
       router.push('/');
     } else {
-      console.error("Contraseña o email incorrecto");
+      alert('Contraseña o email incorrecto');
     }
   };
 </script>
