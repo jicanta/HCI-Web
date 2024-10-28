@@ -73,10 +73,18 @@ import amexLogo from '@/assets/amex-logo.png';
 
             if( ( alias === null || existsAlias(alias) ) && (user.balance >= ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
                 user.payments.push(new Payment(formatCurrency(ammount), date, name));
-                user.balance += ammount;
+                user.balance += Number(ammount);
                 return true;
            }
             return false; //significa que no se pudo realizar el pago
+        }
+    }
+
+    function addDeposit(ammount, date, name) {
+        if (currentUser.value >= 0){
+            const user = users.value[currentUser.value];
+            user.balance += Number(ammount);
+            user.payments.push(new Payment(formatCurrency(ammount), date, name));
         }
     }
 
@@ -351,6 +359,7 @@ import amexLogo from '@/assets/amex-logo.png';
         formatCurrency,
         getNameByAliasOrCVU,
         getInvested,
-        addInvested
+        addInvested,
+        addDeposit
     };
  });

@@ -22,7 +22,8 @@ const maskCardNumber = (cardNumber) => {
 };
 
 const handleDeposit = () => {
-    appStore.addBalance(monto.value);
+    showVerifyTransactionDialog.value = false;
+    appStore.addDeposit(monto.value, new Date(), "Tarjeta");
     monto.value = '';
     selectedCard.value = '';
 }
@@ -78,7 +79,7 @@ const handleDeposit = () => {
                   x-large
                   class="mt-2"
                   style="height: 50px; text-transform: none;"
-                  @click="handleDeposit()"
+                  @click="showVerifyTransactionDialog = true"
                 >
                   Continuar
                 </v-btn>
@@ -86,9 +87,21 @@ const handleDeposit = () => {
             </v-row>
           </v-container>
         </v-card>
-
       </v-col>
     </v-row>
+
+    <!-- Diálogo de confirmación -->
+    <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
+      <v-card class="elevation-7">
+        <v-card-title class="text-h5">
+          ¿Está seguro que desea depositar ${{ monto }}?
+        </v-card-title>
+        <v-card-actions>
+          <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
+          <v-btn color="colortext" @click="handleDeposit">Depositar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </template>
   <template v-else-if="goToRoute({ name: 'signIn' })"/>
 </template>

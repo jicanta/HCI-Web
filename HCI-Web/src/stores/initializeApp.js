@@ -61,8 +61,8 @@ function generateAndAddContacts(appStore) {
                 appStore.addContact(users.value[j]);  //TODO: arreglar el constructor de contacto, y vamos a tener que arreglar esto.
 
                 // Generar fecha aleatoria entre hoy y 5 días atrás
-                const fechaPago1 = generarFechaAleatoria(5);
-                const fechaPago2 = generarFechaAleatoria(5);
+                const fechaPago1 = generarFechaAleatoria();
+                const fechaPago2 = generarFechaAleatoria();
 
                 appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
                 appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
@@ -71,12 +71,12 @@ function generateAndAddContacts(appStore) {
     }
 }
 
-var contFecha = 0;
+var contFecha = 5;
 
-function generarFechaAleatoria(diasAtras) {
+function generarFechaAleatoria() {
     const hoy = new Date();
-    const diasAleatorios = Math.floor(diasAtras + (contFecha += 0.1));
-    hoy.setDate(hoy.getDate() - diasAleatorios);
+    const diasAleatorios = Math.floor(contFecha -= 0.1);
+    hoy.setDate(hoy.getDate() - 20 - diasAleatorios);
     return hoy;
 }
 

@@ -5,7 +5,6 @@ import BodyGrid from '@/components/BodyGrid.vue';
 import AppDivision from '@/components/AppDivision.vue';
 import Section from '@/components/Section.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
-import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import { ref } from 'vue';
 import { computed } from 'vue';
 import { useAppStore } from '@/stores/store';
@@ -17,7 +16,6 @@ const goToRoute = (route) => {
 const appStore = useAppStore();
  
 const router = useRouter();
-const paymentMethodsStore = usePaymentMethodsStore();
 const showRemoveVerification = ref(false);
 const toRemoveNumber = ref(-1);
  
@@ -170,7 +168,7 @@ function formattedCardNumber(cardNumber) {
   <v-dialog v-model="showRemoveVerification" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-          ¿Seguro de que quiere eliminarlo?
+          Esta seguro que desea eliminar el metodo de pago:
         </v-card-title>
         <v-card-actions>
           <v-btn color="colortext" text @click="showRemoveVerification = false">Cancelar</v-btn>
