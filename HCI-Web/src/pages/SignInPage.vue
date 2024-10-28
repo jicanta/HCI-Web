@@ -78,7 +78,7 @@
   const handleSubmit = async () => {
     const result = await appStore.authUser(email.value, password.value);
     validateEmail(email.value);
-    if (appStore.checkUserExists(email.value, password.value)) {
+    if (result == 1) {
       router.push('/');
     } else {
       alert('Contraseña o email incorrecto');

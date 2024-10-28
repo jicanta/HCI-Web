@@ -204,9 +204,10 @@ import amexLogo from '@/assets/amex-logo.png';
                 setCurrentUser(user.id);
                 console.log("Signed in as id:");
                 console.log(getId());
+                return 1;
             }
 
-            return 1;
+            return 0;
         }
 
         return 0;
