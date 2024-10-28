@@ -49,14 +49,12 @@ import AppFooter from '@/components/AppFooter.vue';
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
   const spendingByCategory = computed(() => {
-
     const categories = {};
     transactions.value.forEach(transaction => {
-      if (transaction.amount.charAt(0) == '-') {
-        categories[transaction.category] = (categories[transaction.category] || 0);
+      if (transaction.amount < 0) {
+        categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
       }
     });
-
     return Object.entries(categories).map(([name, value]) => ({ name, value }));
   });
 
