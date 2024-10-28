@@ -16,6 +16,7 @@ class User {
         this.contacts = [];
         this.alias = `carreta.${this.name.toLowerCase()}.${this.surname.toLowerCase()}.logo`;  //TODO: cambiar logo por nombre de la app
         this.cvu = Array(22).fill().map(() => Math.floor(Math.random() * 10)).join('');
+        this.invested = 0;
     }
 }
 

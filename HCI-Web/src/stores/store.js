@@ -92,6 +92,29 @@ import amexLogo from '@/assets/amex-logo.png';
         }
     }
 
+    function getInvested() {
+        if (currentUser.value >= 0){
+            return users.value[currentUser.value].invested;
+        }
+    }
+
+    function addInvested(amount) {
+        if (currentUser.value >= 0 && amount != null ){
+            console.log("Balance:");
+            console.log(users.value[currentUser.value].balance);
+            console.log("Invested:");
+            console.log(users.value[currentUser.value].invested);
+            
+            users.value[currentUser.value].balance -= Number(amount);
+            users.value[currentUser.value].invested += Number(amount);
+            
+            console.log("Balance:");
+            console.log(users.value[currentUser.value].balance);
+            console.log("Invested:");
+            console.log(users.value[currentUser.value].invested);
+        }
+    }
+
     function getPayments() {
         if (currentUser.value >= 0){
             return users.value[currentUser.value].payments;
@@ -326,6 +349,8 @@ import amexLogo from '@/assets/amex-logo.png';
         getCardLogo,
         checkUserExists,
         formatCurrency,
-        getNameByAliasOrCVU
+        getNameByAliasOrCVU,
+        getInvested,
+        addInvested
     };
  });
