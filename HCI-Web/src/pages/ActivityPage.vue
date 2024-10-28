@@ -21,7 +21,7 @@
 
   onMounted(
     () => {
-      transactions.value = appStore.getPayments();
+      transactions.value = [...appStore.getPayments()].reverse();
     }
   );
 
