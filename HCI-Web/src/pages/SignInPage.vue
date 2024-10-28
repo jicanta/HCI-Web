@@ -65,10 +65,19 @@
   const email = ref('');
   const password = ref('');
   const showPassword = ref(false);
+  const isEmailValid = ref(true);
+
+  function validateEmail() {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  isEmailValid.value = emailPattern.test(email.value);
+  if (!isEmailValid.value) {
+    alert('Por favor ingrese una dirección de email válida');
+  }
+}
 
   const handleSubmit = async () => {
     const result = await appStore.authUser(email.value, password.value);
-    
+    validateEmail(email.value);
     if (result == 1) {
       router.push('/');
     } else {
