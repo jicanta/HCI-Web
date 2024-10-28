@@ -23,10 +23,6 @@
         type: Boolean,
         required: false,
     },
-    backgound_color:{
-        type: String,
-        required: true
-    }
     });
 </script>
 

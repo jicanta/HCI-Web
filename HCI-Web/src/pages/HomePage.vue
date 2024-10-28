@@ -3,14 +3,11 @@ import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 import ListItem from '@/components/ListItem.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import AppFooter from '@/components/AppFooter.vue';
 
-const paymentMethodsStore = usePaymentMethodsStore();
-
-const maskCardNumber = (number) => {
-  return '•••• '.repeat(3) + number.slice(-4);
-};  
+  const maskCardNumber = (number) => {
+    return '•••• '.repeat(3) + number.slice(-4);
+  };  
   
   const getCents = (balance) => {
     return ( Math.abs(balance) - Math.floor(Math.abs(balance)) ).toFixed(2) * 100;
@@ -47,21 +44,19 @@ const maskCardNumber = (number) => {
   const appStore = useAppStore();
   const theme = useTheme();
 
-  // Usar computed para acceder al usuario actual de manera reactiva
-  const currentUser = computed(() => appStore.getCurrentUser());
-
-  // Usar computed para las transacciones
-  const transactions = computed(() => currentUser.value ? appStore.getPayments() : []);
+  const transactions = computed(() => appStore.getPayments());
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
   const spendingByCategory = computed(() => {
+
     const categories = {};
     transactions.value.forEach(transaction => {
-      if (transaction.amount < 0) {
-        categories[transaction.category] = (categories[transaction.category] || 0) + Math.abs(transaction.amount);
+      if (transaction.amount.charAt(0) == '-') {
+        categories[transaction.category] = (categories[transaction.category] || 0);
       }
     });
+
     return Object.entries(categories).map(([name, value]) => ({ name, value }));
   });
 
@@ -73,7 +68,7 @@ const maskCardNumber = (number) => {
     legend: {
       orient: 'vertical',
       left: 'left',
-      textStyle: { color: theme.current.value.colors.colortext2 } // Cambia 'blue' por el color deseado
+      textStyle: { color: theme.current.value.colors.colortext2 }
     },
     series: [
       {
@@ -156,7 +151,7 @@ const maskCardNumber = (number) => {
                   {{ maskCardNumber(card.number) }}
                 </v-col>
                 <v-col cols="3">
-                  <v-img :src="paymentMethodsStore.cardLogo(card.type)" width="50"/>
+                  <v-img :src="appStore.getCardLogo(card.type)" width="50"/>
                 </v-col>
               </v-row>
             </v-container> 
@@ -174,7 +169,11 @@ const maskCardNumber = (number) => {
           title="Última actividad"
           class="bg-tertiary elevation-7 w-100 my-4 pa-2"
         >
-          <v-chart class="chart mt-8 mb-2 pa-1 w-100 border-1 text-colorText2 d-flex align-center justify-center border rounded" :option="chartOption" style="height: 250px; width: 200px;"/>
+          <v-chart 
+            class="chart mt-8 mb-2 pa-1 w-100 border-1 text-colorText2 d-flex align-center justify-center border rounded" 
+            :option="chartOption" style="height: 250px; width: 200px;"
+            
+          />
           
           <v-card-text>
             <template v-if="transactions.length === 0">
@@ -184,7 +183,7 @@ const maskCardNumber = (number) => {
             <template v-else>
               <v-list class="pa-0">
                 <ListItem
-                  v-for="transaction in transactions.slice(-3).reverse()"
+                  v-for="transaction in transactions.reverse().slice(-3)"
                   class="bg-tertiary"
                   :key="transaction.id"
                   :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"
