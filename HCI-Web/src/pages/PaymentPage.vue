@@ -148,17 +148,28 @@ const maskCardNumber = (cardNumber) => {
       </v-col>
     </v-row>
 
-    <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
+    <v-dialog v-model="showVerifyTransactionDialog" max-width="600px">
       <v-card class="elevation-7">
-        <v-card-title class="text-h5">
-          Esta seguro que desea transferir a:
-        </v-card-title>
+        <component v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)" >
+          <v-card-title class="text-h5">
+            Esta seguro que desea transferir a:
+          </v-card-title>
+          <v-card-text>
+            <p class="text-body-1">Nombre y Apellido: {{ appStore.getNameByAliasOrCVU(selectedCBUOption === 'cbu' ? null : cvuOrAlias, selectedCBUOption === 'cbu' ? cvuOrAlias : null) }}</p>
+            <p class="text-body-1" v-if="selectedCBUOption === 'alias'">Alias: {{ cvuOrAlias }}</p>
+            <p class="text-body-1" v-if="selectedCBUOption === 'cbu'">CBU: {{ cvuOrAlias }}</p>
+          </v-card-text>
+        </component>
+        <component v-else>
+          <v-card-title class="text-h5">
+            Le va a transferir a un usuario desconocido.
+          </v-card-title>
+        </component>
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-btn color="colortext" @click="appStore.addPayment(
             -monto, 
-            new Date(), 
-            appStore.getNameByAliasOrCVU(selectedCBUOption === 'cbu' ? null : cvuOrAlias, selectedCBUOption === 'cbu' ? cvuOrAlias : null), 
+            new Date(),  
             selectedCBUOption === 'cbu' ? null : cvuOrAlias, 
             selectedCBUOption === 'cbu' ? cvuOrAlias : null, 
             selectedPaymentOption === 'tarjeta'); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>

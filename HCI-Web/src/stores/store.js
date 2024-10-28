@@ -62,11 +62,20 @@ import amexLogo from '@/assets/amex-logo.png';
     }
 
  
-    function addPayment(ammount, date, name, alias, cvu, isUsingCreditCard) {
+    function addPayment(ammount, date, alias, cvu, isUsingCreditCard) {
         if (currentUser.value >= 0){
             const user = users.value[currentUser.value];
-
-            if( ( alias === null || existsAlias(alias) ) && (user.balance >= -ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
+            let name = "";
+            let userToPay = null;
+            if( ( alias !== null || cvu !== null ) && (user.balance >= -ammount || isUsingCreditCard ) ) {
+                if(alias !== null){
+                    userToPay = getUserByAlias(alias);
+                    name = userToPay ? userToPay.name + " " + userToPay.surname : "Desconocido"; 
+                }// en el caso de que getUserByAlias / getUserByCVU de null significa que no se encuentra dentro de la base de datos -> "Desconocido"
+                else{
+                    userToPay = getUserByCVU(cvu);
+                    name = userToPay ? userToPay.name + " " + userToPay.surname : "Desconocido";
+                }
                 user.payments.push(new Payment(ammount, date, name));
                 if(!isUsingCreditCard){
                     user.balance += Number(ammount);
@@ -312,6 +321,24 @@ import amexLogo from '@/assets/amex-logo.png';
       }).format(amount);
     };
 
+    function getUserByAlias(alias){
+        for(let i = 0; i < users.value.length; i++){
+            if(users.value[i].alias === alias){
+                return users.value[i];
+            }
+        }
+        return null;
+    }
+
+    function getUserByCVU(cvu){
+        for(let i = 0; i < users.value.length; i++){
+            if(users.value[i].cvu === cvu){
+                return users.value[i];
+            }
+        }
+        return null;
+    }
+
     return { 
         users, 
         currentUser, 
@@ -349,6 +376,8 @@ import amexLogo from '@/assets/amex-logo.png';
         getNameByAliasOrCVU,
         getInvested,
         addInvested,
-        addDeposit
+        addDeposit,
+        getUserByAlias,
+        getUserByCVU
     };
  });

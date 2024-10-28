@@ -63,8 +63,9 @@ function generateAndAddContacts(appStore) {
                 const fechaPago1 = generarFechaAleatoria();
                 const fechaPago2 = generarFechaAleatoria();
 
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
-                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].firstName + " " + users.value[j].lastName, null, null, false);
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago1, users.value[j].alias, users.value[j].cvu, false);
+                appStore.addPayment(generateRandomNumber(1000,100000), fechaPago2, users.value[j].alias, users.value[j].cvu, false);
+                console.log(users.value[j].alias);
             }
         }
     }
