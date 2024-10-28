@@ -10,7 +10,7 @@ import amexLogo from '@/assets/amex-logo.png';
  export const useAppStore = defineStore("app", () => {
 
     const users = ref([]);
-    const currentUser = ref(0);
+    const currentUser = ref(-1);
     const lastId = ref(0);
     const isInitialized = ref(false);
 
@@ -195,9 +195,10 @@ import amexLogo from '@/assets/amex-logo.png';
                 setCurrentUser(user.id);
                 console.log("Signed in as id:");
                 console.log(getId());
+                return 1;
             }
 
-            return 1;
+            return 0;
         }
 
         return 0;

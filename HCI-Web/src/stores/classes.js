@@ -1,4 +1,4 @@
-const spendingCategories = ["Comida", "Transporte", "Compras"];
+const spendingCategories = ["Comida", "Transporte", "Compras", "Salud", "Servicios"];
 const earningCategories = ["Cobro", "Venta de producto"];
 
 class User {
