@@ -102,6 +102,42 @@
       </v-col>
     </v-row>
   </v-container>
+
+  <v-dialog v-model="showErrorDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center">
+        Error en el registro
+      </v-card-title>
+      <v-card-text>
+        <v-list>
+          <v-list-item v-for="(error, index) in errorMessages" :key="index" class="text-error">
+            • {{ error }}
+          </v-list-item>
+        </v-list>
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="primary" @click="showErrorDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="showSuccessDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center text-success">
+        Registro exitoso
+      </v-card-title>
+      <v-card-text class="text-center">
+        ¡Su cuenta ha sido creada correctamente!
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="success" @click="showSuccessDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
@@ -124,6 +160,9 @@ const showConfirmPassword = ref(false);
 const showMenu = ref(false);
 const dniError = ref('');
 const phoneError = ref('');
+const showErrorDialog = ref(false);
+const errorMessages = ref([]);
+const showSuccessDialog = ref(false);
 
 const showPasswordMismatch = computed(() => {
   return confirmPassword.value && password.value !== confirmPassword.value;
@@ -134,7 +173,8 @@ watch(showPasswordMismatch, (newValue) => {
 });
 
 const handleSubmit = async () => {
-  console.log("Submitting...");
+  if (!validateFields()) return;
+  
   if (password.value !== confirmPassword.value) {
     showMenu.value = true;
     return;
@@ -145,9 +185,14 @@ const handleSubmit = async () => {
   );
   
   if (result == 1) {
-    router.push('/');
+    showSuccessDialog.value = true;
+    setTimeout(() => {
+      showSuccessDialog.value = false;
+      router.push('/');
+    }, 2000);
   } else {
-    console.error("Usuario existente");
+    errorMessages.value = ['Usuario ya existente'];
+    showErrorDialog.value = true;
   }
 };
 
@@ -186,13 +231,12 @@ function validateDni() {
 }
 
 function handlePhoneInput(event) {
-  // Only allow digits
   if (!/\d/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete') {
     event.preventDefault();
   }
 }
 
-// Optional: Format phone number as user types (e.g., 11-1234-5678)
+
 function formatPhoneNumber(value  ) {
   const cleaned = value.replace(/\D/g, '');
   let formatted = cleaned;
@@ -221,6 +265,48 @@ function validateEmail() {
   }
   return true;
 }
+
+const validateFields = () => {
+  errorMessages.value = [];
+  
+  if (!nombre.value) {
+    errorMessages.value.push("Debe ingresar un nombre");
+  }
+  
+  if (!apellido.value) {
+    errorMessages.value.push("Debe ingresar un apellido");
+  }
+
+  if (!dni.value || dni.value.length !== 8) {
+    errorMessages.value.push("DNI debe tener 8 dígitos");
+  }
+
+  if (!phoneNumber.value || phoneNumber.value.replace(/\D/g, '').length !== 10) {
+    errorMessages.value.push("Teléfono debe tener 10 dígitos");
+  }
+
+  if (!email.value || !validateEmail()) {
+    errorMessages.value.push("Debe ingresar un email válido");
+  }
+
+  if (!password.value) {
+    errorMessages.value.push("Debe ingresar una contraseña");
+  }
+
+  if (!confirmPassword.value) {
+    errorMessages.value.push("Debe confirmar la contraseña");
+  }
+
+  if (password.value !== confirmPassword.value) {
+    errorMessages.value.push("Las contraseñas no coinciden");
+  }
+
+  if (errorMessages.value.length > 0) {
+    showErrorDialog.value = true;
+    return false;
+  }
+  return true;
+};
 </script>
 
 <style scoped>

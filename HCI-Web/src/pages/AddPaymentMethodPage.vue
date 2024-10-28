@@ -64,8 +64,14 @@
     };
 
     const handleSubmit = () => {
+        showSuccessDialog.value = true;
+        
         appStore.addCreditCard(cardNumber.value, cardholderName.value, cvv.value);
-        router.push({ name: 'paymentMethods'});
+        
+        setTimeout(() => {
+            showSuccessDialog.value = false;
+            router.push({ name: 'paymentMethods'});
+        }, 2000);
     };
 
     function getCardType(cardNumber) {
@@ -75,7 +81,6 @@
         else if (cardNumber.startsWith('5')) type = 'Mastercard';
         else type = 'Unknown';
         
-        console.log('Card Type:', type); // Debugging log
         return type;
     }
 
@@ -155,6 +160,8 @@
       const cleaned = event.target.value.replace(/\D/g, '');
       cardNumber.value = cleaned.slice(0, 16);
     };
+
+    const showSuccessDialog = ref(false);
 </script>
 
 <template>
@@ -198,6 +205,8 @@
                       clearable
                       @input="updateCardNumber"
                       maxlength="19"
+                      inputmode="numeric"
+                      @keypress="onlyNumbers"
                     ></v-text-field>
                   </div>
                   <div class="d-flex justify-end mb-2">
@@ -297,6 +306,23 @@
     </BodyGrid>
   </v-main>
   <template v-else-if="goToRoute({ name: 'signIn' })"/>
+  
+
+  <v-dialog v-model="showSuccessDialog" max-width="400px" persistent>
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center text-success">
+        Método de pago agregado
+      </v-card-title>
+      <v-card-text class="text-center">
+        ¡La tarjeta se ha agregado exitosamente!
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="success" @click="showSuccessDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
   
   
@@ -380,17 +406,16 @@
   font-family: monospace;
 }
 
-/* Hide front content when flipped */
+
 .card-wrapper.is-flipped .card-front {
   z-index: 1;
 }
 
-/* Ensure back content is visible and interactive when flipped */
 .card-wrapper.is-flipped .card-back {
   z-index: 2;
 }
 
-/* Hide back content when not flipped */
+
 .card-back .card-content {
   opacity: 0;
   transition: opacity 0.3s;
@@ -400,7 +425,6 @@
   opacity: 1;
 }
 
-/* ... other styles ... */
 
 .card-logo-container {
   display: flex;
@@ -419,6 +443,7 @@
   align-items: center;
 }
 </style>
+
 
 
 

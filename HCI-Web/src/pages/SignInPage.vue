@@ -51,6 +51,43 @@
       </v-col>
     </v-row>
   </v-container>
+
+  <!-- Agregar los diálogos -->
+  <v-dialog v-model="showErrorDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center">
+        Error al iniciar sesión
+      </v-card-title>
+      <v-card-text>
+        <v-list>
+          <v-list-item v-for="(error, index) in errorMessages" :key="index" class="text-error">
+            • {{ error }}
+          </v-list-item>
+        </v-list>
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="primary" @click="showErrorDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="showSuccessDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center text-success">
+        Inicio de sesión exitoso
+      </v-card-title>
+      <v-card-text class="text-center">
+        ¡Bienvenido nuevamente!
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="success" @click="showSuccessDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
@@ -67,21 +104,49 @@
   const showPassword = ref(false);
   const isEmailValid = ref(true);
 
+  const showErrorDialog = ref(false);
+  const errorMessages = ref([]);
+  const showSuccessDialog = ref(false);
+
   function validateEmail() {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  isEmailValid.value = emailPattern.test(email.value);
-  if (!isEmailValid.value) {
-    alert('Por favor ingrese una dirección de email válida');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email.value);
   }
-}
+
+  const validateFields = () => {
+    errorMessages.value = [];
+    
+    if (!email.value) {
+      errorMessages.value.push("Debe ingresar un email");
+    } else if (!validateEmail()) {
+      errorMessages.value.push("Debe ingresar un email válido");
+    }
+
+    if (!password.value) {
+      errorMessages.value.push("Debe ingresar una contraseña");
+    }
+
+    if (errorMessages.value.length > 0) {
+      showErrorDialog.value = true;
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async () => {
+    if (!validateFields()) return;
+
     const result = await appStore.authUser(email.value, password.value);
-    validateEmail(email.value);
+    
     if (result == 1) {
-      router.push('/');
+      showSuccessDialog.value = true;
+      setTimeout(() => {
+        showSuccessDialog.value = false;
+        router.push({ name: 'home' });
+      }, 2000);
     } else {
-      alert('Contraseña o email incorrecto');
+      errorMessages.value = ['Contraseña o email incorrecto'];
+      showErrorDialog.value = true;
     }
   };
 </script>
