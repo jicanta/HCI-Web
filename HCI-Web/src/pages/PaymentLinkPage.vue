@@ -1,10 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import AppDivision from '@/components/AppDivision.vue';
-import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
-import BodyGrid from '@/components/BodyGrid.vue';
-import Section from '@/components/Section.vue';
-import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import router from '@/router';
 import { useAppStore } from '@/stores/store';
@@ -32,7 +27,6 @@ const paymentLink = ref('');
 const copySuccess = ref(false);
 
 const generatePaymentLink = () => {
-  // Generate a random payment link
   const randomString = Math.random().toString(36).substring(7);
   paymentLink.value = `https://payment.example.com/${randomString}`;
   showDialog.value = true;
@@ -126,7 +120,6 @@ const formatNumber = (number) => {
       </v-col>
     </v-row>
 
-    <!-- Payment Link Dialog -->
     <v-dialog v-model="showDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">

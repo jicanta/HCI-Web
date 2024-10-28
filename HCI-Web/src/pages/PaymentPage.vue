@@ -1,10 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import AppDivision from '@/components/AppDivision.vue';
-import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
-import BodyGrid from '@/components/BodyGrid.vue';
-import Section from '@/components/Section.vue';
-import AppHeaderPrimaryScreen from '@/components/AppHeaderPrimaryScreen.vue';
 import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import router from '@/router';
 import { useAppStore } from '@/stores/store';
@@ -161,7 +156,6 @@ const formatNumber = (number) => {
       </v-col>
     </v-row>
 
-    <!-- Payment Link Dialog -->
     <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">

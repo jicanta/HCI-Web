@@ -61,19 +61,16 @@ import amexLogo from '@/assets/amex-logo.png';
         currentUser.value = id;
     }
 
-    function addContact(user) {
-        if (currentUser.value >= 0){
-            users.value[currentUser.value].contacts.push(user);
-        }
-    }
  
     function addPayment(ammount, date, name, alias, cvu, isUsingCreditCard) {
         if (currentUser.value >= 0){
             const user = users.value[currentUser.value];
 
-            if( ( alias === null || existsAlias(alias) ) && (user.balance >= ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
+            if( ( alias === null || existsAlias(alias) ) && (user.balance >= -ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
                 user.payments.push(new Payment(ammount, date, name));
-                user.balance += Number(ammount);
+                if(!isUsingCreditCard){
+                    user.balance += Number(ammount);
+                }
                 return true;
            }
             return false;
@@ -128,12 +125,6 @@ import amexLogo from '@/assets/amex-logo.png';
             return users.value[currentUser.value].payments;
         }
         return [];
-    }
-
-    function getContacts() {
-        if (currentUser.value >= 0){
-            return users.value[currentUser.value].contacts;
-        }
     }
 
     function getCreditCards() {
@@ -245,7 +236,6 @@ import amexLogo from '@/assets/amex-logo.png';
             addUser,
             setCurrentUser,
             addCreditCard,
-            addContact,
             addPayment,
             getPayments,
             users
@@ -328,11 +318,9 @@ import amexLogo from '@/assets/amex-logo.png';
         addUser, 
         addCreditCard, 
         setCurrentUser, 
-        addContact, 
         addPayment, 
         getBalance, 
         getPayments, 
-        getContacts, 
         getCreditCards, 
         getCurrentUser, 
         getCardColor, 

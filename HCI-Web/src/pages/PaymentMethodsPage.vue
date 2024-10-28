@@ -1,12 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
 import BodyGrid from '@/components/BodyGrid.vue';
 import AppDivision from '@/components/AppDivision.vue';
 import Section from '@/components/Section.vue';
-import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
 import { ref } from 'vue';
-import { computed } from 'vue';
 import { useAppStore } from '@/stores/store';
 
 const goToRoute = (route) => {
@@ -83,10 +80,11 @@ function formattedCardNumber(cardNumber) {
             <div class="d-flex justify-end">
               <v-btn 
                 v-if="appStore.getCreditCards().length > 0"
-                class="rounded-xl mb-1"
+                color="primary"
+                class="mb-1 px-4"
                 @click="editState = !editState"
               >
-              {{ editState ? 'Cancelar' : 'Editar' }}
+                {{ editState ? 'Cancelar' : 'Editar' }}
               </v-btn>          
             </div>
             <div>

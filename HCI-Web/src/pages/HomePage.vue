@@ -3,10 +3,8 @@ import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
 import ListItem from '@/components/ListItem.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
 import AppFooter from '@/components/AppFooter.vue';
 
-const paymentMethodsStore = usePaymentMethodsStore();
 
 const maskCardNumber = (number) => {
   return '•••• '.repeat(3) + number.slice(-4);
@@ -47,10 +45,10 @@ const maskCardNumber = (number) => {
   const appStore = useAppStore();
   const theme = useTheme();
 
-  // Usar computed para acceder al usuario actual de manera reactiva
+
   const currentUser = computed(() => appStore.getCurrentUser());
 
-  // Usar computed para las transacciones
+
   const transactions = computed(() => currentUser.value ? appStore.getPayments() : []);
 
   use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
@@ -156,7 +154,7 @@ const maskCardNumber = (number) => {
                   {{ maskCardNumber(card.number) }}
                 </v-col>
                 <v-col cols="3">
-                  <v-img :src="paymentMethodsStore.cardLogo(card.type)" width="50"/>
+                  <v-img :src="appStore.getCardLogo(card.type)" width="50"/>
                 </v-col>
               </v-row>
             </v-container> 

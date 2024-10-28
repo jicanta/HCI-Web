@@ -2,12 +2,10 @@
   import { ref, computed, onMounted } from 'vue';
   import { Line as LineChart } from 'vue-chartjs';
   import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-  import AppHeaderSecondaryScreen from '@/components/AppHeaderSecondaryScreen.vue';
   import BodyGrid from '@/components/BodyGrid.vue';
   import AppDivision from '@/components/AppDivision.vue';
   import Section from '@/components/Section.vue';
   import ButtonsNavBar from '@/components/ButtonsNavBar.vue';
-  import ButtonsNavBarWithBack from '@/components/ButtonsNavBarWithBack.vue';
   import router from '@/router';
   import { useAppStore } from '@/stores/store';
   

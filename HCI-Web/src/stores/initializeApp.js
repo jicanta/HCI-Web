@@ -58,7 +58,6 @@ function generateAndAddContacts(appStore) {
         for(let j = 0; j < users.value.length; j++){
             if(i != j){
                 appStore.setCurrentUser(i);
-                appStore.addContact(users.value[j]);  //TODO: arreglar el constructor de contacto, y vamos a tener que arreglar esto.
 
                 // Generar fecha aleatoria entre hoy y 5 días atrás
                 const fechaPago1 = generarFechaAleatoria();

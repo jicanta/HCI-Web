@@ -90,7 +90,6 @@ const handleDeposit = () => {
       </v-col>
     </v-row>
 
-    <!-- Diálogo de confirmación -->
     <v-dialog v-model="showVerifyTransactionDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">

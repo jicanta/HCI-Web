@@ -1,7 +1,6 @@
 <script setup>
     import { ref, computed } from 'vue';
     import { useRouter } from 'vue-router';
-    import { usePaymentMethodsStore } from '@/stores/paymentMethodsStore';
     import { useAppStore } from '@/stores/store';
 
     // Import the logo images
@@ -11,7 +10,6 @@
     import smartChip from '@/assets/smart-chip.png';
 
     const router = useRouter();
-    const paymentMethodsStore = usePaymentMethodsStore();
     const appStore = useAppStore();
     const cardNumber = ref('');
     const expirationYear = ref('');
