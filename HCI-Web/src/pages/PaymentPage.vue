@@ -136,6 +136,7 @@ const formatNumber = (number) => {
                     :item-value="item => item ? `${item.number} ${item.type}` : ''"
                     label="Seleccione una tarjeta"
                     class="mb-4 w-100"
+                    variant="outlined"
                     dense
                   ></v-select>
                 </v-container>
