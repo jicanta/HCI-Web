@@ -54,7 +54,7 @@ const handleDeposit = () => {
             <v-row class="align-center justify-space-between" no-gutters>
               <v-col class="d-flex flex-column align-center justify-center w-100">
                 <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
-                <p class="text-h6 font-weight-bold mb-4">${{ appStore.getBalance() }}</p>
+                <p class="text-h6 font-weight-bold mb-4">${{ Math.trunc(appStore.getBalance()).toLocaleString('es-ES') }}</p>
                 <v-text-field
                   v-model="monto"
                   label="Ingrese monto"

@@ -181,7 +181,7 @@ import AppFooter from '@/components/AppFooter.vue';
             <template v-else>
               <v-list class="pa-0">
                 <ListItem
-                  v-for="transaction in transactions.reverse().slice(-3)"
+                  v-for="transaction in transactions.slice(-3)"
                   class="bg-tertiary"
                   :key="transaction.id"
                   :icon="transaction.amount > 0 ? 'mdi-cash-check' : 'mdi-cart'"

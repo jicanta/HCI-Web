@@ -52,14 +52,6 @@ const maskCardNumber = (cardNumber) => {
   return '•••• '.repeat(3) + cleanNumber.slice(-4);
 };
 
-const formatNumber = (number) => {
-  if (number === null || number === undefined) return '';
-  
-  const numStr = number.toString();
-  if (numStr.length <= 3) return numStr;
-  
-  return numStr.slice(0, -3) + '.' + numStr.slice(-3);
-};
 </script>
 
 <template>
@@ -87,7 +79,7 @@ const formatNumber = (number) => {
             <v-row class="align-center justify-space-between" no-gutters>
               <v-col class="d-flex flex-column align-center justify-center w-100">
                 <p class="text-caption text-medium-emphasis mb-1">Saldo actual:</p>
-                <p class="text-h6 font-weight-bold mb-4">${{ formatNumber(appStore.getBalance()) }}</p>
+                <p class="text-h6 font-weight-bold mb-4">${{ Math.trunc(appStore.getBalance()).toLocaleString('es-ES') }}</p>
                 <v-text-field
                   v-model="monto"
                   label="Ingrese monto"
