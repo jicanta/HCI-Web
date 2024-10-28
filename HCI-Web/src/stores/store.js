@@ -67,15 +67,15 @@ import amexLogo from '@/assets/amex-logo.png';
         }
     }
  
-    function addPayment(amount, date, name, alias, cvu, isUsingCreditCard) {    //dni es el dni hacia quien le mando la plata, el tema es que 
+    function addPayment(ammount, date, name, alias, cvu, isUsingCreditCard) {    //dni es el dni hacia quien le mando la plata, el tema es que 
         if (currentUser.value >= 0){
             const user = users.value[currentUser.value];
 
-            if( ( alias === null || existsAlias(alias) ) && (user.balance >= amount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
-                user.payments.push(new Payment(amount, date, name));
-                user.balance -= amount;
+            if( ( alias === null || existsAlias(alias) ) && (user.balance >= ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
+                user.payments.push(new Payment(ammount, date, name));
+                user.balance -= ammount;
                 return true;
-            }
+           }
             return false; //significa que no se pudo realizar el pago
         }
     }

@@ -160,7 +160,7 @@ const formatNumber = (number) => {
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="colortext" @click="verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
+          <v-btn color="colortext" @click="appStore.addPayment(monto, new Date(), CBU, descripcion, null, true); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
