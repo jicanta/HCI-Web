@@ -15,12 +15,20 @@
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-  const availableBalance = ref(10000);
-  const currentInvestment = ref(5000);
+  const availableBalance = ref(appStore.getBalance());
+  const currentInvestment = ref(appStore.getInvested());
   const interestRate = 0.05;
   
   const investmentAmount = ref('');
   const withdrawAmount = ref('');
+  
+  const handleInvest = () => {
+    appStore.addInvested(investmentAmount.value);
+  }
+
+  const handleWithdraw = () => {
+    appStore.addInvested(-1 * withdrawAmount.value);
+  }
   
   const dailyReturn = computed(() => currentInvestment.value * interestRate);
   
@@ -161,6 +169,7 @@
                 Invertir todo el saldo disponible
               </v-btn>
               <v-btn
+                @click="handleInvest()"
                 type="submit"
                 color="primary"
                 block
@@ -191,6 +200,7 @@
                 Retirar toda la inversión
               </v-btn>
               <v-btn
+                @click="handleWithdraw()"
                 type="submit"
                 color="secondary"
                 block
