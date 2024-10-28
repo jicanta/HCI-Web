@@ -2,7 +2,7 @@
     <v-container class="buttons-nav-bar bg-primary px-4" fluid>
 
       <v-container class="left-container">
-        <a href="/" class="d-flex align-center text-decoration-none logo-link">
+        <a @click="goToRoute('home')" class="d-flex align-center text-decoration-none cursor-pointer logo-link">
           <div class="logo-container">
             <v-img
               src="@/assets/PayGoIcon.png"
