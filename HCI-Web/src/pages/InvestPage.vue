@@ -134,7 +134,7 @@
         </v-card>
         <Section class="ma-3">
           <v-container class="inside-section">
-            <h2 class="text-h5 mb-4">Inversión Actual</h2>
+            <h2 class="text-h5 mb-4">Inversión actual</h2>
             <v-card class="elevation-7 mb-4 pa-4">
               <v-row>
                 <v-col cols="6">
@@ -148,7 +148,7 @@
               </v-row>
             </v-card>
   
-            <h2 class="text-h5 mb-4">Nueva Inversión</h2>
+            <h2 class="text-h5 mb-4">Nueva inversión</h2>
             <v-form @submit.prevent="invest">
               <v-text-field
                 v-model="investmentAmount"
@@ -179,7 +179,7 @@
   
             <v-divider class="my-6"></v-divider>
   
-            <h2 class="text-h5 mb-4">Retirar Inversión</h2>
+            <h2 class="text-h5 mb-4">Retirar inversión</h2>
             <v-form @submit.prevent="withdraw">
               <v-text-field
                 v-model="withdrawAmount"

@@ -41,7 +41,6 @@
                   prepend-inner-icon="mdi-card-account-details"
                   density="compact"
                   @keypress="handleDniInput"
-                  @blur="validateDni"
                 ></v-text-field>
                 <span v-if="dniError" class="text-error">{{ dniError }}</span>
               </v-col>
@@ -86,11 +85,6 @@
                   v-bind="props"
                 ></v-text-field>
               </template>
-            <!--  <v-card v-if="showPasswordMismatch" color="error" class="pa-2">
-                <v-card-text class="text-caption white--text">
-                  Las contraseñas no coinciden
-                </v-card-text>
-              </v-card> -->
             </v-menu>
             <v-btn type="submit" color="primary" block class="mt-2">Registrarse</v-btn>
             <div class="w-100 pa-2 text-center">
@@ -227,39 +221,34 @@ function handleDniInput(event) {
 }
 
 function handlePhoneInput(event) {
-  if (!/\d/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete') {
+  const currentDigits = phoneNumber.value.replace(/\D/g, '');
+  if (
+    (!/\d/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete') ||
+    (currentDigits.length >= 10 && !/^(Backspace|Delete)$/.test(event.key))
+  ) {
     event.preventDefault();
   }
 }
 
-
-function formatPhoneNumber(value  ) {
-  const cleaned = value.replace(/\D/g, '');
+function formatPhoneNumber(value) {
+  const cleaned = value.replace(/\D/g, '').slice(0, 10);
   let formatted = cleaned;
-  phoneError.value = ''
+  phoneError.value = '';
+  
   if (cleaned.length >= 2) {
     formatted = cleaned.slice(0, 2) + '-' + cleaned.slice(2);
     if (cleaned.length >= 6) {
       formatted = formatted.slice(0, 7) + '-' + formatted.slice(7);
-    }
-    if (cleaned.length >= 11) {
-      phoneError.value = 'Teléfono debe tener 10 dígitos'
     }
   }
   
   return formatted;
 }
 
-const isEmailValid = ref(true);
 
 function validateEmail() {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  isEmailValid.value = emailPattern.test(email.value);
-  if (!isEmailValid.value) {
-    alert('Por favor ingrese una dirección de email válida');
-    return false;
-  }
-  return true;
+  return emailPattern.test(email.value);
 }
 
 const validateFields = () => {

@@ -64,9 +64,9 @@
   }
 
   const profileOptions = [
-    {text: "Tus Datos", icon: "mdi-account", selected: false, action: () => {goToRoute("account")} },
+    {text: "Cuenta", icon: "mdi-account", selected: false, action: () => {goToRoute("account")} },
     {text: "Personalizar", icon: "mdi-pencil", selected: false, action: () => {goToRoute("more")} },
-    {text: "Cerrar Sesion", icon: "mdi-logout", selected: false, action: handleSignOut }
+    {text: "Cerrar sesión", icon: "mdi-logout", selected: false, action: handleSignOut }
   ]
   
   const props = defineProps({

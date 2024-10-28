@@ -93,9 +93,14 @@
         }
     }
 
-    const formattedCardNumber = computed(() => {
-      const groups = cardNumber.value.match(/\d{1,4}/g) || [];
-      return groups.join(' ');
+    const formattedCardNumber = computed({
+      get: () => {
+        const groups = cardNumber.value.match(/\d{1,4}/g) || [];
+        return groups.join(' ');
+      },
+      set: (value) => {
+        cardNumber.value = value.replace(/\D/g, '').slice(0, 16);
+      }
     });
 
     const onlyNumbers = (event) => {
@@ -156,11 +161,6 @@
       cvv.value = cvv.value.replace(/\D/g, '').slice(0, 3);
     };
 
-    const updateCardNumber = (event) => {
-      const cleaned = event.target.value.replace(/\D/g, '');
-      cardNumber.value = cleaned.slice(0, 16);
-    };
-
     const showSuccessDialog = ref(false);
 </script>
 
@@ -178,7 +178,7 @@
           elevation="0"
         >
           <div class="d-flex flex-column align-center">
-            <h1 class="text-h5 font-weight-medium mb-1">Agregar método de pago</h1>
+            <h1 class="text-h5 font-weight-medium mb-1">Agregar medio de pago</h1>
             <v-divider class="primary" width="32" thickness="2"></v-divider>
           </div>
         </v-card>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="mb-2 mt-8">
                     <v-text-field
-                      placeholder="Numero de la tajeta"
+                      placeholder="Número de la tajeta"
                       v-model="formattedCardNumber"
                       variant="outlined"
                       class="input-field"
@@ -203,7 +203,6 @@
                       hide-details
                       density="compact"
                       clearable
-                      @input="updateCardNumber"
                       maxlength="19"
                       inputmode="numeric"
                       @keypress="onlyNumbers"
@@ -241,7 +240,7 @@
                     <v-col >
                     <div class="input-container mb-2">
                       <v-text-field
-                        placeholder="Nombre y Apellido"
+                        placeholder="Nombre y apellido"
                         v-model="formattedCardholderName"
                         variant="outlined"
                         class="name-container"

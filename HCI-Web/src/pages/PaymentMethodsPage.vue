@@ -17,7 +17,6 @@ const showRemoveVerification = ref(false);
 const toRemoveNumber = ref(-1);
  
 const removePaymentMethod = (number) => {
-  console.log(number);
   appStore.removeCard(number);
   if (appStore.getCreditCards().length === 0) {
     editState.value = false;
@@ -155,7 +154,7 @@ function formattedCardNumber(cardNumber) {
                 class="mt-auto"
                 @click="addPaymentMethod"
               >
-                Agregar método de pago
+                Agregar medio de pago
               </v-btn>
             </div>
           </v-container>
