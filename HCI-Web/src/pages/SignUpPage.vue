@@ -226,10 +226,6 @@ function handleDniInput(event) {
   }
 }
 
-function validateDni() {
-  dniError.value = (dni.value.length === 8 || dni.value.length === 7) ? '' : 'DNI debe tener 7 u 8 dígitos';
-}
-
 function handlePhoneInput(event) {
   if (!/\d/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete') {
     event.preventDefault();
