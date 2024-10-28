@@ -86,11 +86,11 @@
                   v-bind="props"
                 ></v-text-field>
               </template>
-              <v-card v-if="showPasswordMismatch" color="error" class="pa-2">
+            <!--  <v-card v-if="showPasswordMismatch" color="error" class="pa-2">
                 <v-card-text class="text-caption white--text">
                   Las contraseñas no coinciden
                 </v-card-text>
-              </v-card>
+              </v-card> -->
             </v-menu>
             <v-btn type="submit" color="primary" block class="mt-2">Registrarse</v-btn>
             <div class="w-100 pa-2 text-center">
@@ -227,7 +227,7 @@ function handleDniInput(event) {
 }
 
 function validateDni() {
-  dniError.value = dni.value.length === 8 ? '' : 'DNI debe tener 8 dígitos';
+  dniError.value = (dni.value.length === 8 || dni.value.length === 7) ? '' : 'DNI debe tener 7 u 8 dígitos';
 }
 
 function handlePhoneInput(event) {
@@ -277,8 +277,8 @@ const validateFields = () => {
     errorMessages.value.push("Debe ingresar un apellido");
   }
 
-  if (!dni.value || dni.value.length !== 8) {
-    errorMessages.value.push("DNI debe tener 8 dígitos");
+  if (!dni.value || (dni.value.length !== 8 && dni.value.length !== 7)) {
+    errorMessages.value.push("DNI debe tener 7 u 8 dígitos");
   }
 
   if (!phoneNumber.value || phoneNumber.value.replace(/\D/g, '').length !== 10) {
