@@ -72,7 +72,7 @@ import amexLogo from '@/assets/amex-logo.png';
             const user = users.value[currentUser.value];
 
             if( ( alias === null || existsAlias(alias) ) && (user.balance >= ammount || isUsingCreditCard ) && ( cvu === null || existsCVU(cvu) ) ) {
-                user.payments.push(new Payment(ammount, date, name));
+                user.payments.push(new Payment(formatCurrency(ammount), date, name));
                 user.balance -= ammount;
                 return true;
            }
@@ -197,6 +197,18 @@ import amexLogo from '@/assets/amex-logo.png';
         }
     }
 
+    function getNameByAliasOrCVU(alias, cvu){
+        if(alias === null && cvu === null){
+            return null;
+        }
+        for(let i = 0; i < users.value.length; i++){
+            if( (users.value[i].alias === alias || alias === null) && (users.value[i].cvu === cvu || cvu === null) ){
+                return users.value[i].name + " " + users.value[i].surname;
+            }
+        }
+        return null;
+    }
+
     function initialize() {
         initAppFunction({
             addUser,
@@ -268,6 +280,15 @@ import amexLogo from '@/assets/amex-logo.png';
         return date.toLocaleDateString('es-AR', options);
       };
 
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        signDisplay: 'exceptZero'
+      }).format(amount);
+    };
 
     return { 
         users, 
@@ -303,6 +324,8 @@ import amexLogo from '@/assets/amex-logo.png';
         removeCard,
         addBalance,
         getCardLogo,
-        checkUserExists
+        checkUserExists,
+        formatCurrency,
+        getNameByAliasOrCVU
     };
  });

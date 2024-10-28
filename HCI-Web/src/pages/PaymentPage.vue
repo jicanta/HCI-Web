@@ -26,13 +26,15 @@ const sections = [
     ]
 
 const monto = ref('');
-const CBU = ref('');
+const cvu = ref('');
 const descripcion = ref('');
 const showVerifyTransactionDialog = ref(false);
 const paymentLink = ref('');
 const copySuccess = ref(false);
 const selectedCard = ref('');
 const selectedPaymentOption = ref('cuenta');
+const selectedCBUOption = ref('alias'); // Inicializar con 'alias'
+const cvuOrAlias = ref('');
 
 
 
@@ -100,14 +102,21 @@ const formatNumber = (number) => {
                   class="mb-4 w-100"
                   dense
                 ></v-text-field>
+
+                <v-btn-toggle v-model="selectedCBUOption" class="mb-4" mandatory>
+                  <v-btn :value="'cbu'" color="primary" outlined>CBU</v-btn>
+                  <v-btn :value="'alias'" color="primary" outlined>Alias</v-btn>
+                </v-btn-toggle>
+
                 <v-text-field
-                  v-model="CBU"
-                  label="CBU o alias"
-                  type="number text"
+                  v-model="cvuOrAlias"
+                  :label="selectedCBUOption === 'cbu' ? 'CBU' : 'Alias'"
+                  type="text"
                   variant="outlined"
                   class="mb-4 w-100"
                   dense
                 ></v-text-field>
+
                 <v-text-field
                   v-model="descripcion"
                   label="Agregar descripción"
@@ -159,8 +168,13 @@ const formatNumber = (number) => {
         </v-card-title>
         <v-card-actions>
           <v-btn color="colortext" text @click="showVerifyTransactionDialog = false">Cancelar</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="colortext" @click="appStore.addPayment(monto, new Date(), CBU, descripcion, null, true); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
+          <v-btn color="colortext" @click="appStore.addPayment(
+            -monto, 
+            new Date(), 
+            appStore.getNameByAliasOrCVU(selectedCBUOption === 'cbu' ? null : cvuOrAlias, selectedCBUOption === 'cbu' ? cvuOrAlias : null), 
+            selectedCBUOption === 'cbu' ? null : cvuOrAlias, 
+            selectedCBUOption === 'cbu' ? cvuOrAlias : null, 
+            selectedPaymentOption === 'tarjeta'); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
