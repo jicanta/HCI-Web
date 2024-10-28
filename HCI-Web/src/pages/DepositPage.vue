@@ -94,6 +94,7 @@ const handleDeposit = () => {
                     :items="appStore.getEarningCategories()"
                     label="Seleccione una categoría"
                     class="mb-4 w-100"
+                    variant="outlined"
                     dense
                 />
                 <v-select
@@ -103,6 +104,7 @@ const handleDeposit = () => {
                     :item-value="item => item ? `${item.number} ${item.type}` : ''"
                     label="Seleccione una tarjeta"
                     class="mb-4 w-100"
+                    variant="outlined"
                     dense
                 />
                 <v-btn

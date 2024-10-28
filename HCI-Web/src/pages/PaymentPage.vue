@@ -98,7 +98,7 @@ const validateFields = () => {
             elevation="0"
           >
             <div class="d-flex flex-column align-center">
-              <h1 class="text-h5 font-weight-medium mb-1">Transferir</h1>
+              <h1 class="text-h5 font-weight-medium mb-1">Pagar</h1>
               <v-divider class="primary" width="32" thickness="2"></v-divider>
             </div>
           </v-card>
@@ -189,7 +189,7 @@ const validateFields = () => {
     <v-dialog v-model="showVerifyTransactionDialog" max-width="600px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5">
-            ¿Está seguro de que desea transferir?
+            ¿Está seguro de que desea pagar?
           </v-card-title>
         <component v-if="appStore.getUserByAlias(cvuOrAlias) || appStore.getUserByCVU(cvuOrAlias)" >
           <v-card-text>
@@ -214,7 +214,7 @@ const validateFields = () => {
             selectedCBUOption === 'cbu' ? cvuOrAlias : null, 
             selectedPaymentOption === 'tarjeta',
             selectedCategory
-          ); verify = true ; showVerifyTransactionDialog = false">Transferir</v-btn>
+          ); verify = true ; showVerifyTransactionDialog = false">Pagar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -222,7 +222,7 @@ const validateFields = () => {
     <v-dialog v-model="showErrorDialog" max-width="400px">
       <v-card class="elevation-7">
         <v-card-title class="text-h5 text-center">
-          Error en la transferencia
+          Error en el pago.
         </v-card-title>
         <v-card-text>
           <v-list>

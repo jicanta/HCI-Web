@@ -21,22 +21,44 @@ const rules = {
   }
 };
 
+const showErrorDialog = ref(false);
+const errorMessages = ref([]);
+const showSuccessDialog = ref(false);
+
 const recoverPassword = async () => {
-  if (email.value){
-    isLoading.value = true;
-    try {
-      console.log('Sending recovery email to:', email.value);
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      alert('Se ha enviado un correo de recuperación. Por favor, revise su bandeja de entrada.');
-      router.push('/sign-in');
-    } catch (error) {
-      console.error('Error al enviar el correo de recuperación:', error);
-      alert('Hubo un error al enviar el correo de recuperación. Por favor, intente nuevamente.');
-    } finally {
-      isLoading.value = false;
-    }
+  errorMessages.value = [];
+  
+  if (!email.value) {
+    errorMessages.value.push("Debe ingresar un correo electrónico");
+    showErrorDialog.value = true;
+    return;
   }
   
+  const emailValidation = rules.email(email.value);
+  if (typeof emailValidation === 'string') {
+    errorMessages.value.push(emailValidation);
+    showErrorDialog.value = true;
+    return;
+  }
+
+  isLoading.value = true;
+  showSuccessDialog.value = true;
+  //router.push({ name: 'signIn' });
+  /*try {
+    console.log('Sending recovery email to:', email.value);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    showSuccessDialog.value = true;
+    setTimeout(() => {
+      showSuccessDialog.value = false;
+      router.push({ name: 'signIn' });
+    }, 2000);
+  } catch (error) {
+    console.error('Error al enviar el correo de recuperación:', error);
+    errorMessages.value = ['Hubo un error al enviar el correo de recuperación'];
+    showErrorDialog.value = true;
+  } finally {
+    isLoading.value = false;
+  }*/
 };
 </script>
 
@@ -61,7 +83,6 @@ const recoverPassword = async () => {
               label="Correo electrónico"
               prepend-inner-icon="mdi-email"
               density="compact"
-              :rules="[rules.required, rules.email]"
             ></v-text-field>
             <v-btn
               type="submit"
@@ -80,6 +101,42 @@ const recoverPassword = async () => {
       </v-col>
     </v-row>
   </v-container>
+
+  <v-dialog v-model="showErrorDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center">
+        Error en la recuperación
+      </v-card-title>
+      <v-card-text>
+        <v-list>
+          <v-list-item v-for="(error, index) in errorMessages" :key="index" class="text-error">
+            • {{ error }}
+          </v-list-item>
+        </v-list>
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="primary" @click="showErrorDialog = false">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="showSuccessDialog" max-width="400px">
+    <v-card class="elevation-7">
+      <v-card-title class="text-h5 text-center text-success">
+        Correo enviado exitosamente
+      </v-card-title>
+      <v-card-text class="text-center">
+        Se ha enviado un correo de recuperación. Por favor, revise su bandeja de entrada.
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn color="success" @click="goToRoute({name: 'signIn'})">
+          Entendido
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style scoped>
